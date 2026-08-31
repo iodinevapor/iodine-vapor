@@ -44,7 +44,7 @@ export default function AdminDashboard() {
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="font-display text-[2.2rem] tracking-[0.06em] text-cream-DEFAULT">
+          <h1 className="font-display text-[2.2rem] tracking-[0.06em]" style={{ color: '#f5f0ea' }}>
             Welcome, {user?.name?.split(' ')[0]}
           </h1>
           <p className="font-mono text-[0.58rem] tracking-[0.2em] uppercase mt-1" style={{ color: 'rgba(255,255,255,0.4)' }}>
@@ -72,7 +72,7 @@ export default function AdminDashboard() {
               onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = card.color + '35'; (e.currentTarget as HTMLElement).style.background = card.color + '08'; }}
               onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(0,0,0,0.07)'; (e.currentTarget as HTMLElement).style.background = 'rgba(0,0,0,0.02)'; }}>
               <div className="text-xl mb-2" style={{ color: card.color }}>{card.icon}</div>
-              <div className="font-display text-[2rem] leading-none text-cream-DEFAULT mb-1">
+              <div className="font-display text-[2rem] leading-none mb-1" style={{ color: '#f5f0ea' }}>
                 {isLoading ? '—' : stats[card.key] ?? 0}
               </div>
               <div className="font-mono text-[0.5rem] tracking-[0.15em] uppercase" style={{ color: 'rgba(255,255,255,0.4)' }}>{card.label}</div>
@@ -91,7 +91,7 @@ export default function AdminDashboard() {
           style={{ background: 'rgba(255,255,255,0.02)', borderColor: 'rgba(255,255,255,0.07)', borderRadius: '2px' }}
         >
           <div className="flex items-center justify-between mb-5">
-            <h2 className="font-mono text-[0.62rem] tracking-[0.22em] uppercase text-cream-DEFAULT flex items-center gap-2">
+            <h2 className="font-mono text-[0.62rem] tracking-[0.22em] uppercase flex items-center gap-2" style={{ color: '#f5f0ea' }}>
               <span style={{ color: 'var(--c-gold)' }}>◻</span> Recent Enquiries
             </h2>
             <Link href="/admin/enquiries" className="font-mono text-[0.52rem] tracking-[0.15em] uppercase" style={{ color: 'var(--c-gold)' }}>View all →</Link>
@@ -107,7 +107,7 @@ export default function AdminDashboard() {
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-0.5 flex-wrap">
-                    <span className="text-[0.8rem] font-medium text-cream-DEFAULT truncate">{e.name}</span>
+                    <span className="text-[0.8rem] font-medium truncate" style={{ color: '#f5f0ea' }}>{e.name}</span>
                     <span className="font-mono text-[0.48rem] tracking-[0.12em] uppercase px-1.5 py-0.5"
                       style={{ borderRadius: '2px', ...(Object.fromEntries((STATUS_STYLE[e.status] || STATUS_STYLE.new).split(';').filter(Boolean).map(s => { const [k, v] = s.split(':'); return [k.trim().replace(/-([a-z])/g, (_: any, l: string) => l.toUpperCase()), v?.trim()]; }))) }}>
                       {e.status}
@@ -128,7 +128,7 @@ export default function AdminDashboard() {
           className="border p-6"
           style={{ background: 'rgba(255,255,255,0.02)', borderColor: 'rgba(255,255,255,0.07)', borderRadius: '2px' }}
         >
-          <h2 className="font-mono text-[0.62rem] tracking-[0.22em] uppercase text-cream-DEFAULT mb-5 flex items-center gap-2">
+          <h2 className="font-mono text-[0.62rem] tracking-[0.22em] uppercase mb-5 flex items-center gap-2" style={{ color: '#f5f0ea' }}>
             <span style={{ color: 'var(--c-gold)' }}>◈</span> Quick Actions
           </h2>
           <div className="grid grid-cols-2 gap-3">
@@ -139,7 +139,7 @@ export default function AdminDashboard() {
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = q.color + '16'}
                 onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = q.color + '0a'}>
                 <span className="text-base" style={{ color: q.color }}>{q.icon}</span>
-                <span className="font-mono text-[0.58rem] tracking-[0.12em] uppercase text-cream-DEFAULT">{q.label}</span>
+                <span className="font-mono text-[0.58rem] tracking-[0.12em] uppercase" style={{ color: '#f5f0ea' }}>{q.label}</span>
               </Link>
             ))}
           </div>

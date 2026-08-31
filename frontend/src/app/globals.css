@@ -456,4 +456,10 @@ div[style*="0f0f0f"] .btn-ghost:hover {
 }
 
 /* ── Text Cream Utility ─────────────────────────────────────────────────────── */
+/* Public site: dark navy text on white bg */
 .text-cream-DEFAULT { color: var(--c-cream) !important; }
+
+/* Admin dark bg override — must come AFTER the rule above to win specificity */
+div[style*="0a0a0a"] .text-cream-DEFAULT,
+div[style*="0f0f0f"] .text-cream-DEFAULT,
+div[style*="080808"] .text-cream-DEFAULT { color: #f5f0ea !important; }
