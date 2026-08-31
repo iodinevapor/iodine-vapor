@@ -23,11 +23,18 @@ const origins = [
   'https://snow-ant-943137.hostingersite.com',
   'http://localhost:3000',
   'http://localhost:3001',
-];
-app.use(cors({
+].filter(Boolean);
+
+const corsOptions = {
   origin: (origin, cb) => (!origin || origins.includes(origin) ? cb(null, true) : cb(new Error('Not allowed by CORS'))),
   credentials: true,
-}));
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  optionsSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // handle preflight for all routes
 
 // ── Rate Limits ───────────────────────────────────────────────────────────────
 app.use('/api/v1/auth', rateLimit({ windowMs: 15 * 60 * 1000, max: 15 }));
