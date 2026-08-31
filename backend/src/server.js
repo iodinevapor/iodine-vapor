@@ -20,6 +20,7 @@ app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));
 // ── CORS ─────────────────────────────────────────────────────────────────────
 const origins = [
   process.env.FRONTEND_URL,
+  'https://snow-ant-943137.hostingersite.com',
   'http://localhost:3000',
   'http://localhost:3001',
 ];
