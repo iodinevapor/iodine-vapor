@@ -109,7 +109,7 @@ function AdminContent({ children }: { children: React.ReactNode }) {
   if (pathname === '/admin/login') return <>{children}</>;
 
   return (
-    <div className="flex min-h-screen" style={{ background: '#0a0a0a', color: '#f5f0ea' }}>
+    <div className="admin-panel flex min-h-screen" style={{ background: '#0a0a0a', color: '#f5f0ea' }}>
       <Sidebar />
       <div className="flex-1 flex flex-col min-w-0">
         <main className="flex-1 p-6 md:p-8 overflow-auto">

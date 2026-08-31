@@ -463,3 +463,13 @@ div[style*="0f0f0f"] .btn-ghost:hover {
 div[style*="0a0a0a"] .text-cream-DEFAULT,
 div[style*="0f0f0f"] .text-cream-DEFAULT,
 div[style*="080808"] .text-cream-DEFAULT { color: #f5f0ea !important; }
+
+/* ── Admin panel global text override ───────────────────────────────────────── */
+/* Targets the admin layout wrapper set in layout.tsx */
+.admin-panel .text-cream-DEFAULT,
+.admin-panel td.text-cream-DEFAULT,
+.admin-panel span.text-cream-DEFAULT,
+.admin-panel p.text-cream-DEFAULT,
+.admin-panel h1.text-cream-DEFAULT,
+.admin-panel h2.text-cream-DEFAULT,
+.admin-panel h3.text-cream-DEFAULT { color: #f5f0ea !important; }
