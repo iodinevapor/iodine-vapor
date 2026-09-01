@@ -5,7 +5,7 @@ const fs = require('fs');
 const {
   User, Slide, ProductCategory, Product, Service,
   BlogCategory, Blog, FAQ, WorkshopCategory, Workshop,
-  Portfolio, Enquiry, Media, Setting, SEO, Testimonial, ShowcaseVideo, Brand,
+  Portfolio, Enquiry, Media, Setting, SEO, Testimonial, ShowcaseVideo, Brand, Note,
 } = require('../models');
 const { asyncHandler, AppError } = require('../middleware/auth');
 
@@ -289,7 +289,35 @@ exports.createShowcaseVideo  = asyncHandler(async (req, res) => res.status(201).
 exports.updateShowcaseVideo  = asyncHandler(async (req, res) => { const v = await ShowcaseVideo.findByIdAndUpdate(req.params.id, req.body, { new: true }); if (!v) throw new AppError('Not found', 404); res.json({ success: true, video: v }); });
 exports.deleteShowcaseVideo  = asyncHandler(async (req, res) => { await ShowcaseVideo.findByIdAndDelete(req.params.id); res.json({ success: true }); });
 
-// ── BRANDS ────────────────────────────────────────────────────────────────────
+// ── NOTES ─────────────────────────────────────────────────────────────────────
+exports.getNotes = asyncHandler(async (req, res) => {
+  const { category, search, pinned, archived = 'false' } = req.query;
+  const f = { isArchived: archived === 'true' };
+  if (category && category !== 'All') f.category = category;
+  if (pinned === 'true') f.isPinned = true;
+  if (search) f.$or = [
+    { title:   { $regex: search, $options: 'i' } },
+    { content: { $regex: search, $options: 'i' } },
+    { tags:    { $in: [new RegExp(search, 'i')] } },
+  ];
+  const notes = await Note.find(f).sort({ isPinned: -1, updatedAt: -1 });
+  res.json({ success: true, notes });
+});
+exports.createNote = asyncHandler(async (req, res) => {
+  const note = await Note.create({ ...req.body, createdBy: req.user._id });
+  res.status(201).json({ success: true, note });
+});
+exports.updateNote = asyncHandler(async (req, res) => {
+  const note = await Note.findByIdAndUpdate(req.params.id, req.body, { new: true });
+  if (!note) throw new AppError('Not found', 404);
+  res.json({ success: true, note });
+});
+exports.deleteNote = asyncHandler(async (req, res) => {
+  await Note.findByIdAndDelete(req.params.id);
+  res.json({ success: true });
+});
+
+
 exports.getBrands     = asyncHandler(async (req, res) => res.json({ success: true, brands: await Brand.find({ isActive: true }).sort('order') }));
 exports.getAllBrands   = asyncHandler(async (req, res) => res.json({ success: true, brands: await Brand.find().sort('order') }));
 exports.createBrand   = asyncHandler(async (req, res) => res.status(201).json({ success: true, brand: await Brand.create(req.body) }));

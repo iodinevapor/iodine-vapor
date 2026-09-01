@@ -267,6 +267,18 @@ const showcaseVideoSchema = new mongoose.Schema({
   isActive:    { type: Boolean, default: true },
 }, { timestamps: true });
 
+// ── NOTE ──────────────────────────────────────────────────────────────────────
+const noteSchema = new mongoose.Schema({
+  title:      { type: String, required: true, trim: true },
+  content:    { type: String, default: '' },
+  category:   { type: String, default: 'General', enum: ['General','Future Plans','Ideas','Tasks','Past Records','Meetings','Important','Personal'] },
+  tags:       [{ type: String, trim: true }],
+  color:      { type: String, default: '#ffffff' },
+  isPinned:   { type: Boolean, default: false },
+  isArchived: { type: Boolean, default: false },
+  createdBy:  { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+}, { timestamps: true });
+
 module.exports = {
   User:              mongoose.model('User', userSchema),
   Slide:             mongoose.model('Slide', slideSchema),
@@ -286,4 +298,5 @@ module.exports = {
   Testimonial:       mongoose.model('Testimonial', testimonialSchema),
   ShowcaseVideo:     mongoose.model('ShowcaseVideo', showcaseVideoSchema),
   Brand:             mongoose.model('Brand', brandSchema),
+  Note:              mongoose.model('Note', noteSchema),
 };

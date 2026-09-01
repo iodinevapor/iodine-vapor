@@ -66,6 +66,7 @@ app.use('/api/v1/seo',         require('./routes/seo.routes'));
 app.use('/api/v1/testimonials',require('./routes/testimonial.routes'));
 app.use('/api/v1/showcase-videos', require('./routes/index').showcaseVideoRouter);
 app.use('/api/v1/brands',      require('./routes/brand.routes'));
+app.use('/api/v1/notes',       require('./routes/note.routes'));
 
 // ── Health ────────────────────────────────────────────────────────────────────
 app.get('/api/health', (_req, res) => res.json({ status: 'OK', ts: new Date() }));

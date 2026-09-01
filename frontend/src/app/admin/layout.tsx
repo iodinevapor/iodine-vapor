@@ -30,6 +30,9 @@ const NAV_GROUPS = [
     { href: '/admin/seo',            label: 'SEO Manager',     icon: '◑' },
     { href: '/admin/users',          label: 'Admin Users',     icon: '◒', superOnly: true },
   ]},
+  { label: 'My Notes', items: [
+    { href: '/admin/notes',          label: 'Notes',           icon: '✎' },
+  ]},
 ];
 
 function Sidebar() {

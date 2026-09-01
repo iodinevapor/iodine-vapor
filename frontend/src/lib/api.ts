@@ -195,3 +195,11 @@ export const brandsApi = {
   delete: (id: string) => api.delete(`/brands/${id}`),
   reorder:(orders: {id:string;order:number}[]) => api.put('/brands/reorder', { orders }),
 };
+
+// ── NOTES ─────────────────────────────────────────────────────────────────────
+export const notesApi = {
+  get:    (params?: any) => api.get('/notes', { params }).then(r => r.data.notes),
+  create: (d: any)       => api.post('/notes', d).then(r => r.data.note),
+  update: (id: string, d: any) => api.put(`/notes/${id}`, d).then(r => r.data.note),
+  delete: (id: string)   => api.delete(`/notes/${id}`),
+};
