@@ -62,7 +62,7 @@ export default function AdminSlides() {
               {slide.imageUrl && <img src={imgUrl(slide.imageUrl)} alt="" className="w-14 h-10 object-cover flex-shrink-0" style={{ borderRadius: '2px', filter: 'grayscale(30%)' }} />}
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-0.5 flex-wrap">
-                  <span className="text-[0.82rem] font-medium text-cream-DEFAULT truncate">{slide.title?.text || '(No title)'}</span>
+                  <span className="text-[0.82rem] font-medium truncate">{slide.title?.text || '(No title)'}</span>
                   <StatusBadge status={slide.isActive ? 'active' : 'inactive'} />
                   <span className="font-mono text-[0.48rem] tracking-[0.12em] uppercase px-1.5 py-0.5 capitalize" style={{ color: 'var(--c-gold)', background: 'rgba(201,169,110,0.08)', borderRadius: '2px' }}>{slide.page}</span>
                   <span className="font-mono text-[0.46rem]" style={{ color: 'rgba(255,255,255,0.3)' }}>{slide.position}</span>
@@ -161,7 +161,7 @@ export default function AdminSlides() {
             <Field label="Overlay Opacity (0–1)">
               <div className="flex items-center gap-3">
                 <input type="range" min="0" max="1" step="0.05" value={form.overlayOpacity || 0.5} onChange={e => up('overlayOpacity', +e.target.value)} className="flex-1" />
-                <span className="font-mono text-[0.65rem] w-8 text-right text-cream-DEFAULT">{form.overlayOpacity || 0.5}</span>
+                <span className="font-mono text-[0.65rem] w-8 text-right">{form.overlayOpacity || 0.5}</span>
               </div>
             </Field>
 

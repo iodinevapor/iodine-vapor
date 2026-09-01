@@ -8,7 +8,7 @@ export default function AdminMediaPage() {
   return (
     <div>
       <div className="mb-6">
-        <h1 className="font-display text-[2rem] tracking-[0.06em] text-cream-DEFAULT">Media Library</h1>
+        <h1 className="font-display text-[2rem] tracking-[0.06em]">Media Library</h1>
         <p className="font-mono text-[0.56rem] tracking-[0.2em] uppercase mt-1" style={{ color: 'rgba(245,240,234,0.28)' }}>
           Upload and manage images, videos, PDFs — each gets a unique ID
         </p>

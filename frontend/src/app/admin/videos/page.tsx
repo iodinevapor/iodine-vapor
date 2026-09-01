@@ -53,7 +53,7 @@ export default function AdminVideos() {
               )}
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-0.5">
-                  <span className="text-[0.82rem] font-medium text-cream-DEFAULT truncate">{video.title || '(No title)'}</span>
+                  <span className="text-[0.82rem] font-medium truncate">{video.title || '(No title)'}</span>
                   <span className={`font-mono text-[0.46rem] tracking-[0.1em] uppercase px-1.5 py-0.5`}
                     style={{ background: video.isActive ? 'rgba(74,222,128,0.08)' : 'rgba(0,0,0,0.03)', color: video.isActive ? '#4ade80' : 'rgba(0,0,0,0.35)', borderRadius: '2px' }}>
                     {video.isActive ? 'Active' : 'Inactive'}

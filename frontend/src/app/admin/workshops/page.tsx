@@ -42,7 +42,7 @@ export default function AdminWorkshops() {
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-0.5 flex-wrap">
-                <span className="text-[0.82rem] font-medium text-cream-DEFAULT">{w.title}</span>
+                <span className="text-[0.82rem] font-medium">{w.title}</span>
                 <StatusBadge status={w.isActive ? 'active' : 'inactive'} />
                 {w.isFree && <span className="font-mono text-[0.44rem] px-1.5 py-0.5 uppercase" style={{ color: '#4ade80', background: 'rgba(74,222,128,0.08)', borderRadius: '2px' }}>Free</span>}
               </div>

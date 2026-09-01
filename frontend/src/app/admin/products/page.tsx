@@ -74,7 +74,7 @@ export default function AdminProducts() {
                         {p.images?.[0] ? <img src={imgUrl(p.images[0].url)} alt={p.name} className="w-full h-full object-cover" /> : <div className="w-full h-full flex items-center justify-center font-mono text-[0.6rem]" style={{ color: 'rgba(255,255,255,0.25)' }}>?</div>}
                       </div>
                       <div>
-                        <p className="font-medium text-cream-DEFAULT">{p.name}</p>
+                        <p className="font-medium">{p.name}</p>
                         {p.sku && <p className="font-mono text-[0.5rem] tracking-[0.12em] uppercase" style={{ color: 'rgba(255,255,255,0.3)' }}>SKU: {p.sku}</p>}
                       </div>
                     </div>
@@ -82,7 +82,7 @@ export default function AdminProducts() {
                   <td className="px-4 py-3">
                     <span className="font-mono text-[0.52rem] tracking-[0.12em] uppercase px-2 py-1" style={{ color: 'var(--c-gold)', background: 'rgba(201,169,110,0.08)', borderRadius: '2px' }}>{p.category?.name || '—'}</span>
                   </td>
-                  <td className="px-4 py-3 text-cream-DEFAULT">
+                  <td className="px-4 py-3">
                     {p.price ? `₹${p.price}` : <span style={{ color: 'rgba(255,255,255,0.4)' }}>Enquire</span>}
                     {p.mrp > p.price && <span className="ml-1.5 text-[0.7rem] line-through" style={{ color: 'rgba(255,255,255,0.4)' }}>₹{p.mrp}</span>}
                   </td>
@@ -191,7 +191,7 @@ export default function AdminProducts() {
                 {(form.specifications || []).map((s: any, i: number) => (
                   <div key={i} className="flex items-center gap-3 px-3 py-2 text-[0.78rem]" style={{ background: 'rgba(255,255,255,0.02)', borderRadius: '2px' }}>
                     <span style={{ color: 'rgba(255,255,255,0.5)' }}>{s.key}:</span>
-                    <span className="text-cream-DEFAULT">{s.value}</span>
+                    <span style={{ color: '#f5f0ea' }}>{s.value}</span>
                     <button type="button" onClick={() => up('specifications', form.specifications.filter((_: any, j: number) => j !== i))} className="ml-auto font-mono text-[0.5rem]" style={{ color: '#d63a2f' }}>✕</button>
                   </div>
                 ))}

@@ -184,7 +184,7 @@ export default function AdminEnquiries() {
 
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-0.5 flex-wrap">
-                        <span className={`text-[0.8rem] ${e.status === 'new' ? 'font-semibold text-cream-DEFAULT' : 'text-cream-DEFAULT opacity-70'}`}>{e.name}</span>
+                        <span className={`text-[0.8rem] ${e.status === 'new' ? 'font-semibold' : 'opacity-70'}`} style={{ color: '#f5f0ea' }}>{e.name}</span>
                         <StatusBadge status={e.status} />
                         <span className="font-mono text-[0.46rem] tracking-[0.12em] uppercase px-1.5 py-0.5 capitalize"
                           style={{ background: 'rgba(255,255,255,0.04)', borderRadius: '3px', color: 'rgba(255,255,255,0.4)' }}>{e.type}</span>
@@ -232,7 +232,7 @@ export default function AdminEnquiries() {
               {/* Header */}
               <div className="flex items-start justify-between">
                 <div>
-                  <h3 className="font-bold text-[1.15rem] text-cream-DEFAULT" style={{ fontFamily: "'Syne', sans-serif" }}>{selected.name}</h3>
+                  <h3 className="font-bold text-[1.15rem]" style={{ fontFamily: "'Syne', sans-serif" }}>{selected.name}</h3>
                   <div className="flex flex-wrap gap-1.5 mt-1.5">
                     <StatusBadge status={selected.status} />
                     <span className="font-mono text-[0.46rem] tracking-[0.1em] uppercase px-1.5 py-0.5 capitalize"
@@ -399,7 +399,7 @@ export default function AdminEnquiries() {
           <motion.div initial={{ scale: 0.95 }} animate={{ scale: 1 }}
             className="p-8 max-w-sm w-full mx-4 border"
             style={{ background: '#141414', borderColor: 'rgba(214,58,47,0.2)', borderRadius: '8px' }}>
-            <h3 className="font-bold text-[1.2rem] text-cream-DEFAULT mb-2" style={{ fontFamily: "'Syne', sans-serif" }}>Delete Enquiry?</h3>
+            <h3 className="font-bold text-[1.2rem] mb-2" style={{ fontFamily: "'Syne', sans-serif" }}>Delete Enquiry?</h3>
             <p className="text-[0.78rem] mb-6" style={{ color: 'rgba(255,255,255,0.45)' }}>This cannot be undone.</p>
             <div className="flex gap-3">
               <button onClick={() => removeMut.mutate(deleteId)} className="flex-1 py-3 font-mono text-[0.58rem] tracking-[0.15em] uppercase transition-all"
@@ -416,7 +416,7 @@ export default function AdminEnquiries() {
           <motion.div initial={{ scale: 0.95 }} animate={{ scale: 1 }}
             className="p-8 max-w-sm w-full mx-4 border"
             style={{ background: '#141414', borderColor: 'rgba(214,58,47,0.2)', borderRadius: '8px' }}>
-            <h3 className="font-bold text-[1.2rem] text-cream-DEFAULT mb-2" style={{ fontFamily: "'Syne', sans-serif" }}>Delete {checked.size} Enquiries?</h3>
+            <h3 className="font-bold text-[1.2rem] mb-2" style={{ fontFamily: "'Syne', sans-serif" }}>Delete {checked.size} Enquiries?</h3>
             <p className="text-[0.78rem] mb-6" style={{ color: 'rgba(255,255,255,0.45)' }}>This cannot be undone.</p>
             <div className="flex gap-3">
               <button onClick={handleBulkDelete} className="flex-1 py-3 font-mono text-[0.58rem] tracking-[0.15em] uppercase transition-all"

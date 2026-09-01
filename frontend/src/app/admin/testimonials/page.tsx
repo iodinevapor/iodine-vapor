@@ -44,7 +44,7 @@ export default function AdminTestimonials() {
               {t.imageUrl && <img src={imgUrl(t.imageUrl)} alt={t.name} className="w-12 h-12 rounded-full object-cover flex-shrink-0" />}
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1 flex-wrap">
-                  <span className="text-[0.85rem] font-medium text-cream-DEFAULT">{t.name}</span>
+                  <span className="text-[0.85rem] font-medium">{t.name}</span>
                   {t.isFeatured && <span className="font-mono text-[0.44rem] tracking-[0.1em] uppercase px-1.5 py-0.5" style={{ background: 'rgba(201,169,110,0.1)', color: 'var(--c-gold)', borderRadius: '2px' }}>Featured</span>}
                   <span className={`font-mono text-[0.44rem] tracking-[0.1em] uppercase px-1.5 py-0.5`}
                     style={{ background: t.isActive ? 'rgba(74,222,128,0.08)' : 'rgba(0,0,0,0.03)', color: t.isActive ? '#4ade80' : 'rgba(0,0,0,0.35)', borderRadius: '2px' }}>

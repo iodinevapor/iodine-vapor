@@ -52,7 +52,7 @@ export default function AdminUsers() {
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-0.5 flex-wrap">
-                <span className="text-[0.82rem] font-medium text-cream-DEFAULT">{u.name}</span>
+                <span className="text-[0.82rem] font-medium">{u.name}</span>
                 <span className="font-mono text-[0.48rem] tracking-[0.12em] uppercase px-2 py-0.5"
                   style={{ color: u.role === 'superadmin' ? 'var(--c-gold)' : '#8b5cf6', background: u.role === 'superadmin' ? 'rgba(201,169,110,0.08)' : 'rgba(139,92,246,0.08)', borderRadius: '2px' }}>
                   {u.role}

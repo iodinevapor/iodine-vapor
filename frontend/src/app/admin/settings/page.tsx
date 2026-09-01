@@ -120,7 +120,7 @@ export default function AdminSettings() {
             <div className="space-y-4">{Array.from({length:5}).map((_,i) => <div key={i} className="h-12 shimmer" style={{ borderRadius: '2px' }} />)}</div>
           ) : (
             <motion.div key={activeGroup} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="space-y-5">
-              <h2 className="font-display text-[1.3rem] tracking-[0.06em] text-cream-DEFAULT mb-5 capitalize">{activeGroup} Settings</h2>
+              <h2 className="font-display text-[1.3rem] tracking-[0.06em] mb-5 capitalize">{activeGroup} Settings</h2>
 
               {groupFields.map(([key, meta]) => (
                 <div key={key}>

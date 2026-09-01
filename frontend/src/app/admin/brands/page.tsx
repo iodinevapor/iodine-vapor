@@ -109,7 +109,7 @@ export default function AdminBrands() {
               {/* Info */}
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-[0.85rem] font-semibold text-cream-DEFAULT truncate">
+                  <span className="text-[0.85rem] font-semibold truncate">
                     {brand.name}
                   </span>
                   <StatusBadge status={brand.isActive ? 'active' : 'inactive'} />

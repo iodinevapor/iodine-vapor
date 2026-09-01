@@ -74,7 +74,7 @@ export default function AdminSEO() {
           ) : (
             <motion.div key={activePage} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
               <div className="border p-6 space-y-5" style={{ background: 'rgba(255,255,255,0.02)', borderColor: 'rgba(255,255,255,0.07)', borderRadius: '2px' }}>
-                <h2 className="font-display text-[1.2rem] tracking-[0.06em] text-cream-DEFAULT">
+                <h2 className="font-display text-[1.2rem] tracking-[0.06em]">
                   {PAGES.find(p => p.key === activePage)?.label} — SEO
                 </h2>
 

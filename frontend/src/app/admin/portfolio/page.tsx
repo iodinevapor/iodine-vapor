@@ -88,7 +88,7 @@ export default function AdminPortfolio() {
                     style={{ background: 'rgba(214,58,47,0.15)', color: '#d63a2f', borderRadius: '2px' }}>Del</button>
                 </div>
                 <div>
-                  <h3 className="font-serif text-[0.85rem] text-cream-DEFAULT leading-tight mb-1">{item.title}</h3>
+                  <h3 className="font-serif text-[0.85rem] leading-tight mb-1">{item.title}</h3>
                   <div className="flex items-center gap-2 flex-wrap">
                     <span className="font-mono text-[0.46rem] tracking-[0.12em] uppercase capitalize" style={{ color: 'var(--c-gold)' }}>{item.category}</span>
                     {item.isFeatured && <span className="font-mono text-[0.44rem] tracking-[0.1em] uppercase px-1.5 py-0.5" style={{ background: 'rgba(201,169,110,0.15)', color: 'var(--c-gold)', borderRadius: '2px' }}>Featured</span>}

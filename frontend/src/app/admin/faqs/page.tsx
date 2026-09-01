@@ -58,7 +58,7 @@ export default function AdminFAQs() {
           >
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-1 flex-wrap">
-                <p className="text-[0.82rem] font-medium text-cream-DEFAULT">{faq.question}</p>
+                <p className="text-[0.82rem] font-medium">{faq.question}</p>
                 <span className="font-mono text-[0.46rem]" style={{ color: faq.isActive ? '#4ade80' : '#6b7280' }}>
                   {faq.isActive ? '● Active' : '○ Hidden'}
                 </span>

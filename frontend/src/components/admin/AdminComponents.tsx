@@ -11,7 +11,7 @@ export function AdminHeader({ title, subtitle, action }: { title: string; subtit
   return (
     <div className="flex items-start justify-between mb-8">
       <div>
-        <h1 className="font-display text-[2rem] tracking-[0.06em] text-cream-DEFAULT">{title}</h1>
+        <h1 className="font-display text-[2rem] tracking-[0.06em]" style={{ color: '#f5f0ea' }}>{title}</h1>
         {subtitle && <p className="font-mono text-[0.56rem] tracking-[0.2em] uppercase mt-1" style={{ color: 'rgba(245,240,234,0.28)' }}>{subtitle}</p>}
       </div>
       {action}
@@ -58,7 +58,7 @@ export function FormDrawer({ open, onClose, title, children, onSave, saving }: {
           >
             {/* Header */}
             <div className="flex items-center justify-between px-6 py-5 border-b flex-shrink-0" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
-              <h2 className="font-display text-[1.4rem] tracking-[0.06em] text-cream-DEFAULT">{title}</h2>
+              <h2 className="font-display text-[1.4rem] tracking-[0.06em]" style={{ color: '#f5f0ea' }}>{title}</h2>
               <button onClick={onClose} className="font-mono text-[0.7rem] transition-colors" style={{ color: 'rgba(255,255,255,0.4)' }}
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = '#f5f0ea'}
                 onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.4)'}>✕</button>
@@ -164,7 +164,7 @@ export function TextStyleEditor({ label, value, onChange }: { label: string; val
               {ALIGNS.map(a => (
                 <button key={a} type="button" onClick={() => onChange({ ...value, textAlign: a })}
                   className="flex-1 py-1.5 font-mono text-[0.58rem] uppercase transition-all"
-                  style={{ borderRadius: '2px', background: value?.textAlign === a ? 'var(--c-gold)' : 'rgba(0,0,0,0.06)', color: value?.textAlign === a ? '#080808' : 'rgba(0,0,0,0.5)' }}>
+                  style={{ borderRadius: '2px', background: value?.textAlign === a ? 'var(--c-gold)' : 'rgba(255,255,255,0.06)', color: value?.textAlign === a ? '#080808' : 'rgba(255,255,255,0.5)' }}>
                   {a[0].toUpperCase()}
                 </button>
               ))}
@@ -236,10 +236,10 @@ export function PositionPicker({ value, onChange }: { value: string; onChange: (
             className="w-9 h-9 transition-all duration-150"
             style={{
               borderRadius: '2px',
-              background:   value === pos ? 'var(--c-gold)' : 'rgba(0,0,0,0.03)',
-              border:       `1px solid ${value === pos ? 'var(--c-gold)' : 'rgba(0,0,0,0.08)'}`,
+              background:   value === pos ? 'var(--c-gold)' : 'rgba(255,255,255,0.06)',
+              border:       `1px solid ${value === pos ? 'var(--c-gold)' : 'rgba(255,255,255,0.1)'}`,
               fontSize: '0.45rem',
-              color: value === pos ? '#080808' : 'rgba(0,0,0,0.35)',
+              color: value === pos ? '#080808' : 'rgba(255,255,255,0.4)',
             }}
             title={pos}
           >
@@ -295,7 +295,7 @@ export function MediaPicker({ onSelect, onClose, type = 'all' }: { onSelect: (ur
       >
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b flex-shrink-0" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
-          <h2 className="font-display text-[1.3rem] tracking-[0.06em] text-cream-DEFAULT">Media Library</h2>
+          <h2 className="font-display text-[1.3rem] tracking-[0.06em]" style={{ color: '#f5f0ea' }}>Media Library</h2>
           <div className="flex items-center gap-3">
             {selected && selItem && (
               <button onClick={() => onSelect(imgUrl(selItem.url), selItem._id)}
@@ -304,7 +304,7 @@ export function MediaPicker({ onSelect, onClose, type = 'all' }: { onSelect: (ur
                 ✓ Use Selected
               </button>
             )}
-            <button onClick={onClose} className="font-mono text-[0.65rem]" style={{ color: 'rgba(255,255,255,0.4)' }}>✕</button>
+            <button onClick={onClose} className="font-mono text-[0.65rem]" style={{ color: 'rgba(255,255,255,0.5)' }}>✕</button>
           </div>
         </div>
 
@@ -322,12 +322,19 @@ export function MediaPicker({ onSelect, onClose, type = 'all' }: { onSelect: (ur
               </select>
             </div>
 
-            {/* Drop zone */}
-            <div {...getRootProps()} className="mx-4 mt-3 flex-shrink-0 px-4 py-3 border-2 border-dashed text-center cursor-pointer transition-all"
-              style={{ borderColor: isDragActive ? 'var(--c-gold)' : 'rgba(0,0,0,0.08)', background: isDragActive ? 'rgba(201,169,110,0.06)' : 'transparent', borderRadius: '2px' }}>
+            {/* Drop zone — FIXED: visible on dark bg */}
+            <div {...getRootProps()} className="mx-4 mt-3 flex-shrink-0 px-4 py-5 border-2 border-dashed text-center cursor-pointer transition-all"
+              style={{
+                borderColor: isDragActive ? 'var(--c-gold)' : 'rgba(255,255,255,0.15)',
+                background: isDragActive ? 'rgba(201,169,110,0.08)' : 'rgba(255,255,255,0.03)',
+                borderRadius: '4px'
+              }}>
               <input {...getInputProps()} />
-              <p className="font-mono text-[0.56rem] tracking-[0.18em] uppercase" style={{ color: isDragActive ? 'var(--c-gold)' : 'rgba(0,0,0,0.35)' }}>
-                {upload.isPending ? 'Uploading…' : isDragActive ? 'Drop here' : '↑ Drag & drop or click to upload'}
+              <p className="font-mono text-[0.62rem] tracking-[0.18em] uppercase" style={{ color: isDragActive ? 'var(--c-gold)' : 'rgba(255,255,255,0.55)' }}>
+                {upload.isPending ? '⏳ Uploading…' : isDragActive ? '📂 Drop here' : '↑ Drag & drop or click to upload'}
+              </p>
+              <p className="font-mono text-[0.5rem] mt-1" style={{ color: 'rgba(255,255,255,0.25)' }}>
+                Images, Videos, PDFs supported
               </p>
             </div>
 
@@ -351,7 +358,7 @@ export function MediaPicker({ onSelect, onClose, type = 'all' }: { onSelect: (ur
                       {m.type === 'image' ? (
                         <img src={imgUrl(m.url)} alt={m.alt} className="w-full h-full object-cover" />
                       ) : (
-                        <div className="w-full h-full flex items-center justify-center font-mono text-[0.55rem] text-cream-DEFAULT opacity-40">{m.type}</div>
+                        <div className="w-full h-full flex items-center justify-center font-mono text-[0.55rem]" style={{ color: 'rgba(255,255,255,0.5)' }}>{m.type}</div>
                       )}
                       {selected === m._id && <div className="absolute inset-0 flex items-center justify-center" style={{ background: 'rgba(201,169,110,0.25)' }}><span className="text-[1.2rem]">✓</span></div>}
                       <button onClick={e => { e.stopPropagation(); if (confirm('Delete?')) remove.mutate(m._id); }}
@@ -366,7 +373,7 @@ export function MediaPicker({ onSelect, onClose, type = 'all' }: { onSelect: (ur
                   {Array.from({ length: pages }, (_, i) => i + 1).map(p => (
                     <button key={p} onClick={() => setPage(p)}
                       className="w-8 h-8 font-mono text-[0.58rem] transition-all"
-                      style={{ borderRadius: '2px', background: page === p ? 'var(--c-gold)' : 'rgba(0,0,0,0.06)', color: page === p ? '#080808' : 'rgba(0,0,0,0.5)' }}>{p}</button>
+                      style={{ borderRadius: '2px', background: page === p ? 'var(--c-gold)' : 'rgba(255,255,255,0.08)', color: page === p ? '#080808' : 'rgba(255,255,255,0.6)' }}>{p}</button>
                   ))}
                 </div>
               )}
@@ -380,10 +387,10 @@ export function MediaPicker({ onSelect, onClose, type = 'all' }: { onSelect: (ur
               <div className="aspect-square overflow-hidden" style={{ background: '#1a1a1a', borderRadius: '2px' }}>
                 {selItem.type === 'image' ? <img src={imgUrl(selItem.url)} alt="" className="w-full h-full object-contain" /> : <div className="w-full h-full flex items-center justify-center font-mono text-[0.6rem]" style={{ color: 'rgba(255,255,255,0.4)' }}>{selItem.type}</div>}
               </div>
-              <div className="space-y-1.5 text-[0.7rem]" style={{ color: 'rgba(255,255,255,0.5)' }}>
-                <p className="truncate"><span style={{ color: 'rgba(255,255,255,0.25)' }}>Name: </span>{selItem.originalName}</p>
-                <p><span style={{ color: 'rgba(255,255,255,0.25)' }}>Type: </span>{selItem.type}</p>
-                <p><span style={{ color: 'rgba(255,255,255,0.25)' }}>Size: </span>{(selItem.size / 1024).toFixed(1)} KB</p>
+              <div className="space-y-1.5 text-[0.7rem]" style={{ color: 'rgba(255,255,255,0.6)' }}>
+                <p className="truncate"><span style={{ color: 'rgba(255,255,255,0.3)' }}>Name: </span>{selItem.originalName}</p>
+                <p><span style={{ color: 'rgba(255,255,255,0.3)' }}>Type: </span>{selItem.type}</p>
+                <p><span style={{ color: 'rgba(255,255,255,0.3)' }}>Size: </span>{(selItem.size / 1024).toFixed(1)} KB</p>
               </div>
               <button onClick={() => onSelect(imgUrl(selItem.url), selItem._id)}
                 className="btn-primary justify-center py-2.5 text-[0.56rem]" data-hover>
@@ -405,7 +412,7 @@ export function ConfirmDelete({ open, onConfirm, onCancel, label = 'item' }: { o
       <motion.div initial={{ scale: 0.95 }} animate={{ scale: 1 }}
         className="p-8 max-w-sm w-full mx-4 border"
         style={{ background: '#141414', borderColor: 'rgba(214,58,47,0.2)', borderRadius: '2px' }}>
-        <h3 className="font-display text-[1.4rem] tracking-[0.06em] text-cream-DEFAULT mb-2">Delete {label}?</h3>
+        <h3 className="font-display text-[1.4rem] tracking-[0.06em] mb-2" style={{ color: '#f5f0ea' }}>Delete {label}?</h3>
         <p className="text-[0.78rem] mb-6" style={{ color: 'rgba(255,255,255,0.5)' }}>This action cannot be undone.</p>
         <div className="flex gap-3">
           <button onClick={onConfirm} className="flex-1 py-3 font-mono text-[0.58rem] tracking-[0.15em] uppercase transition-all"

@@ -58,7 +58,7 @@ export default function AdminBlogs() {
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-0.5 flex-wrap">
-                <span className="text-[0.82rem] font-medium text-cream-DEFAULT truncate">{b.title}</span>
+                <span className="text-[0.82rem] font-medium truncate">{b.title}</span>
                 <StatusBadge status={b.isPublished ? 'published' : 'draft'} />
                 {b.isFeatured && <span className="font-mono text-[0.44px] px-1.5 py-0.5 uppercase" style={{ color: 'var(--c-gold)', background: 'rgba(201,169,110,0.08)', borderRadius: '2px', fontSize: '0.44rem' }}>Featured</span>}
               </div>

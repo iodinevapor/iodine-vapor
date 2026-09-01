@@ -136,7 +136,7 @@ export default function AdminServices() {
                 </div>
               </div>
               <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-                <h3 className="font-semibold text-[0.95rem] text-cream-DEFAULT">{svc.name}</h3>
+                <h3 className="font-semibold text-[0.95rem]">{svc.name}</h3>
                 <StatusBadge status={svc.isActive ? 'active' : 'inactive'} />
                 {svc.category && (
                   <span className="font-mono text-[0.44rem] tracking-[0.1em] uppercase px-1.5 py-0.5"
@@ -232,7 +232,7 @@ export default function AdminServices() {
                   <div key={i} className="flex items-center gap-2 px-3 py-1.5 text-[0.78rem]"
                     style={{ background: 'rgba(255,255,255,0.03)', borderRadius: '3px' }}>
                     <span style={{ color: 'var(--c-gold)', fontSize: '0.5rem' }}>✦</span>
-                    <span className="flex-1 text-cream-DEFAULT">{f}</span>
+                    <span className="flex-1">{f}</span>
                     <button type="button" onClick={() => up('features', form.features.filter((_: any, j: number) => j !== i))}
                       className="font-mono text-[0.5rem]" style={{ color: '#d63a2f' }}>✕</button>
                   </div>

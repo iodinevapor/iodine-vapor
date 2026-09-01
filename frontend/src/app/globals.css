@@ -459,17 +459,15 @@ div[style*="0f0f0f"] .btn-ghost:hover {
 /* Public site: dark navy text on white bg */
 .text-cream-DEFAULT { color: var(--c-cream) !important; }
 
-/* Admin dark bg override — must come AFTER the rule above to win specificity */
-div[style*="0a0a0a"] .text-cream-DEFAULT,
-div[style*="0f0f0f"] .text-cream-DEFAULT,
-div[style*="080808"] .text-cream-DEFAULT { color: #f5f0ea !important; }
+/* ── Admin panel — ALL text white ───────────────────────────────────────────── */
+/* Nuclear override: every text-cream-DEFAULT inside .admin-panel becomes cream white */
+.admin-panel .text-cream-DEFAULT { color: #f5f0ea !important; }
 
-/* ── Admin panel global text override ───────────────────────────────────────── */
-/* Targets the admin layout wrapper set in layout.tsx */
-.admin-panel .text-cream-DEFAULT,
-.admin-panel td.text-cream-DEFAULT,
-.admin-panel span.text-cream-DEFAULT,
-.admin-panel p.text-cream-DEFAULT,
-.admin-panel h1.text-cream-DEFAULT,
-.admin-panel h2.text-cream-DEFAULT,
-.admin-panel h3.text-cream-DEFAULT { color: #f5f0ea !important; }
+/* Also catch any default body text color bleeding into admin */
+.admin-panel,
+.admin-panel * {
+  --tw-text-opacity: 1;
+}
+
+/* Admin base text color */
+.admin-panel { color: #f5f0ea; }
