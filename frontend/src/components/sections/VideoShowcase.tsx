@@ -4,6 +4,81 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useQuery } from '@tanstack/react-query';
 import { showcaseVideosApi, imgUrl } from '@/lib/api';
 
+// ── Draggable Camera Button — desktop only ────────────────────────────────────
+function DraggableCameraButton({ onClick }: { onClick: () => void }) {
+  const [pos, setPos] = useState({ x: window?.innerWidth ? window.innerWidth - 88 : 0, y: window?.innerHeight ? window.innerHeight / 2 - 32 : 0 });
+  const [dragging, setDragging] = useState(false);
+  const [didDrag, setDidDrag] = useState(false);
+  const startRef = useRef({ mx: 0, my: 0, px: 0, py: 0 });
+
+  const onMouseDown = (e: React.MouseEvent) => {
+    setDragging(true);
+    setDidDrag(false);
+    startRef.current = { mx: e.clientX, my: e.clientY, px: pos.x, py: pos.y };
+    e.preventDefault();
+  };
+
+  useEffect(() => {
+    if (!dragging) return;
+    const onMove = (e: MouseEvent) => {
+      const dx = e.clientX - startRef.current.mx;
+      const dy = e.clientY - startRef.current.my;
+      if (Math.abs(dx) > 3 || Math.abs(dy) > 3) setDidDrag(true);
+      const nx = Math.max(0, Math.min(window.innerWidth  - 64, startRef.current.px + dx));
+      const ny = Math.max(0, Math.min(window.innerHeight - 64, startRef.current.py + dy));
+      setPos({ x: nx, y: ny });
+    };
+    const onUp = () => setDragging(false);
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onUp);
+    return () => { window.removeEventListener('mousemove', onMove); window.removeEventListener('mouseup', onUp); };
+  }, [dragging]);
+
+  return (
+    // hidden on mobile — md:block only
+    <div className="hidden md:block fixed z-[50]"
+      style={{ left: pos.x, top: pos.y, cursor: dragging ? 'grabbing' : 'grab', userSelect: 'none' }}>
+      <button
+        onMouseDown={onMouseDown}
+        onClick={() => { if (!didDrag) onClick(); }}
+        className="group relative"
+        style={{
+          width: '64px', height: '64px', borderRadius: '50%',
+          background: 'linear-gradient(135deg, #3a7bd5, #c9a96e, #e91e8c)',
+          padding: '3px',
+          boxShadow: '0 0 30px rgba(201,169,110,0.3), 0 0 60px rgba(58,123,213,0.15)',
+          border: 'none',
+        }}
+        aria-label="Watch Our Work"
+        title="Watch Our Showcase Videos"
+      >
+        <div className="w-full h-full rounded-full flex items-center justify-center" style={{ background: '#ffffff' }}>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#camGrad)" strokeWidth="1.5">
+            <defs>
+              <linearGradient id="camGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#3a7bd5" />
+                <stop offset="50%" stopColor="#c9a96e" />
+                <stop offset="100%" stopColor="#e91e8c" />
+              </linearGradient>
+            </defs>
+            <rect x="2" y="6" width="20" height="14" rx="2" />
+            <circle cx="12" cy="13" r="4" />
+            <path d="M7 3h4l1 3H6l1-3z" />
+          </svg>
+        </div>
+        {/* Pulse */}
+        <div className="absolute inset-0 rounded-full animate-ping opacity-15 pointer-events-none"
+          style={{ background: 'linear-gradient(135deg, #3a7bd5, #c9a96e, #e91e8c)' }} />
+        {/* Tooltip */}
+        <span className="absolute right-[72px] top-1/2 -translate-y-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none px-3 py-1.5 rounded-lg text-[0.6rem] font-semibold tracking-wide uppercase"
+          style={{ background: '#1a1a2e', color: '#ffffff', fontFamily: 'Helvetica Neue, sans-serif' }}>
+          Watch Our Work
+        </span>
+      </button>
+    </div>
+  );
+}
+
 export default function VideoShowcase() {
   const [flash, setFlash] = useState(false);
   const [showVideos, setShowVideos] = useState(false);
@@ -135,47 +210,8 @@ export default function VideoShowcase() {
         )}
       </AnimatePresence>
 
-      {/* Camera Button — fixed, big, right side on desktop, bottom-right on mobile */}
-      <button
-        onClick={handleShutter}
-        className="fixed z-[50] group"
-        style={{
-          bottom: '50%',
-          right: '24px',
-          transform: 'translateY(50%)',
-          width: '64px',
-          height: '64px',
-          borderRadius: '50%',
-          background: 'linear-gradient(135deg, #3a7bd5, #c9a96e, #e91e8c)',
-          padding: '3px',
-          cursor: 'pointer',
-          boxShadow: '0 0 30px rgba(201,169,110,0.3), 0 0 60px rgba(58,123,213,0.15)',
-        }}
-        aria-label="Open video showcase — Watch our work"
-        title="Watch Our Showcase Videos"
-      >
-        <div className="w-full h-full rounded-full flex items-center justify-center transition-all group-hover:scale-110" style={{ background: '#ffffff' }}>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#camGradBtn)" strokeWidth="1.5">
-            <defs>
-              <linearGradient id="camGradBtn" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#3a7bd5" />
-                <stop offset="50%" stopColor="#c9a96e" />
-                <stop offset="100%" stopColor="#e91e8c" />
-              </linearGradient>
-            </defs>
-            <rect x="2" y="6" width="20" height="14" rx="2" />
-            <circle cx="12" cy="13" r="4" />
-            <path d="M7 3h4l1 3H6l1-3z" />
-          </svg>
-        </div>
-        {/* Tooltip */}
-        <span className="absolute right-[72px] top-1/2 -translate-y-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none px-3 py-1.5 rounded-lg text-[0.6rem] font-semibold tracking-wide uppercase"
-          style={{ background: '#1a1a2e', color: '#ffffff', fontFamily: 'Helvetica Neue, sans-serif' }}>
-          Watch Our Work
-        </span>
-        {/* Pulse animation */}
-        <div className="absolute inset-0 rounded-full animate-ping opacity-15" style={{ background: 'linear-gradient(135deg, #3a7bd5, #c9a96e, #e91e8c)' }} />
-      </button>
+      {/* Camera Button — desktop only, draggable anywhere on screen */}
+      <DraggableCameraButton onClick={handleShutter} />
     </>
   );
 }
