@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { slidesApi, imgUrl } from '@/lib/api';
-import { AdminHeader, AddBtn, FormDrawer, Field, TextStyleEditor, Toggle, PositionPicker, MediaPicker, ConfirmDelete, StatusBadge } from '@/components/admin/AdminComponents';
+import { AdminHeader, AddBtn, FormDrawer, Field, TextStyleEditor, Toggle, PositionPicker, MediaPicker, ConfirmDelete, StatusBadge, MiniTitleWordEditor } from '@/components/admin/AdminComponents';
 import toast from 'react-hot-toast';
 
 const PAGES = ['home','about','services','portfolio','workshops','blog','faq','contact','quote','navbar','footer'];
@@ -103,6 +103,18 @@ export default function AdminSlides() {
             </div>
 
             <TextStyleEditor label="Mini Title" value={form.miniTitle} onChange={v => up('miniTitle', v)} />
+
+            {/* Per-word color picker for miniTitle */}
+            <div className="border p-4 space-y-3" style={{ borderColor: 'rgba(255,255,255,0.08)', borderRadius: '4px' }}>
+              <p className="font-mono text-[0.52rem] tracking-[0.2em] uppercase" style={{ color: 'rgba(255,255,255,0.45)' }}>
+                ✦ Mini Title — Per Word Colors
+              </p>
+              <MiniTitleWordEditor
+                text={form.miniTitle?.text || ''}
+                words={form.miniTitleWords || []}
+                onChange={v => up('miniTitleWords', v)}
+              />
+            </div>
             <TextStyleEditor label="Title"      value={form.title}     onChange={v => up('title', v)} />
             <TextStyleEditor label="Subtitle"   value={form.subtitle}  onChange={v => up('subtitle', v)} />
             <TextStyleEditor label="Paragraph"  value={form.paragraph} onChange={v => up('paragraph', v)} />

@@ -31,12 +31,18 @@ userSchema.pre('save', async function(next) {
 userSchema.methods.comparePassword = function(p) { return bcrypt.compare(p, this.password); };
 
 // ── SLIDE ─────────────────────────────────────────────────────────────────────
+const miniTitleWordSchema = new mongoose.Schema({
+  text:  { type: String, default: '' },
+  color: { type: String, default: '#ffffff' },
+}, { _id: false });
+
 const slideSchema = new mongoose.Schema({
-  page:        { type: String, required: true, enum: ['home','about','services','portfolio','workshops','blog','faq','contact','quote','navbar','footer'] },
-  title:       textStyleSchema,
-  subtitle:    textStyleSchema,
-  miniTitle:   textStyleSchema,
-  paragraph:   textStyleSchema,
+  page:            { type: String, required: true, enum: ['home','about','services','portfolio','workshops','blog','faq','contact','quote','navbar','footer'] },
+  title:           textStyleSchema,
+  subtitle:        textStyleSchema,
+  miniTitle:       textStyleSchema,
+  miniTitleWords:  { type: [miniTitleWordSchema], default: [] }, // per-word color override
+  paragraph:       textStyleSchema,
   imageUrl:    { type: String, default: '' },
   imageId:     { type: String, default: '' },
   mobileImageUrl: { type: String, default: '' },

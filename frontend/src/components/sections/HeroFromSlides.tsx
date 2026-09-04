@@ -173,7 +173,7 @@ export default function HeroFromSlides({ slides, page, defaultTitle = 'TITLE', d
         {/* Inner wrapper — aligned by position */}
         <div style={{ maxWidth: '720px', width: '100%', ...posAlign }}>
 
-          {/* ── Mini Title ── */}
+          {/* ── Mini Title — with per-word color support ── */}
           {slide?.miniTitle?.text && (
             <motion.div
               key={`mt-${current}`}
@@ -183,14 +183,26 @@ export default function HeroFromSlides({ slides, page, defaultTitle = 'TITLE', d
               style={{
                 ...tStyle(slide.miniTitle),
                 fontSize:      slide.miniTitle.fontSize  || '0.62rem',
-                color:         slide.miniTitle.color     || 'rgba(255,255,255,0.7)',
                 letterSpacing: '0.28em',
                 lineHeight:    1.5,
-                // textAlign from admin overrides position-based align
                 textAlign:     (slide.miniTitle.textAlign || posAlign.textAlign) as any,
               }}
             >
-              <span>{slide.miniTitle.text}</span>
+              {slide.miniTitleWords?.length > 0 ? (
+                /* Per-word colors set in admin */
+                <span className="flex flex-wrap gap-[0.35em]">
+                  {slide.miniTitle.text.trim().split(/\s+/).map((word: string, i: number) => (
+                    <span key={i} style={{ color: slide.miniTitleWords[i]?.color || slide.miniTitle.color || 'rgba(255,255,255,0.7)' }}>
+                      {word}
+                    </span>
+                  ))}
+                </span>
+              ) : (
+                /* Fallback: single color from miniTitle.color */
+                <span style={{ color: slide.miniTitle.color || 'rgba(255,255,255,0.7)' }}>
+                  {slide.miniTitle.text}
+                </span>
+              )}
             </motion.div>
           )}
 

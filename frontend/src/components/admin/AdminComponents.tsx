@@ -404,6 +404,75 @@ export function MediaPicker({ onSelect, onClose, type = 'all' }: { onSelect: (ur
   );
 }
 
+// ── MINI TITLE WORD EDITOR ────────────────────────────────────────────────────
+export function MiniTitleWordEditor({ text, words, onChange }: {
+  text: string;
+  words: { text: string; color: string }[];
+  onChange: (w: { text: string; color: string }[]) => void;
+}) {
+  const splitWords = text ? text.trim().split(/\s+/) : [];
+  const synced = splitWords.map((w, i) => ({
+    text:  w,
+    color: words?.[i]?.color || '#ffffff',
+  }));
+
+  if (!splitWords.length) return (
+    <div className="px-3 py-2 rounded" style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
+      <p className="font-mono text-[0.5rem] tracking-[0.15em] uppercase" style={{ color: 'rgba(255,255,255,0.3)' }}>
+        Enter Mini Title text first to set word colors
+      </p>
+    </div>
+  );
+
+  return (
+    <div className="space-y-2">
+      <p className="font-mono text-[0.5rem] tracking-[0.18em] uppercase" style={{ color: 'rgba(255,255,255,0.4)' }}>
+        Word Colors
+      </p>
+      {/* Live preview */}
+      <div className="px-3 py-2 rounded flex flex-wrap gap-1.5 items-center"
+        style={{ background: 'rgba(0,0,0,0.5)', border: '1px solid rgba(255,255,255,0.08)', minHeight: '36px' }}>
+        {synced.map((w, i) => (
+          <span key={i} className="font-mono text-[0.72rem] tracking-[0.25em] uppercase font-semibold"
+            style={{ color: w.color }}>{w.text}</span>
+        ))}
+      </div>
+      {/* Word rows */}
+      <div className="grid gap-2">
+        {synced.map((w, i) => (
+          <div key={i} className="flex items-center gap-3 px-3 py-2 rounded"
+            style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }}>
+            <span className="font-mono text-[0.65rem] tracking-[0.15em] uppercase font-semibold w-20 truncate flex-shrink-0"
+              style={{ color: w.color }}>{w.text}</span>
+            <input type="color" value={w.color}
+              onChange={e => onChange(synced.map((x, j) => j === i ? { ...x, color: e.target.value } : x))}
+              className="w-9 h-9 border-0 bg-transparent cursor-pointer flex-shrink-0" />
+            <input type="text" value={w.color}
+              onChange={e => onChange(synced.map((x, j) => j === i ? { ...x, color: e.target.value } : x))}
+              className="input-field flex-1 text-[0.72rem] py-1.5" placeholder="#ffffff" />
+            <button type="button"
+              onClick={() => onChange(synced.map((x, j) => j === i ? { ...x, color: '#ffffff' } : x))}
+              className="px-2 py-1.5 font-mono text-[0.48rem] uppercase border flex-shrink-0"
+              style={{ borderColor: 'rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.4)', borderRadius: '3px' }}>
+              Reset
+            </button>
+          </div>
+        ))}
+      </div>
+      {/* Quick color presets — apply to all words */}
+      <div className="flex flex-wrap gap-1.5 pt-1 items-center">
+        {['#ffffff','#e91e8c','#c9a96e','#4ade80','#60a5fa','#f472b6','#fbbf24','#a78bfa','#1a1a2e','#000000'].map(c => (
+          <button key={c} type="button"
+            onClick={() => onChange(synced.map(x => ({ ...x, color: c })))}
+            className="w-5 h-5 rounded-full border-2 transition-all hover:scale-125"
+            style={{ background: c, borderColor: 'rgba(255,255,255,0.25)' }} title={c} />
+        ))}
+        <span className="font-mono text-[0.44rem] ml-1" style={{ color: 'rgba(255,255,255,0.3)' }}>← apply to all</span>
+      </div>
+    </div>
+  );
+}
+
 // ── CONFIRM DELETE ────────────────────────────────────────────────────────────
 export function ConfirmDelete({ open, onConfirm, onCancel, label = 'item' }: { open: boolean; onConfirm: () => void; onCancel: () => void; label?: string }) {
   if (!open) return null;

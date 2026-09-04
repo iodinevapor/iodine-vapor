@@ -174,7 +174,7 @@ function Hero({ slides, settings, services }: { slides: any[]; settings: any; se
           ...(pos?.includes('right') ? { marginLeft: 'auto' } : pos === 'center' || pos?.includes('-center') ? { marginLeft: 'auto', marginRight: 'auto' } : {}),
         }}>
 
-          {/* Mini Title — ALL styles from admin applied */}
+          {/* Mini Title — per-word colors if set, else single color */}
           {slide?.miniTitle?.text && (
             <motion.div
               initial={{ opacity: 0, y: 12 }}
@@ -184,12 +184,23 @@ function Hero({ slides, settings, services }: { slides: any[]; settings: any; se
               style={{
                 ...tStyle(slide.miniTitle),
                 fontSize:      slide.miniTitle.fontSize  || '0.62rem',
-                color:         slide.miniTitle.color     || 'rgba(255,255,255,0.6)',
                 letterSpacing: '0.3em',
                 wordBreak:     'break-word',
               }}
             >
-              {slide.miniTitle.text}
+              {slide.miniTitleWords?.length > 0 ? (
+                <span className="flex flex-wrap gap-[0.35em]">
+                  {slide.miniTitle.text.trim().split(/\s+/).map((word: string, i: number) => (
+                    <span key={i} style={{ color: slide.miniTitleWords[i]?.color || slide.miniTitle.color || 'rgba(255,255,255,0.6)' }}>
+                      {word}
+                    </span>
+                  ))}
+                </span>
+              ) : (
+                <span style={{ color: slide.miniTitle.color || 'rgba(255,255,255,0.6)' }}>
+                  {slide.miniTitle.text}
+                </span>
+              )}
             </motion.div>
           )}
 
