@@ -6,12 +6,18 @@ import { showcaseVideosApi, imgUrl } from '@/lib/api';
 
 // ── Draggable Camera Button — desktop only ────────────────────────────────────
 function DraggableCameraButton({ onClick }: { onClick: () => void }) {
-  const [pos, setPos] = useState({ x: window?.innerWidth ? window.innerWidth - 88 : 0, y: window?.innerHeight ? window.innerHeight / 2 - 32 : 0 });
+  const [pos, setPos] = useState<{ x: number; y: number } | null>(null);
   const [dragging, setDragging] = useState(false);
   const [didDrag, setDidDrag] = useState(false);
   const startRef = useRef({ mx: 0, my: 0, px: 0, py: 0 });
 
+  // Set initial position after mount (window is available)
+  useEffect(() => {
+    setPos({ x: window.innerWidth - 88, y: window.innerHeight / 2 - 32 });
+  }, []);
+
   const onMouseDown = (e: React.MouseEvent) => {
+    if (!pos) return;
     setDragging(true);
     setDidDrag(false);
     startRef.current = { mx: e.clientX, my: e.clientY, px: pos.x, py: pos.y };
@@ -37,7 +43,7 @@ function DraggableCameraButton({ onClick }: { onClick: () => void }) {
   return (
     // hidden on mobile — md:block only
     <div className="hidden md:block fixed z-[50]"
-      style={{ left: pos.x, top: pos.y, cursor: dragging ? 'grabbing' : 'grab', userSelect: 'none' }}>
+      style={{ left: pos?.x ?? -999, top: pos?.y ?? -999, cursor: dragging ? 'grabbing' : 'grab', userSelect: 'none', visibility: pos ? 'visible' : 'hidden' }}>
       <button
         onMouseDown={onMouseDown}
         onClick={() => { if (!didDrag) onClick(); }}
