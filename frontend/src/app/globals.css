@@ -128,31 +128,27 @@ a { color: inherit; text-decoration: none; }
 /* ── Buttons ───────────────────────────────────────────────────────────────── */
 .btn-primary {
   display: inline-flex; align-items: center; gap: 10px;
-  font-family: 'Helvetica Neue', Helvetica, sans-serif; font-size: 0.7rem;
-  font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.7rem;
+  font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
   padding: 0; background: transparent; color: #1a1a2e;
   border-radius: 0; position: relative; overflow: visible;
   border: none; cursor: pointer;
-  border-bottom: 1.5px solid currentColor;
-  padding-bottom: 4px;
   transition: opacity 0.2s ease, gap 0.2s ease;
 }
 .btn-primary::before { display: none; }
 .btn-primary > * { position: relative; z-index: 1; }
-.btn-primary:hover { opacity: 0.65; gap: 14px; }
+.btn-primary:hover { opacity: 0.55; gap: 14px; }
 
-/* ── Hero Ghost Button — same as btn-primary, black text ── */
+/* ── Hero Ghost Button — same plain style ── */
 .btn-hero-ghost {
   display: inline-flex; align-items: center; gap: 10px;
-  font-family: 'Helvetica Neue', Helvetica, sans-serif; font-size: 0.7rem;
-  font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.7rem;
+  font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
   padding: 0; background: transparent; color: #1a1a2e;
   border: none; border-radius: 0; cursor: pointer;
-  border-bottom: 1.5px solid #1a1a2e;
-  padding-bottom: 4px;
   transition: opacity 0.2s ease, gap 0.2s ease;
 }
-.btn-hero-ghost:hover { opacity: 0.65; gap: 14px; }
+.btn-hero-ghost:hover { opacity: 0.55; gap: 14px; }
 
 .btn-ghost {
   display: inline-flex; align-items: center; gap: 14px;
