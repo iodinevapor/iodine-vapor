@@ -107,17 +107,17 @@ function Hero({ slides, settings, services }: { slides: any[]; settings: any; se
       <div className="absolute inset-0" style={{ background: 'rgba(0,0,0,0.45)' }} />
       <div className="relative z-10 pb-24 md:pb-28 px-6 md:px-12 lg:px-16 max-w-[1400px] mx-auto w-full">
         <p className="font-mono text-[0.6rem] tracking-[0.35em] uppercase mb-4 flex items-center gap-3" style={{ color: 'rgba(255,255,255,0.6)' }}>
-          <span className="w-8 h-px bg-white/40 inline-block" />Pan-India Commercial Photography
+          <span className="w-8 h-px bg-white/40 inline-block" />
         </p>
         <h1 className="mb-4 font-bold text-white" style={{ fontSize: 'clamp(2.8rem, 6.5vw, 5.5rem)', fontFamily: "'Syne', sans-serif", lineHeight: 1.05, wordBreak: 'break-word' }}>
-          Visual Stories<br /><span style={{ color: '#c9a96e' }}>That Convert</span>
+          Visual Stories<br /><span style={{ color: '#c9a96e' }}></span>
         </h1>
         <p className="mb-8 max-w-md text-[0.88rem] leading-[1.7]" style={{ color: 'rgba(255,255,255,0.65)' }}>
-          14+ years of expertise in commercial photography and videography across India.
+          
         </p>
         <div className="flex flex-wrap gap-3">
           <Link href="/services" className="btn-primary" data-hover><span>Explore Services</span><span>→</span></Link>
-          <Link href="/portfolio" className="btn-hero-ghost" data-hover><span>View Portfolio</span><span>→</span></Link>
+          <Link href="/portfolio" className="btn-primary" data-hover><span>View Portfolio</span><span>→</span></Link>
         </div>
       </div>
     </section>
@@ -184,7 +184,7 @@ function Hero({ slides, settings, services }: { slides: any[]; settings: any; se
               style={{
                 ...tStyle(slide.miniTitle),
                 fontSize:      slide.miniTitle.fontSize  || '0.62rem',
-                letterSpacing: '0.3em',
+                letterSpacing: '0.1em',
                 wordBreak:     'break-word',
               }}
             >
@@ -216,8 +216,8 @@ function Hero({ slides, settings, services }: { slides: any[]; settings: any; se
               fontFamily:   slide?.title?.fontFamily || "'Syne', sans-serif",
               fontWeight:   slide?.title?.fontWeight || '700',
               color:        slide?.title?.color      || '#ffffff',
-              lineHeight:   1.05,
-              marginBottom: '0.4rem',
+              lineHeight:   1.00,
+              marginBottom: '0.8rem',
               wordBreak:    'break-word',
               overflowWrap: 'break-word',
             }}
@@ -238,7 +238,7 @@ function Hero({ slides, settings, services }: { slides: any[]; settings: any; se
                 fontFamily:   slide.subtitle.fontFamily || "'Syne', sans-serif",
                 fontWeight:   slide.subtitle.fontWeight || '700',
                 color:        slide.subtitle.color      || 'var(--c-gold)',
-                lineHeight:   1.1,
+                lineHeight:   1.00,
                 marginBottom: '1rem',
                 wordBreak:    'break-word',
                 overflowWrap: 'break-word',
@@ -260,7 +260,7 @@ function Hero({ slides, settings, services }: { slides: any[]; settings: any; se
                 fontFamily:   slide.paragraph.fontFamily || 'inherit',
                 fontWeight:   slide.paragraph.fontWeight || '400',
                 color:        slide.paragraph.color      || 'rgba(255,255,255,0.65)',
-                lineHeight:   1.75,
+                lineHeight:   1.2,
                 marginBottom: '1.75rem',
                 wordBreak:    'break-word',
                 overflowWrap: 'break-word',
@@ -289,7 +289,7 @@ function Hero({ slides, settings, services }: { slides: any[]; settings: any; se
                 <Link href="/services" className="btn-primary" data-hover>
                   <span>Explore Services</span><span>→</span>
                 </Link>
-                <Link href="/portfolio" className="btn-hero-ghost" data-hover>
+                <Link href="/portfolio" className="btn-primary" data-hover>
                   <span>View Portfolio</span><span>→</span>
                 </Link>
               </>
@@ -1064,8 +1064,8 @@ function CallToAction({ settings }: { settings: any }) {
             <Link href="/contact" className="btn-primary" data-hover>
               <span>Get a Quote</span><span>→</span>
             </Link>
-            <Link href="/portfolio" className="btn-hero-ghost" data-hover>
-              <span>View Portfolio</span>
+            <Link href="/portfolio" className="btn-primary" data-hover>
+              <span>View Portfolio</span><span>→</span>
             </Link>
           </div>
           {/* Contact quick info */}

@@ -127,23 +127,32 @@ a { color: inherit; text-decoration: none; }
 
 /* ── Buttons ───────────────────────────────────────────────────────────────── */
 .btn-primary {
-  display: inline-flex; align-items: center; gap: 14px;
+  display: inline-flex; align-items: center; gap: 10px;
   font-family: 'Helvetica Neue', Helvetica, sans-serif; font-size: 0.7rem;
-  font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
-  padding: 16px 32px; background: #1a1a2e; color: #ffffff;
-  border-radius: 24px; position: relative; overflow: hidden;
-  transition: color 0.3s ease; cursor: pointer;
+  font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 0; background: transparent; color: #1a1a2e;
+  border-radius: 0; position: relative; overflow: visible;
+  border: none; cursor: pointer;
+  border-bottom: 1.5px solid currentColor;
+  padding-bottom: 4px;
+  transition: opacity 0.2s ease, gap 0.2s ease;
 }
-.btn-primary::before {
-  content: ''; position: absolute;
-  top: 0; left: -100%; width: 100%; height: 100%;
-  background: #e91e8c;
-  transition: left 0.35s ease;
-  z-index: 0;
-}
-.btn-primary:hover::before { left: 0; }
+.btn-primary::before { display: none; }
 .btn-primary > * { position: relative; z-index: 1; }
-.btn-primary:hover { color: #ffffff; }
+.btn-primary:hover { opacity: 0.65; gap: 14px; }
+
+/* ── Hero Ghost Button — same as btn-primary, black text ── */
+.btn-hero-ghost {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: 'Helvetica Neue', Helvetica, sans-serif; font-size: 0.7rem;
+  font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 0; background: transparent; color: #1a1a2e;
+  border: none; border-radius: 0; cursor: pointer;
+  border-bottom: 1.5px solid #1a1a2e;
+  padding-bottom: 4px;
+  transition: opacity 0.2s ease, gap 0.2s ease;
+}
+.btn-hero-ghost:hover { opacity: 0.65; gap: 14px; }
 
 .btn-ghost {
   display: inline-flex; align-items: center; gap: 14px;
@@ -155,16 +164,7 @@ a { color: inherit; text-decoration: none; }
 }
 .btn-ghost:hover { border-color: var(--c-gold); color: var(--c-gold); }
 
-/* ── Hero Ghost Button (white bordered, for dark hero bg) ──────────────────── */
-.btn-hero-ghost {
-  display: inline-flex; align-items: center; gap: 10px;
-  font-family: 'Helvetica Neue', Helvetica, sans-serif; font-size: 0.7rem;
-  font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
-  padding: 15px 28px; border: 1px solid rgba(255,255,255,0.3);
-  color: rgba(255,255,255,0.85); border-radius: 24px;
-  transition: all 0.3s; cursor: pointer; background: transparent;
-}
-.btn-hero-ghost:hover { border-color: #ffffff; color: #ffffff; background: rgba(255,255,255,0.06); }
+/* ── Hero Ghost Button (white bordered, for dark hero bg) — now plain text style ── */
 
 /* ── Outline Small Button ───────────────────────────────────────────────────── */
 .btn-outline-sm {
@@ -286,9 +286,9 @@ a { color: inherit; text-decoration: none; }
   body { cursor: auto; }
   .cursor-dot, .cursor-ring { display: none; }
   .service-card { padding: 28px 20px; }
-  .btn-primary { padding: 13px 22px; font-size: 0.65rem; gap: 10px; }
+  .btn-primary { font-size: 0.62rem; }
   .btn-ghost { padding: 13px 22px; font-size: 0.65rem; }
-  .btn-hero-ghost { padding: 13px 22px; font-size: 0.65rem; }
+  .btn-hero-ghost { font-size: 0.62rem; }
 }
 
 /* ── Media Library / Admin Modal dark inputs ───────────────────────────────── */
@@ -433,13 +433,14 @@ div[style*="0f0f0f"] .shimmer {
   background-size: 200% auto;
 }
 
-/* Admin buttons */
+/* Admin buttons — keep styled in dark panel */
 div[style*="0a0a0a"] .btn-primary,
 div[style*="0f0f0f"] .btn-primary {
   background: linear-gradient(135deg, #e91e8c, #c4167a) !important;
   color: #fff !important;
-  border-radius: 6px !important;
-  font-family: 'Helvetica Neue', Helvetica, sans-serif !important;
+  border-bottom: none !important;
+  padding: 14px 28px !important;
+  border-radius: 4px !important;
   font-weight: 600 !important;
 }
 div[style*="0a0a0a"] .btn-ghost,
