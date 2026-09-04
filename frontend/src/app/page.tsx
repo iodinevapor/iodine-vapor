@@ -103,15 +103,15 @@ function Hero({ slides, settings, services }: { slides: any[]; settings: any; se
 
   // ── Fallback when no slides ───────────────────────────────────────────────
   if (!slides?.length) return (
-    <section className="relative w-full overflow-hidden flex items-end" style={{ height: '100vh', minHeight: '600px', background: '#ffffff' }}>
-      <div className="relative z-10 pb-24 md:pb-28 px-6 md:px-12 lg:px-16 max-w-[1400px] mx-auto w-full">
-        <h1 className="mb-4 font-bold" style={{ fontSize: 'clamp(2.8rem, 6.5vw, 5.5rem)', fontFamily: "'Syne', sans-serif", lineHeight: 1.05, wordBreak: 'break-word', color: '#1a1a2e' }}>
+    <section className="relative w-full overflow-hidden flex items-end" style={{ height: '100vh', minHeight: '500px', background: '#ffffff' }}>
+      <div className="relative z-10 pb-16 md:pb-24 px-6 md:px-12 lg:px-16 max-w-[1400px] mx-auto w-full">
+        <h1 className="mb-6 font-bold" style={{ fontSize: 'clamp(1.8rem, 5vw, 4.5rem)', fontFamily: "'Syne', sans-serif", lineHeight: 1.05, wordBreak: 'break-word', color: '#1a1a2e' }}>
           Commercial Photography
         </h1>
-        <div className="flex flex-nowrap items-center gap-4">
-          <Link href="/services" className="btn-primary" style={{ fontSize: '14px' }} data-hover><span>Explore Commercial Work</span><span>→</span></Link>
-          <span style={{ color: 'rgba(0,0,0,0.2)', fontSize: '0.9rem' }}>┃</span>
-          <Link href="/portfolio" className="btn-primary" style={{ fontSize: '14px' }} data-hover><span>Explore Photography Education</span><span>→</span></Link>
+        <div className="flex flex-wrap items-center gap-4">
+          <Link href="/services" className="btn-primary" style={{ fontSize: '13px' }} data-hover><span>Explore Commercial Work</span><span>→</span></Link>
+          <span className="hidden sm:inline" style={{ color: 'rgba(0,0,0,0.2)', fontSize: '0.9rem' }}>┃</span>
+          <Link href="/portfolio" className="btn-primary" style={{ fontSize: '13px' }} data-hover><span>Explore Photography Education</span><span>→</span></Link>
         </div>
       </div>
     </section>
@@ -158,7 +158,7 @@ function Hero({ slides, settings, services }: { slides: any[]; settings: any; se
 
       {/* ── Hero Content — position-aware, no overflow-hidden, never clips ── */}
       <div
-        className={`relative z-10 h-full flex flex-col ${heroJustify(pos)} ${heroAlign(pos)} px-6 md:px-12 lg:px-16 pb-20 pt-24`}
+        className={`relative z-10 h-full flex flex-col ${heroJustify(pos)} ${heroAlign(pos)} px-6 md:px-12 lg:px-16 pb-14 md:pb-20 pt-20 md:pt-24`}
         style={{ maxWidth: '1400px', margin: '0 auto', width: '100%' }}
       >
         {/* Inner wrapper limits width based on alignment */}
@@ -206,7 +206,7 @@ function Hero({ slides, settings, services }: { slides: any[]; settings: any; se
             transition={{ delay: 0.5, duration: 1, ease: [0.16, 1, 0.3, 1] }}
             style={{
               ...tStyle(slide?.title),
-              fontSize:     slide?.title?.fontSize   || 'clamp(2.8rem, 6.5vw, 5.5rem)',
+              fontSize:     slide?.title?.fontSize   || 'clamp(1.8rem, 5vw, 5rem)',
               fontFamily:   slide?.title?.fontFamily || "'Syne', sans-serif",
               fontWeight:   slide?.title?.fontWeight || '700',
               color:        slide?.title?.color      || '#ffffff',
@@ -228,7 +228,7 @@ function Hero({ slides, settings, services }: { slides: any[]; settings: any; se
               transition={{ delay: 0.65, duration: 1, ease: [0.16, 1, 0.3, 1] }}
               style={{
                 ...tStyle(slide.subtitle),
-                fontSize:     slide.subtitle.fontSize   || 'clamp(2.8rem, 6.5vw, 5.5rem)',
+                fontSize:     slide.subtitle.fontSize   || 'clamp(1.5rem, 4vw, 4.5rem)',
                 fontFamily:   slide.subtitle.fontFamily || "'Syne', sans-serif",
                 fontWeight:   slide.subtitle.fontWeight || '700',
                 color:        slide.subtitle.color      || 'var(--c-gold)',
@@ -270,7 +270,7 @@ function Hero({ slides, settings, services }: { slides: any[]; settings: any; se
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.0, duration: 0.7 }}
-            className="flex flex-nowrap items-center gap-4"
+            className="flex flex-wrap items-center gap-4"
           >
             {slide?.linkUrl && slide?.linkText ? (
               // Admin-configured CTA button
@@ -280,11 +280,11 @@ function Hero({ slides, settings, services }: { slides: any[]; settings: any; se
             ) : (
               // Default fallback buttons
               <>
-                <Link href="/services" className="btn-primary" style={{ fontSize: '14px' }} data-hover>
+                <Link href="/services" className="btn-primary" style={{ fontSize: '13px' }} data-hover>
                   <span>Explore Commercial Work</span><span>→</span>
                 </Link>
-                <span style={{ color: 'rgba(0,0,0,0.2)', fontSize: '0.9rem' }}>┃</span>
-                <Link href="/portfolio" className="btn-primary" style={{ fontSize: '14px' }} data-hover>
+                <span className="hidden sm:inline" style={{ color: 'rgba(0,0,0,0.2)', fontSize: '0.9rem' }}>┃</span>
+                <Link href="/portfolio" className="btn-primary" style={{ fontSize: '13px' }} data-hover>
                   <span>Explore Photography Education</span><span>→</span>
                 </Link>
               </>
@@ -463,7 +463,7 @@ function Services({ services }: { services: any[] }) {
   const trackRef    = useRef<HTMLDivElement>(null);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const CARD_W = 220;
+  const CARD_W = 200;
   const total  = services?.length || 0;
 
   // Auto-slide every 5s
@@ -521,13 +521,6 @@ function Services({ services }: { services: any[] }) {
                   }} />
               ))}
             </div>
-            <Link href="/services"
-              className="inline-flex items-center gap-1.5 px-4 py-2 font-mono text-[0.55rem] tracking-[0.15em] uppercase font-semibold border rounded-lg transition-all"
-              style={{ borderColor: 'rgba(0,0,0,0.12)', color: '#1a1a2e' }}
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = '#e91e8c'; (e.currentTarget as HTMLElement).style.color = '#e91e8c'; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(0,0,0,0.12)'; (e.currentTarget as HTMLElement).style.color = '#1a1a2e'; }}>
-              All Services →
-            </Link>
           </div>
         </div>
 
@@ -605,11 +598,7 @@ function Services({ services }: { services: any[] }) {
         </div>
 
         {/* Mobile CTA */}
-        <div className="mt-8 text-center md:hidden">
-          <Link href="/services" className="btn-primary" data-hover>
-            <span>View All Services</span><span>→</span>
-          </Link>
-        </div>
+
       </div>
     </section>
   );

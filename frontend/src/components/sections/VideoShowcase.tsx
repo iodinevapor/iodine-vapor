@@ -221,8 +221,7 @@ export default function VideoShowcase() {
         )}
       </AnimatePresence>
 
-      {/* Camera Button — desktop only, draggable anywhere on screen */}
-      <DraggableCameraButton onClick={handleShutter} />
+      {/* Camera Button — hidden for now */}
     </>
   );
 }
