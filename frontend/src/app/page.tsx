@@ -318,8 +318,8 @@ function Hero({ slides, settings, services }: { slides: any[]; settings: any; se
         <div className="w-px h-12" style={{ background: 'linear-gradient(180deg, rgba(255,255,255,0.5), transparent)' }} />
       </motion.div>
 
-      {/* Ticker Strip */}
-      {tickerItems.length > 0 && (
+      {/* Ticker Strip — hidden */}
+      {/* {tickerItems.length > 0 && (
         <div className="absolute bottom-0 left-0 right-0 overflow-hidden py-2.5" style={{ background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(10px)' }}>
           <div className="ticker-track flex gap-0 whitespace-nowrap">
             {[...tickerItems, ...tickerItems, ...tickerItems].map((item: string, i: number) => (
@@ -329,7 +329,7 @@ function Hero({ slides, settings, services }: { slides: any[]; settings: any; se
             ))}
           </div>
         </div>
-      )}
+      )} */}
     </section>
   );
 }
