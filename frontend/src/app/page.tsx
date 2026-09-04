@@ -189,7 +189,6 @@ function Hero({ slides, settings, services }: { slides: any[]; settings: any; se
                 wordBreak:     'break-word',
               }}
             >
-              <span className="flex-shrink-0 w-8 h-px" style={{ background: slide.miniTitle.color || 'rgba(255,255,255,0.4)' }} />
               {slide.miniTitle.text}
             </motion.div>
           )}

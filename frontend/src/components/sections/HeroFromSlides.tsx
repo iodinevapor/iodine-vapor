@@ -190,8 +190,6 @@ export default function HeroFromSlides({ slides, page, defaultTitle = 'TITLE', d
                 textAlign:     (slide.miniTitle.textAlign || posAlign.textAlign) as any,
               }}
             >
-              <span className="flex-shrink-0 w-6 h-px self-center"
-                style={{ background: slide.miniTitle.color || 'rgba(255,255,255,0.5)' }} />
               <span>{slide.miniTitle.text}</span>
             </motion.div>
           )}
