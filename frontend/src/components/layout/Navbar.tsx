@@ -115,8 +115,8 @@ export default function Navbar() {
           background: '#ffffff',
           backdropFilter: 'blur(18px)',
           WebkitBackdropFilter: 'blur(18px)',
-          borderBottom: '1px solid rgba(0,0,0,0.08)',
-          boxShadow: scrolled ? '0 2px 20px rgba(0,0,0,0.10)' : '0 1px 8px rgba(0,0,0,0.06)',
+          // borderBottom: '1px solid rgba(0,0,0,0.08)',
+          // boxShadow: scrolled ? '0 2px 20px rgba(0,0,0,0.10)' : '0 1px 8px rgba(0,0,0,0.06)',
           height: '64px',
         }}
       >
@@ -125,7 +125,7 @@ export default function Navbar() {
           {scrolled && (
             <div
               className="absolute bottom-0 left-0 right-0 h-[1.5px]"
-              style={{ background: 'linear-gradient(90deg, transparent, rgba(233,30,140,0.3), transparent)' }}
+              style={{ background: 'linear-gradient(90deg, transparent, #fe3fff, transparent)' }}
             />
           )}
 
