@@ -103,20 +103,14 @@ function Hero({ slides, settings, services }: { slides: any[]; settings: any; se
 
   // ── Fallback when no slides ───────────────────────────────────────────────
   if (!slides?.length) return (
-    <section className="relative w-full overflow-hidden flex items-end" style={{ height: '100vh', minHeight: '600px', background: 'linear-gradient(135deg, #1a1a2e 0%, #0d0b1a 100%)' }}>
-      <div className="absolute inset-0" style={{ background: 'rgba(0,0,0,0.45)' }} />
+    <section className="relative w-full overflow-hidden flex items-end" style={{ height: '100vh', minHeight: '600px', background: '#ffffff' }}>
       <div className="relative z-10 pb-24 md:pb-28 px-6 md:px-12 lg:px-16 max-w-[1400px] mx-auto w-full">
-        <p className="font-mono text-[0.6rem] tracking-[0.35em] uppercase mb-4 flex items-center gap-3" style={{ color: 'rgba(255,255,255,0.6)' }}>
-          <span className="w-8 h-px bg-white/40 inline-block" />
-        </p>
-        <h1 className="mb-4 font-bold text-white" style={{ fontSize: 'clamp(2.8rem, 6.5vw, 5.5rem)', fontFamily: "'Syne', sans-serif", lineHeight: 1.05, wordBreak: 'break-word' }}>
-          Visual Stories<br /><span style={{ color: '#c9a96e' }}></span>
+        <h1 className="mb-4 font-bold" style={{ fontSize: 'clamp(2.8rem, 6.5vw, 5.5rem)', fontFamily: "'Syne', sans-serif", lineHeight: 1.05, wordBreak: 'break-word', color: '#1a1a2e' }}>
+          Commercial Photography
         </h1>
-        <p className="mb-8 max-w-md text-[0.88rem] leading-[1.7]" style={{ color: 'rgba(255,255,255,0.65)' }}>
-          
-        </p>
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-wrap items-center gap-6">
           <Link href="/services" className="btn-primary" data-hover><span>Explore Commercial Work</span><span>→</span></Link>
+          <span style={{ color: 'rgba(0,0,0,0.25)', fontSize: '1rem' }}>┃</span>
           <Link href="/portfolio" className="btn-primary" data-hover><span>Explore Photography Education</span><span>→</span></Link>
         </div>
       </div>
@@ -155,7 +149,7 @@ function Hero({ slides, settings, services }: { slides: any[]; settings: any; se
                 )}
               </>
             ) : (
-              <div className="w-full h-full" style={{ background: slide?.bgGradient || slide?.bgColor || '#1a1a2e' }} />
+              <div className="w-full h-full" style={{ background: slide?.bgGradient || slide?.bgColor || '#ffffff' }} />
             )}
             <div className="absolute inset-0" style={{ background: `rgba(0,0,0,${slide?.overlayOpacity ?? 0.45})` }} />
           </motion.div>
@@ -276,7 +270,7 @@ function Hero({ slides, settings, services }: { slides: any[]; settings: any; se
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.0, duration: 0.7 }}
-            className="flex flex-wrap gap-3"
+            className="flex flex-wrap items-center gap-6"
           >
             {slide?.linkUrl && slide?.linkText ? (
               // Admin-configured CTA button
@@ -289,6 +283,7 @@ function Hero({ slides, settings, services }: { slides: any[]; settings: any; se
                 <Link href="/services" className="btn-primary" data-hover>
                   <span>Explore Commercial Work</span><span>→</span>
                 </Link>
+                <span style={{ color: 'rgba(0,0,0,0.25)', fontSize: '1rem' }}></span>
                 <Link href="/portfolio" className="btn-primary" data-hover>
                   <span>Explore Photography Education</span><span>→</span>
                 </Link>
@@ -645,7 +640,7 @@ function FeaturedPortfolio({ portfolio }: { portfolio: any[] }) {
   ];
 
   return (
-    <section className="py-14 md:py-20" style={{ background: '#f8f8f8' }}>
+    <section className="py-14 md:py-20" style={{ background: '#ffffff' }}>
       {/* Header */}
       <div ref={ref} className={`px-6 md:px-12 mb-8 flex items-end justify-between reveal ${inView ? 'visible' : ''}`}>
         <div>
@@ -803,7 +798,7 @@ function OurProcess() {
   ];
 
   return (
-    <section className="py-14 md:py-20 px-6 md:px-12" style={{ background: '#f8f8f8' }}>
+    <section className="py-14 md:py-20 px-6 md:px-12" style={{ background: '#ffffff' }}>
       <div className="max-w-[1400px] mx-auto">
         <div ref={ref} className={`mb-12 reveal ${inView ? 'visible' : ''}`}>
           <p className="font-mono text-[0.58rem] tracking-[0.28em] uppercase mb-3 flex items-center gap-2" style={{ color: 'var(--c-gold)' }}>
@@ -918,7 +913,7 @@ function Testimonials({ testimonials }: { testimonials: any[] }) {
   if (!testimonials?.length) return null;
 
   return (
-    <section className="py-14 md:py-20 px-6 md:px-12" style={{ background: '#f8f8f8' }}>
+    <section className="py-14 md:py-20 px-6 md:px-12" style={{ background: '#ffffff' }}>
       <div className="max-w-[1400px] mx-auto">
         <div ref={ref} className={`mb-12 reveal ${inView ? 'visible' : ''}`}>
           <p className="font-mono text-[0.58rem] tracking-[0.28em] uppercase mb-3 flex items-center gap-2" style={{ color: 'var(--c-gold)' }}>
@@ -992,13 +987,13 @@ function PhotographyAcademy({ workshops }: { workshops: any[] }) {
                   >
                     {w.coverImage?.url
                       ? <img src={imgUrl(w.coverImage.url)} alt={w.title} className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" style={{ filter: 'grayscale(10%)' }} />
-                      : <div className="w-full h-full" style={{ background: '#f0f0f0' }} />
+                      : <div className="w-full h-full" style={{ background: '#ffffff' }} />
                     }
                   </div>
                 ))}
               </div>
             ) : (
-              <div className="rounded-sm overflow-hidden" style={{ aspectRatio: '4/3', background: 'linear-gradient(135deg, #f0f0f0, #e0e0e0)' }}>
+              <div className="rounded-sm overflow-hidden" style={{ aspectRatio: '4/3', background: '#ffffff' }}>
                 <div className="w-full h-full flex items-center justify-center">
                   <span className="font-display text-[4rem]" style={{ color: 'rgba(0,0,0,0.08)' }}>📷</span>
                 </div>

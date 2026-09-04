@@ -179,13 +179,14 @@ export default function HeroFromSlides({ slides, page, defaultTitle = 'TITLE', d
               key={`mt-${current}`}
               initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.6 }}
-              className={`flex gap-2 mb-4 ${getMiniTitleFlex(pos)}`}
+              className="mb-4"
               style={{
                 ...tStyle(slide.miniTitle),
                 fontSize:      slide.miniTitle.fontSize  || '0.62rem',
                 letterSpacing: '0.28em',
                 lineHeight:    1.5,
                 textAlign:     (slide.miniTitle.textAlign || posAlign.textAlign) as any,
+                display:       'block',
               }}
             >
               {slide.miniTitleWords?.length > 0 ? (
