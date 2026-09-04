@@ -10,31 +10,41 @@ interface Props {
   defaultSub?: string;
 }
 
-// Apply all text style properties — never clip, always wrap
+// ── Apply ALL admin text style fields ────────────────────────────────────────
 const tStyle = (s: any): React.CSSProperties => ({
-  color:          s?.color     || undefined,
-  fontSize:       s?.fontSize  || undefined,
-  fontWeight:     s?.fontWeight|| undefined,
-  fontFamily:     s?.fontFamily|| undefined,
-  textAlign:      (s?.textAlign || undefined) as any,
-  fontStyle:      s?.italic    ? 'italic'    : undefined,
-  textTransform:  s?.uppercase ? 'uppercase' : undefined,
-  whiteSpace:     'normal',
-  wordBreak:      'break-word',
-  overflowWrap:   'break-word',
-  lineHeight:     1.15,
+  color:         s?.color      || undefined,
+  fontSize:      s?.fontSize   || undefined,
+  fontWeight:    s?.fontWeight || undefined,
+  fontFamily:    s?.fontFamily || undefined,
+  textAlign:     (s?.textAlign || undefined) as any,
+  fontStyle:     s?.italic     ? 'italic'    : undefined,
+  textTransform: s?.uppercase  ? 'uppercase' : 'none',
+  whiteSpace:    'normal',
+  wordBreak:     'break-word',
+  overflowWrap:  'break-word',
 });
 
-const getTextAlign = (pos: string) => {
-  if (pos === 'center' || pos === 'top-center' || pos === 'bottom-center') return 'items-center text-center';
-  if (pos?.includes('right')) return 'items-end text-right';
-  return 'items-start text-left';
+// ── Position → vertical justify ──────────────────────────────────────────────
+const getPosJustify = (pos: string): string => {
+  if (pos?.startsWith('top'))    return 'justify-start';
+  if (pos?.startsWith('bottom')) return 'justify-end';
+  return 'justify-center';
 };
 
-const getJustify = (pos: string) => {
-  if (pos?.includes('top'))    return 'justify-start';
-  if (pos?.includes('bottom')) return 'justify-end';
-  return 'justify-center'; // left / center / right → vertically center
+// ── Position → horizontal align for the WRAPPER ──────────────────────────────
+const getPosAlign = (pos: string): React.CSSProperties => {
+  if (pos?.endsWith('right') || pos === 'right')
+    return { marginLeft: 'auto', marginRight: 0, textAlign: 'right' };
+  if (pos === 'center' || pos?.endsWith('-center'))
+    return { marginLeft: 'auto', marginRight: 'auto', textAlign: 'center' };
+  return { marginLeft: 0, marginRight: 'auto', textAlign: 'left' };
+};
+
+// ── miniTitle line direction based on text-align ──────────────────────────────
+const getMiniTitleFlex = (pos: string): string => {
+  if (pos === 'center' || pos?.endsWith('-center')) return 'flex-col items-center';
+  if (pos?.endsWith('right') || pos === 'right')    return 'flex-row-reverse items-center';
+  return 'flex-row items-center';
 };
 
 export default function HeroFromSlides({ slides, page, defaultTitle = 'TITLE', defaultSub }: Props) {
@@ -65,13 +75,14 @@ export default function HeroFromSlides({ slides, page, defaultTitle = 'TITLE', d
 
   const slide = slides?.[current];
   const pos   = slide?.position || 'bottom-left';
+  const posAlign = getPosAlign(pos);
 
   // ── No slides fallback ────────────────────────────────────────────────────
   if (!slides?.length) {
     return (
       <section className="relative mt-16" style={{ minHeight: '60vh' }}>
         <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg,#f0f0f0,#e8e8e8)' }} />
-        <div className="relative z-10 flex flex-col justify-end h-full min-h-[60vh] px-6 md:px-12 pb-16 pt-24">
+        <div className="relative z-10 flex flex-col justify-end min-h-[60vh] px-6 md:px-12 pb-16 pt-24">
           <motion.h1
             initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.9, ease: [0.16,1,0.3,1] }}
@@ -100,39 +111,50 @@ export default function HeroFromSlides({ slides, page, defaultTitle = 'TITLE', d
     >
       {/* ── Background ── */}
       <div className="absolute inset-0">
-        {/* Desktop: side-by-side panels */}
+
+        {/* Desktop: side-by-side panels — each with own bg/image/overlay */}
         <div className="hidden md:flex absolute inset-0">
           {slides.map((s: any, i: number) => (
             <div key={s._id || i} className="flex-1 relative overflow-hidden">
               {s.imageUrl ? (
-                <img src={imgUrl(s.imageUrl)} alt=""
+                <img
+                  src={imgUrl(s.imageUrl)} alt=""
                   className="w-full h-full object-cover transition-transform duration-700"
                   style={{ filter: 'grayscale(20%) contrast(1.05)' }}
-                  onMouseEnter={e => { (e.target as HTMLImageElement).style.transform='scale(1.05)'; (e.target as HTMLImageElement).style.filter='grayscale(0%) contrast(1.1)'; }}
-                  onMouseLeave={e => { (e.target as HTMLImageElement).style.transform='scale(1)';    (e.target as HTMLImageElement).style.filter='grayscale(20%) contrast(1.05)'; }}
+                  onMouseEnter={e => { (e.target as HTMLImageElement).style.transform = 'scale(1.05)'; (e.target as HTMLImageElement).style.filter = 'grayscale(0%) contrast(1.1)'; }}
+                  onMouseLeave={e => { (e.target as HTMLImageElement).style.transform = 'scale(1)';    (e.target as HTMLImageElement).style.filter = 'grayscale(20%) contrast(1.05)'; }}
                 />
               ) : (
-                <div className="w-full h-full" style={{ background: s.bgGradient || s.bgColor || '#f5f5f5' }} />
+                <div className="w-full h-full" style={{ background: s.bgGradient || s.bgColor || '#e8e8e8' }} />
               )}
-              <div className="absolute inset-0" style={{ background: `linear-gradient(180deg,rgba(0,0,0,${Math.max((s.overlayOpacity??0.2)-0.1,0.05)}) 0%,rgba(0,0,0,${Math.min((s.overlayOpacity??0.2)+0.1,0.4)}) 100%)` }} />
-              <span className="absolute top-6 left-4 font-mono text-[0.6rem] tracking-[0.15em]" style={{ color: 'rgba(0,0,0,0.4)' }}>0{i+1}</span>
+              {/* per-panel overlay */}
+              <div className="absolute inset-0" style={{
+                background: `linear-gradient(180deg,
+                  rgba(0,0,0,${Math.max((s.overlayOpacity ?? 0.3) - 0.1, 0.05)}) 0%,
+                  rgba(0,0,0,${Math.min((s.overlayOpacity ?? 0.3) + 0.1, 0.55)}) 100%)`
+              }} />
+              <span className="absolute top-5 left-3 font-mono text-[0.55rem] tracking-[0.15em]"
+                style={{ color: 'rgba(255,255,255,0.35)' }}>0{i + 1}</span>
             </div>
           ))}
         </div>
 
-        {/* Mobile: single carousel */}
+        {/* Mobile: single slide carousel */}
         <div className="md:hidden absolute inset-0">
           <AnimatePresence mode="wait">
-            <motion.div key={current}
-              initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }} exit={{ opacity:0, y:-20 }}
-              transition={{ duration:0.6 }}
+            <motion.div
+              key={current}
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+              transition={{ duration: 0.6 }}
               className="absolute inset-0"
-              style={{ background: slide?.bgGradient || slide?.bgColor || '#f5f5f5' }}
+              style={{ background: slide?.bgGradient || slide?.bgColor || '#e8e8e8' }}
             >
               {slide?.imageUrl && (
                 <>
-                  <img src={imgUrl(slide.imageUrl)} alt="" className="w-full h-full object-cover" style={{ filter:'grayscale(20%) contrast(1.05)' }} />
-                  <div className="absolute inset-0" style={{ background:`rgba(0,0,0,${slide.overlayOpacity??0.25})` }} />
+                  <img src={imgUrl(slide.imageUrl)} alt="" className="w-full h-full object-cover"
+                    style={{ filter: 'grayscale(20%) contrast(1.05)' }} />
+                  <div className="absolute inset-0"
+                    style={{ background: `rgba(0,0,0,${slide.overlayOpacity ?? 0.35})` }} />
                 </>
               )}
             </motion.div>
@@ -140,113 +162,141 @@ export default function HeroFromSlides({ slides, page, defaultTitle = 'TITLE', d
         </div>
 
         {/* Scanlines */}
-        <div className="absolute inset-0 pointer-events-none" style={{ background:'repeating-linear-gradient(0deg,rgba(0,0,0,0.02) 0px,rgba(0,0,0,0.02) 1px,transparent 1px,transparent 2px)' }} />
+        <div className="absolute inset-0 pointer-events-none"
+          style={{ background: 'repeating-linear-gradient(0deg,rgba(0,0,0,0.02) 0px,rgba(0,0,0,0.02) 1px,transparent 1px,transparent 2px)' }} />
       </div>
 
-      {/* ── Content — normal flow, NO absolute, auto height ── */}
+      {/* ── Content — position-aware, never clips ── */}
       <div
-        className={`relative z-10 flex flex-col ${getTextAlign(pos)} ${getJustify(pos)} min-h-[max(60vh,400px)] px-6 md:px-12 lg:px-16 py-24`}
+        className={`relative z-10 flex flex-col w-full min-h-[max(60vh,400px)] ${getPosJustify(pos)} px-6 md:px-12 lg:px-16 py-24`}
       >
-        <div style={{ maxWidth: '700px', width: '100%' }}>
-          {/* Mini title — respects admin uppercase toggle */}
+        {/* Inner wrapper — aligned by position */}
+        <div style={{ maxWidth: '720px', width: '100%', ...posAlign }}>
+
+          {/* ── Mini Title ── */}
           {slide?.miniTitle?.text && (
             <motion.div
-              initial={{ opacity:0, y:16 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.2 }}
-              className="flex items-center gap-3 mb-4 font-mono"
+              key={`mt-${current}`}
+              initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+              className={`flex gap-2 mb-4 ${getMiniTitleFlex(pos)}`}
               style={{
                 ...tStyle(slide.miniTitle),
                 fontSize:      slide.miniTitle.fontSize  || '0.62rem',
-                color:         slide.miniTitle.color     || 'var(--c-gold)',
-                // respect admin uppercase toggle — do NOT force uppercase here
-                textTransform: slide.miniTitle.uppercase ? 'uppercase' : (slide.miniTitle.textTransform || 'none'),
-                letterSpacing: '0.3em',
-                lineHeight:    1.4,
+                color:         slide.miniTitle.color     || 'rgba(255,255,255,0.7)',
+                letterSpacing: '0.28em',
+                lineHeight:    1.5,
+                // textAlign from admin overrides position-based align
+                textAlign:     (slide.miniTitle.textAlign || posAlign.textAlign) as any,
               }}
             >
-              <span className="w-6 h-px flex-shrink-0" style={{ background: slide.miniTitle.color || 'var(--c-gold)' }} />
-              {slide.miniTitle.text}
+              <span className="flex-shrink-0 w-6 h-px self-center"
+                style={{ background: slide.miniTitle.color || 'rgba(255,255,255,0.5)' }} />
+              <span>{slide.miniTitle.text}</span>
             </motion.div>
           )}
 
-          {/* Title */}
+          {/* ── Title ── */}
           <motion.h1
             key={`title-${current}`}
-            initial={{ opacity:0, y:30 }} animate={{ opacity:1, y:0 }}
-            transition={{ delay:0.3, duration:0.9, ease:[0.16,1,0.3,1] }}
+            initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.32, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             style={{
               ...tStyle(slide?.title),
-              fontSize:   slide?.title?.fontSize   || 'clamp(2.5rem,8vw,8rem)',
-              fontFamily: slide?.title?.fontFamily || 'Bebas Neue,sans-serif',
-              color:      slide?.title?.color      || '#1a1a2e',
-              lineHeight: 1.05,
-              marginBottom: '0.35rem',
+              fontSize:    slide?.title?.fontSize   || 'clamp(2.5rem, 8vw, 7rem)',
+              fontFamily:  slide?.title?.fontFamily || 'Bebas Neue, sans-serif',
+              fontWeight:  slide?.title?.fontWeight || '700',
+              color:       slide?.title?.color      || '#ffffff',
+              lineHeight:  1.05,
+              marginBottom: '0.3rem',
+              // textAlign from admin overrides position-based align
+              textAlign:   (slide?.title?.textAlign || posAlign.textAlign) as any,
             }}
           >
             {slide?.title?.text || defaultTitle}
           </motion.h1>
 
-          {/* Subtitle */}
+          {/* ── Subtitle ── */}
           {(slide?.subtitle?.text || defaultSub) && (
             <motion.div
               key={`sub-${current}`}
-              initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }}
-              transition={{ delay:0.45, duration:0.9, ease:[0.16,1,0.3,1] }}
+              initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.46, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
               style={{
                 ...tStyle(slide?.subtitle),
-                fontSize:   slide?.subtitle?.fontSize   || 'clamp(1.2rem,3vw,2.5rem)',
-                fontFamily: slide?.subtitle?.fontFamily || 'DM Serif Display,serif',
-                color:      slide?.subtitle?.color      || 'var(--c-gold)',
-                lineHeight: 1.2,
+                fontSize:    slide?.subtitle?.fontSize   || 'clamp(1.1rem, 3vw, 2.2rem)',
+                fontFamily:  slide?.subtitle?.fontFamily || 'DM Serif Display, serif',
+                fontWeight:  slide?.subtitle?.fontWeight || '400',
+                color:       slide?.subtitle?.color      || 'var(--c-gold)',
+                lineHeight:  1.2,
                 marginBottom: '1rem',
+                textAlign:   (slide?.subtitle?.textAlign || posAlign.textAlign) as any,
               }}
             >
               {slide?.subtitle?.text || defaultSub}
             </motion.div>
           )}
 
-          {/* Paragraph */}
+          {/* ── Paragraph ── */}
           {slide?.paragraph?.text && (
             <motion.p
-              initial={{ opacity:0, y:16 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.6 }}
+              key={`para-${current}`}
+              initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.7 }}
               style={{
                 ...tStyle(slide.paragraph),
-                fontSize:   slide.paragraph.fontSize || '0.9rem',
-                color:      slide.paragraph.color    || 'rgba(0,0,0,0.6)',
-                lineHeight: 1.7,
+                fontSize:    slide.paragraph.fontSize   || '0.9rem',
+                fontFamily:  slide.paragraph.fontFamily || 'inherit',
+                fontWeight:  slide.paragraph.fontWeight || '400',
+                color:       slide.paragraph.color      || 'rgba(255,255,255,0.7)',
+                lineHeight:  1.75,
                 marginBottom: '1.5rem',
-                maxWidth:   '520px',
+                maxWidth:    '520px',
+                // inherit position alignment unless admin overrides
+                textAlign:   (slide.paragraph.textAlign || posAlign.textAlign) as any,
+                ...(posAlign.textAlign === 'center' ? { marginLeft: 'auto', marginRight: 'auto' } : {}),
+                ...(posAlign.textAlign === 'right'  ? { marginLeft: 'auto', marginRight: 0      } : {}),
               }}
             >
               {slide.paragraph.text}
             </motion.p>
           )}
 
-          {/* CTA button */}
+          {/* ── CTA Button ── */}
           {slide?.linkUrl && slide?.linkText && (
-            <motion.a href={slide.linkUrl}
-              initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ delay:0.75 }}
-              className="btn-primary" data-hover>
-              <span>{slide.linkText}</span><span>→</span>
-            </motion.a>
+            <motion.div
+              initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.75, duration: 0.6 }}
+              style={{ display: 'flex', justifyContent: posAlign.textAlign === 'center' ? 'center' : posAlign.textAlign === 'right' ? 'flex-end' : 'flex-start' }}
+            >
+              <a href={slide.linkUrl} className="btn-primary" data-hover>
+                <span>{slide.linkText}</span><span>→</span>
+              </a>
+            </motion.div>
           )}
         </div>
       </div>
 
       {/* Mobile dots */}
       {slides?.length > 1 && (
-        <div className="md:hidden absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-20">
-          {slides.map((_:any, i:number) => (
+        <div className="md:hidden absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-1.5 z-20">
+          {slides.map((_: any, i: number) => (
             <button key={i} onClick={() => setCurrent(i)}
               className="flex items-center justify-center"
-              style={{ minWidth:'44px', minHeight:'44px' }}>
-              <span style={{ width: i===current?'24px':'6px', height:'6px', borderRadius:'3px', background: i===current?'var(--c-gold)':'rgba(0,0,0,0.35)', display:'block', transition:'all 0.3s' }} />
+              style={{ minWidth: '44px', minHeight: '44px' }}>
+              <span style={{
+                width: i === current ? '24px' : '6px', height: '6px',
+                borderRadius: '3px', display: 'block', transition: 'all 0.3s',
+                background: i === current ? 'var(--c-gold)' : 'rgba(255,255,255,0.4)',
+              }} />
             </button>
           ))}
         </div>
       )}
 
-      {/* Bottom gradient */}
-      <div className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none" style={{ background:'linear-gradient(0deg,var(--c-bg),transparent)' }} />
+      {/* Bottom fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-20 pointer-events-none"
+        style={{ background: 'linear-gradient(0deg, var(--c-bg), transparent)' }} />
     </section>
   );
 }
