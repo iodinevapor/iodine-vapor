@@ -10,9 +10,11 @@ function DraggableCameraButton({ onClick }: { onClick: () => void }) {
   const [dragging, setDragging] = useState(false);
   const [didDrag, setDidDrag] = useState(false);
   const startRef = useRef({ mx: 0, my: 0, px: 0, py: 0 });
+  const [mounted, setMounted] = useState(false);
 
-  // Set initial position after mount (window is available)
+  // Set initial position after mount (window is available client-side only)
   useEffect(() => {
+    setMounted(true);
     setPos({ x: window.innerWidth - 88, y: window.innerHeight / 2 - 32 });
   }, []);
 
@@ -39,6 +41,9 @@ function DraggableCameraButton({ onClick }: { onClick: () => void }) {
     window.addEventListener('mouseup', onUp);
     return () => { window.removeEventListener('mousemove', onMove); window.removeEventListener('mouseup', onUp); };
   }, [dragging]);
+
+  // Don't render on server
+  if (!mounted) return null;
 
   return (
     // hidden on mobile — md:block only
