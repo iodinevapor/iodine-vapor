@@ -151,7 +151,7 @@ function Hero({ slides, settings, services }: { slides: any[]; settings: any; se
             ) : (
               <div className="w-full h-full" style={{ background: slide?.bgGradient || slide?.bgColor || '#ffffff' }} />
             )}
-            <div className="absolute inset-0" style={{ background: `rgba(0,0,0,${slide?.overlayOpacity ?? 0.45})` }} />
+            <div className="absolute inset-0" style={{ background: `rgba(0,0,0,${slide?.overlayOpacity ?? 0})` }} />
           </motion.div>
         </AnimatePresence>
       </motion.div>

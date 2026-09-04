@@ -172,8 +172,8 @@ export default function AdminSlides() {
 
             <Field label="Overlay Opacity (0–1)">
               <div className="flex items-center gap-3">
-                <input type="range" min="0" max="1" step="0.05" value={form.overlayOpacity || 0.5} onChange={e => up('overlayOpacity', +e.target.value)} className="flex-1" />
-                <span className="font-mono text-[0.65rem] w-8 text-right">{form.overlayOpacity || 0.5}</span>
+                <input type="range" min="0" max="1" step="0.05" value={form.overlayOpacity ?? 0} onChange={e => up('overlayOpacity', +e.target.value)} className="flex-1" />
+                <span className="font-mono text-[0.65rem] w-8 text-right">{form.overlayOpacity ?? 0}</span>
               </div>
             </Field>
 

@@ -129,9 +129,7 @@ export default function HeroFromSlides({ slides, page, defaultTitle = 'TITLE', d
               )}
               {/* per-panel overlay */}
               <div className="absolute inset-0" style={{
-                background: `linear-gradient(180deg,
-                  rgba(0,0,0,${Math.max((s.overlayOpacity ?? 0.3) - 0.1, 0.05)}) 0%,
-                  rgba(0,0,0,${Math.min((s.overlayOpacity ?? 0.3) + 0.1, 0.55)}) 100%)`
+                background: `rgba(0,0,0,${s.overlayOpacity ?? 0.3})`
               }} />
               <span className="absolute top-5 left-3 font-mono text-[0.55rem] tracking-[0.15em]"
                 style={{ color: 'rgba(255,255,255,0.35)' }}>0{i + 1}</span>
@@ -154,7 +152,7 @@ export default function HeroFromSlides({ slides, page, defaultTitle = 'TITLE', d
                   <img src={imgUrl(slide.imageUrl)} alt="" className="w-full h-full object-cover"
                     style={{ filter: 'grayscale(20%) contrast(1.05)' }} />
                   <div className="absolute inset-0"
-                    style={{ background: `rgba(0,0,0,${slide.overlayOpacity ?? 0.35})` }} />
+                    style={{ background: `rgba(0,0,0,${slide.overlayOpacity ?? 0})` }} />
                 </>
               )}
             </motion.div>
