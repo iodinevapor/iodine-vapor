@@ -59,6 +59,19 @@ const tStyle = (s: any): React.CSSProperties => ({
 // ══════════════════════════════════════════════════════════════════════════════
 // 1. HERO SECTION
 // ══════════════════════════════════════════════════════════════════════════════
+
+// Position → flex alignment helpers
+const heroJustify = (pos: string) => {
+  if (pos?.includes('top'))    return 'justify-start';
+  if (pos?.includes('bottom')) return 'justify-end';
+  return 'justify-center';
+};
+const heroAlign = (pos: string) => {
+  if (pos?.includes('right'))  return 'items-end text-right';
+  if (pos === 'center' || pos === 'top-center' || pos === 'bottom-center') return 'items-center text-center';
+  return 'items-start text-left';
+};
+
 function Hero({ slides, settings, services }: { slides: any[]; settings: any; services: any[] }) {
   const [current, setCurrent] = useState(0);
   const { scrollY } = useScroll();
@@ -86,7 +99,9 @@ function Hero({ slides, settings, services }: { slides: any[]; settings: any; se
   };
 
   const slide = slides?.[current];
-  // Show fallback dark hero when no slides loaded yet
+  const pos   = slide?.position || 'bottom-left';
+
+  // ── Fallback when no slides ───────────────────────────────────────────────
   if (!slides?.length) return (
     <section className="relative w-full overflow-hidden flex items-end" style={{ height: '100vh', minHeight: '600px', background: 'linear-gradient(135deg, #1a1a2e 0%, #0d0b1a 100%)' }}>
       <div className="absolute inset-0" style={{ background: 'rgba(0,0,0,0.45)' }} />
@@ -94,7 +109,7 @@ function Hero({ slides, settings, services }: { slides: any[]; settings: any; se
         <p className="font-mono text-[0.6rem] tracking-[0.35em] uppercase mb-4 flex items-center gap-3" style={{ color: 'rgba(255,255,255,0.6)' }}>
           <span className="w-8 h-px bg-white/40 inline-block" />Pan-India Commercial Photography
         </p>
-        <h1 className="leading-[0.9] mb-4 font-bold text-white" style={{ fontSize: 'clamp(2.8rem, 6.5vw, 5.5rem)', fontFamily: "'Syne', sans-serif" }}>
+        <h1 className="mb-4 font-bold text-white" style={{ fontSize: 'clamp(2.8rem, 6.5vw, 5.5rem)', fontFamily: "'Syne', sans-serif", lineHeight: 1.05, wordBreak: 'break-word' }}>
           Visual Stories<br /><span style={{ color: '#c9a96e' }}>That Convert</span>
         </h1>
         <p className="mb-8 max-w-md text-[0.88rem] leading-[1.7]" style={{ color: 'rgba(255,255,255,0.65)' }}>
@@ -117,7 +132,7 @@ function Hero({ slides, settings, services }: { slides: any[]; settings: any; se
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
-      {/* Background */}
+      {/* ── Background ── */}
       <motion.div className="absolute inset-0" style={{ y: bgY }}>
         <AnimatePresence mode="wait">
           <motion.div
@@ -130,19 +145,13 @@ function Hero({ slides, settings, services }: { slides: any[]; settings: any; se
           >
             {slide?.imageUrl ? (
               <>
-                {/* Desktop image — hidden on mobile if mobileImageUrl exists */}
                 <img
                   src={imgUrl(slide.imageUrl)}
                   alt=""
                   className={`w-full h-full object-cover ${slide?.mobileImageUrl ? 'hidden md:block' : 'block'}`}
                 />
-                {/* Mobile image — shown only on small screens when set */}
                 {slide?.mobileImageUrl && (
-                  <img
-                    src={imgUrl(slide.mobileImageUrl)}
-                    alt=""
-                    className="w-full h-full object-cover block md:hidden"
-                  />
+                  <img src={imgUrl(slide.mobileImageUrl)} alt="" className="w-full h-full object-cover block md:hidden" />
                 )}
               </>
             ) : (
@@ -153,105 +162,130 @@ function Hero({ slides, settings, services }: { slides: any[]; settings: any; se
         </AnimatePresence>
       </motion.div>
 
-      {/* Hero Content */}
-      <div className="relative z-10 h-full flex flex-col justify-end pb-24 md:pb-28 px-6 md:px-12 lg:px-16 max-w-[1400px] mx-auto w-full">
-        {/* Eyebrow */}
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.7 }}
-          className="font-mono text-[0.6rem] md:text-[0.65rem] tracking-[0.35em] uppercase mb-4 flex items-center gap-3"
-          style={{ color: 'rgba(255,255,255,0.6)' }}
-        >
-          <span className="w-8 h-px bg-white/40 inline-block" />
-          {slide?.miniTitle?.text || 'We Photograph Spaces. You Build Trust.'}
-        </motion.p>
-            
-                   {/* Title */}
-        {/* Main Heading */}
-        <div className="overflow-hidden mb-4">
+      {/* ── Hero Content — position-aware, no overflow-hidden, never clips ── */}
+      <div
+        className={`relative z-10 h-full flex flex-col ${heroJustify(pos)} ${heroAlign(pos)} px-6 md:px-12 lg:px-16 pb-20 pt-24`}
+        style={{ maxWidth: '1400px', margin: '0 auto', width: '100%' }}
+      >
+        {/* Inner wrapper limits width based on alignment */}
+        <div style={{
+          maxWidth: '680px',
+          width: '100%',
+          ...(pos?.includes('right') ? { marginLeft: 'auto' } : pos === 'center' || pos?.includes('-center') ? { marginLeft: 'auto', marginRight: 'auto' } : {}),
+        }}>
+
+          {/* Mini Title — ALL styles from admin applied */}
+          {slide?.miniTitle?.text && (
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.7 }}
+              className="flex items-center gap-3 mb-4"
+              style={{
+                ...tStyle(slide.miniTitle),
+                fontSize:      slide.miniTitle.fontSize  || '0.62rem',
+                color:         slide.miniTitle.color     || 'rgba(255,255,255,0.6)',
+                letterSpacing: '0.3em',
+                wordBreak:     'break-word',
+              }}
+            >
+              <span className="flex-shrink-0 w-8 h-px" style={{ background: slide.miniTitle.color || 'rgba(255,255,255,0.4)' }} />
+              {slide.miniTitle.text}
+            </motion.div>
+          )}
+
+          {/* Title — ALL styles applied, no overflow-hidden, no clip */}
           <motion.h1
             key={`h1-${current}`}
-            initial={{ y: '105%' }}
-            animate={{ y: 0 }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="leading-[0.9] md:leading-[0.85]"
             style={{
               ...tStyle(slide?.title),
-              fontSize: slide?.title?.fontSize || 'clamp(2.8rem, 6.5vw, 5.5rem)',
-              fontFamily: slide?.title?.fontFamily || "'Syne', sans-serif",
-              fontWeight: 700,
-              color: slide?.title?.color || '#ffffff',
+              fontSize:     slide?.title?.fontSize   || 'clamp(2.8rem, 6.5vw, 5.5rem)',
+              fontFamily:   slide?.title?.fontFamily || "'Syne', sans-serif",
+              fontWeight:   slide?.title?.fontWeight || '700',
+              color:        slide?.title?.color      || '#ffffff',
+              lineHeight:   1.05,
+              marginBottom: '0.4rem',
+              wordBreak:    'break-word',
+              overflowWrap: 'break-word',
             }}
           >
             {slide?.title?.text || 'Commercial Photography'}
           </motion.h1>
-        </div>
 
-        
-        {/* Subtitle */}
-        {(slide?.subtitle?.text) && (
-          <div className="overflow-hidden mb-4">
+          {/* Subtitle — ALL styles applied, no overflow-hidden */}
+          {slide?.subtitle?.text && (
             <motion.h2
               key={`h2-${current}`}
-              initial={{ y: '105%' }}
-              animate={{ y: 0 }}
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.65, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              className="leading-[0.9]"
               style={{
                 ...tStyle(slide.subtitle),
-                fontSize: slide.subtitle.fontSize || 'clamp(2.8rem, 6.5vw, 5.5rem)',
-                fontFamily: slide.subtitle.fontFamily || "'Syne', sans-serif",
-                fontWeight: 700,
-                color: slide.subtitle.color || 'var(--c-gold)',
+                fontSize:     slide.subtitle.fontSize   || 'clamp(2.8rem, 6.5vw, 5.5rem)',
+                fontFamily:   slide.subtitle.fontFamily || "'Syne', sans-serif",
+                fontWeight:   slide.subtitle.fontWeight || '700',
+                color:        slide.subtitle.color      || 'var(--c-gold)',
+                lineHeight:   1.1,
+                marginBottom: '1rem',
+                wordBreak:    'break-word',
+                overflowWrap: 'break-word',
               }}
             >
               {slide.subtitle.text}
             </motion.h2>
-          </div>
-        )}
+          )}
 
-        {/* Paragraph */}
-        {slide?.paragraph?.text && (
-          <motion.p
+          {/* Paragraph — ALL styles applied (fontSize, fontFamily, weight, align, italic, uppercase) */}
+          {slide?.paragraph?.text && (
+            <motion.p
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.85, duration: 0.8 }}
+              style={{
+                ...tStyle(slide.paragraph),
+                fontSize:     slide.paragraph.fontSize   || '0.9rem',
+                fontFamily:   slide.paragraph.fontFamily || 'inherit',
+                fontWeight:   slide.paragraph.fontWeight || '400',
+                color:        slide.paragraph.color      || 'rgba(255,255,255,0.65)',
+                lineHeight:   1.75,
+                marginBottom: '1.75rem',
+                wordBreak:    'break-word',
+                overflowWrap: 'break-word',
+                maxWidth:     '520px',
+              }}
+            >
+              {slide.paragraph.text}
+            </motion.p>
+          )}
+
+          {/* CTA — linkUrl + linkText from admin, fallback to default buttons */}
+          <motion.div
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.85, duration: 0.8 }}
-            className="mb-8 max-w-md text-[0.88rem] md:text-[0.95rem] leading-[1.7]"
-            style={{ color: slide?.paragraph?.color || 'rgba(255,255,255,0.65)' }}
+            transition={{ delay: 1.0, duration: 0.7 }}
+            className="flex flex-wrap gap-3"
           >
-            {slide.paragraph.text}
-          </motion.p>
-        )}
-
-        {/* CTA Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.0, duration: 0.7 }}
-          className="flex flex-wrap gap-3"
-        >
-          <Link href="/services" className="btn-primary" data-hover>
-            <span>Explore Services</span><span>→</span>
-          </Link>
-          <Link href="/portfolio" className="btn-hero-ghost" data-hover>
-            <span>View Portfolio</span><span>→</span>
-          </Link>
-        </motion.div>
-
-        {/* Project label bottom-right */}
-        {slide?.linkText && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.3 }}
-            className="absolute bottom-28 right-6 md:right-12 text-right hidden md:block"
-          >
-            <p className="font-mono text-[0.52rem] tracking-[0.2em] uppercase" style={{ color: 'rgba(255,255,255,0.35)' }}>
-              {slide.linkText}
-            </p>
+            {slide?.linkUrl && slide?.linkText ? (
+              // Admin-configured CTA button
+              <a href={slide.linkUrl} className="btn-primary" data-hover>
+                <span>{slide.linkText}</span><span>→</span>
+              </a>
+            ) : (
+              // Default fallback buttons
+              <>
+                <Link href="/services" className="btn-primary" data-hover>
+                  <span>Explore Services</span><span>→</span>
+                </Link>
+                <Link href="/portfolio" className="btn-hero-ghost" data-hover>
+                  <span>View Portfolio</span><span>→</span>
+                </Link>
+              </>
+            )}
           </motion.div>
-        )}
+        </div>
       </div>
 
       {/* Slide Dots */}
