@@ -108,10 +108,10 @@ function Hero({ slides, settings, services }: { slides: any[]; settings: any; se
         <h1 className="mb-4 font-bold" style={{ fontSize: 'clamp(2.8rem, 6.5vw, 5.5rem)', fontFamily: "'Syne', sans-serif", lineHeight: 1.05, wordBreak: 'break-word', color: '#1a1a2e' }}>
           Commercial Photography
         </h1>
-        <div className="flex flex-wrap items-center gap-6">
-          <Link href="/services" className="btn-primary" data-hover><span>Explore Commercial Work</span><span>→</span></Link>
-          <span style={{ color: 'rgba(0,0,0,0.25)', fontSize: '1rem' }}>┃</span>
-          <Link href="/portfolio" className="btn-primary" data-hover><span>Explore Photography Education</span><span>→</span></Link>
+        <div className="flex flex-nowrap items-center gap-4">
+          <Link href="/services" className="btn-primary" style={{ fontSize: '14px' }} data-hover><span>Explore Commercial Work</span><span>→</span></Link>
+          <span style={{ color: 'rgba(0,0,0,0.2)', fontSize: '0.9rem' }}>┃</span>
+          <Link href="/portfolio" className="btn-primary" style={{ fontSize: '14px' }} data-hover><span>Explore Photography Education</span><span>→</span></Link>
         </div>
       </div>
     </section>
@@ -270,7 +270,7 @@ function Hero({ slides, settings, services }: { slides: any[]; settings: any; se
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.0, duration: 0.7 }}
-            className="flex flex-wrap items-center gap-6"
+            className="flex flex-nowrap items-center gap-4"
           >
             {slide?.linkUrl && slide?.linkText ? (
               // Admin-configured CTA button
@@ -280,11 +280,11 @@ function Hero({ slides, settings, services }: { slides: any[]; settings: any; se
             ) : (
               // Default fallback buttons
               <>
-                <Link href="/services" className="btn-primary" data-hover>
+                <Link href="/services" className="btn-primary" style={{ fontSize: '14px' }} data-hover>
                   <span>Explore Commercial Work</span><span>→</span>
                 </Link>
-                <span style={{ color: 'rgba(0,0,0,0.25)', fontSize: '1rem' }}></span>
-                <Link href="/portfolio" className="btn-primary" data-hover>
+                <span style={{ color: 'rgba(0,0,0,0.2)', fontSize: '0.9rem' }}>┃</span>
+                <Link href="/portfolio" className="btn-primary" style={{ fontSize: '14px' }} data-hover>
                   <span>Explore Photography Education</span><span>→</span>
                 </Link>
               </>
