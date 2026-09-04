@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { motion, AnimatePresence } from 'framer-motion';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
+import HeroFromSlides from '@/components/sections/HeroFromSlides';
 import { slidesApi, settingsApi, enquiriesApi, servicesApi } from '@/lib/api';
 import { ImLocation2 } from 'react-icons/im';
 import toast from 'react-hot-toast';
@@ -26,6 +27,7 @@ function ContactPageInner() {
     if (svc) setForm(f => ({ ...f, service: svc }));
   }, [searchParams]);
 
+  const { data: slides   = [] } = useQuery({ queryKey: ['slides','contact'], queryFn: () => slidesApi.get('contact') });
   const { data: s        = {} } = useQuery({ queryKey: ['settings'], queryFn: settingsApi.get, staleTime: 300_000 });
   const { data: services = [] } = useQuery({ queryKey: ['services'], queryFn: servicesApi.get });
 
@@ -74,36 +76,13 @@ function ContactPageInner() {
     <>
       <Navbar />
 
-      {/* ── Page Header ──────────────────────────────────────────────────── */}
-      <section className="pt-28 pb-16 px-6 md:px-12 border-b" style={{ background: '#ffffff', borderColor: 'rgba(0,0,0,0.06)' }}>
-        <div className="max-w-[1400px] mx-auto">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-            <div>
-              <p className="font-mono text-[0.52rem] tracking-[0.3em] uppercase mb-3 flex items-center gap-2" style={{ color: '#e91e8c' }}>
-                <span className="w-6 h-px inline-block" style={{ background: '#e91e8c' }} />
-                Get in Touch
-              </p>
-              <h1 className="font-bold text-[#1a1a2e] leading-[1.0]" style={{ fontFamily: "'Syne', sans-serif", fontSize: 'clamp(2.2rem, 5vw, 4rem)' }}>
-                Let's Start Your<br />
-                <span style={{ color: '#e91e8c' }}>Project Together</span>
-              </h1>
-            </div>
-            {/* Stats row */}
-            <div className="flex flex-wrap gap-8 shrink-0">
-              {[
-                { n: '14+',  l: 'Years' },
-                { n: '2000+', l: 'Projects' },
-                { n: '24h',  l: 'Response' },
-              ].map(s => (
-                <div key={s.l} className="text-center md:text-right">
-                  <p className="font-bold text-[#1a1a2e] text-[1.8rem]" style={{ fontFamily: "'Syne', sans-serif", lineHeight: 1 }}>{s.n}</p>
-                  <p className="font-mono text-[0.48rem] tracking-[0.18em] uppercase mt-0.5" style={{ color: 'rgba(0,0,0,0.35)' }}>{s.l}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* ── Hero — fully dynamic from Admin → Slides / CMS → contact ── */}
+      <HeroFromSlides
+        slides={slides as any[]}
+        page="contact"
+        defaultTitle="GET IN TOUCH"
+        defaultSub="Let's Start Your Project"
+      />
 
       <main style={{ background: '#ffffff' }}>
 

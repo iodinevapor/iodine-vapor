@@ -148,16 +148,17 @@ export default function HeroFromSlides({ slides, page, defaultTitle = 'TITLE', d
         className={`relative z-10 flex flex-col ${getTextAlign(pos)} ${getJustify(pos)} min-h-[max(60vh,400px)] px-6 md:px-12 lg:px-16 py-24`}
       >
         <div style={{ maxWidth: '700px', width: '100%' }}>
-          {/* Mini title */}
+          {/* Mini title — respects admin uppercase toggle */}
           {slide?.miniTitle?.text && (
             <motion.div
               initial={{ opacity:0, y:16 }} animate={{ opacity:1, y:0 }} transition={{ delay:0.2 }}
               className="flex items-center gap-3 mb-4 font-mono"
               style={{
                 ...tStyle(slide.miniTitle),
-                fontSize:      slide.miniTitle.fontSize || '0.62rem',
-                color:         slide.miniTitle.color    || 'var(--c-gold)',
-                textTransform: 'uppercase',
+                fontSize:      slide.miniTitle.fontSize  || '0.62rem',
+                color:         slide.miniTitle.color     || 'var(--c-gold)',
+                // respect admin uppercase toggle — do NOT force uppercase here
+                textTransform: slide.miniTitle.uppercase ? 'uppercase' : (slide.miniTitle.textTransform || 'none'),
                 letterSpacing: '0.3em',
                 lineHeight:    1.4,
               }}
