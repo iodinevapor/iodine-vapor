@@ -166,7 +166,8 @@ function Hero({ slides, settings, services }: { slides: any[]; settings: any; se
           <span className="w-8 h-px bg-white/40 inline-block" />
           {slide?.miniTitle?.text || 'We Photograph Spaces. You Build Trust.'}
         </motion.p>
-
+            
+                   {/* Title */}
         {/* Main Heading */}
         <div className="overflow-hidden mb-4">
           <motion.h1
@@ -187,6 +188,7 @@ function Hero({ slides, settings, services }: { slides: any[]; settings: any; se
           </motion.h1>
         </div>
 
+        
         {/* Subtitle */}
         {(slide?.subtitle?.text) && (
           <div className="overflow-hidden mb-4">

@@ -163,7 +163,7 @@ export default function HeroFromSlides({ slides, page, defaultTitle = 'TITLE', d
       {/* Content - positioned per slide.position */}
       <div
         className={`px-4 md:px-6 lg:px-12 ${getTextAlign(slide?.position || 'left')}`}
-        style={getPositionStyle(slide?.position || 'bottom-left')}
+        style={{ ...getPositionStyle(slide?.position || 'bottom-left'), maxWidth: 'min(700px, 90vw)' }}
       >
         {slide?.miniTitle?.text && (
           <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
@@ -174,18 +174,21 @@ export default function HeroFromSlides({ slides, page, defaultTitle = 'TITLE', d
           </motion.div>
         )}
 
-        <div className="overflow-hidden mb-2">
+        <div className="mb-2">
           <motion.h1
             key={`title-${current}`}
-            initial={{ y: '100%' }}
-            animate={{ y: 0 }}
+            initial={{ y: '100%', opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="leading-[0.9]"
+            className="leading-[1.05]"
             style={{
               ...tStyle(slide?.title),
               fontSize: slide?.title?.fontSize || 'clamp(2.5rem, 8vw, 8rem)',
               fontFamily: slide?.title?.fontFamily || 'Bebas Neue, sans-serif',
               color: slide?.title?.color || '#1a1a2e',
+              whiteSpace: 'normal',
+              wordBreak: 'break-word',
+              overflowWrap: 'break-word',
             }}
           >
             {slide?.title?.text || defaultTitle}
@@ -193,18 +196,21 @@ export default function HeroFromSlides({ slides, page, defaultTitle = 'TITLE', d
         </div>
 
         {(slide?.subtitle?.text || defaultSub) && (
-          <div className="overflow-hidden mb-4">
+          <div className="mb-4">
             <motion.div
               key={`sub-${current}`}
-              initial={{ y: '100%' }}
-              animate={{ y: 0 }}
+              initial={{ y: '100%', opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.45, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-              className="leading-[1.1]"
+              className="leading-[1.2]"
               style={{
                 ...tStyle(slide?.subtitle),
                 fontSize: slide?.subtitle?.fontSize || 'clamp(1.2rem, 3vw, 2.5rem)',
                 fontFamily: slide?.subtitle?.fontFamily || 'DM Serif Display, serif',
                 color: slide?.subtitle?.color || 'var(--c-gold)',
+                whiteSpace: 'normal',
+                wordBreak: 'break-word',
+                overflowWrap: 'break-word',
               }}
             >
               {slide?.subtitle?.text || defaultSub}
