@@ -121,13 +121,13 @@ export default function Navbar() {
         }}
       >
         <nav className="relative flex items-center justify-between max-w-[1400px] mx-auto lg:px-6 h-full px-4">
-          {/* Bottom accent line when scrolled */}
-          {scrolled && (
+          {/* Bottom accent line when scrolled — hidden */}
+          {/* {scrolled && (
             <div
               className="absolute bottom-0 left-0 right-0 h-[1.5px]"
               style={{ background: 'linear-gradient(90deg, transparent, #fe3fff, transparent)' }}
             />
-          )}
+          )} */}
 
           {/* ── Logo ─────────────────────────────────────────────────── */}
           <Link

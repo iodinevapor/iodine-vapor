@@ -641,9 +641,6 @@ function FeaturedPortfolio({ portfolio }: { portfolio: any[] }) {
             A glimpse of our recent assignments across industries.
           </p>
         </div>
-        <Link href="/portfolio" className="btn-outline-sm shrink-0 hidden md:flex" data-hover>
-          View More Work →
-        </Link>
       </div>
 
       {/* Horizontal Scroll Container */}
@@ -697,11 +694,7 @@ function FeaturedPortfolio({ portfolio }: { portfolio: any[] }) {
         </div>
       </div>
 
-      <div className="mt-6 text-center md:hidden px-6">
-        <Link href="/portfolio" className="btn-primary" data-hover>
-          <span>View More Work</span><span>→</span>
-        </Link>
-      </div>
+
     </section>
   );
 }
