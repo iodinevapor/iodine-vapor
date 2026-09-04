@@ -116,8 +116,8 @@ function Hero({ slides, settings, services }: { slides: any[]; settings: any; se
           
         </p>
         <div className="flex flex-wrap gap-3">
-          <Link href="/services" className="btn-primary" data-hover><span>Explore Services</span><span>→</span></Link>
-          <Link href="/portfolio" className="btn-primary" data-hover><span>View Portfolio</span><span>→</span></Link>
+          <Link href="/services" className="btn-primary" data-hover><span>Explore Commercial Work</span><span>→</span></Link>
+          <Link href="/portfolio" className="btn-primary" data-hover><span>Explore Photography Education</span><span>→</span></Link>
         </div>
       </div>
     </section>
@@ -184,7 +184,7 @@ function Hero({ slides, settings, services }: { slides: any[]; settings: any; se
               style={{
                 ...tStyle(slide.miniTitle),
                 fontSize:      slide.miniTitle.fontSize  || '0.62rem',
-                letterSpacing: '0.1em',
+                letterSpacing: '0.23em',
                 wordBreak:     'break-word',
               }}
             >
@@ -287,10 +287,10 @@ function Hero({ slides, settings, services }: { slides: any[]; settings: any; se
               // Default fallback buttons
               <>
                 <Link href="/services" className="btn-primary" data-hover>
-                  <span>Explore Services</span><span>→</span>
+                  <span>Explore Commercial Work</span><span>→</span>
                 </Link>
                 <Link href="/portfolio" className="btn-primary" data-hover>
-                  <span>View Portfolio</span><span>→</span>
+                  <span>Explore Photography Education</span><span>→</span>
                 </Link>
               </>
             )}
