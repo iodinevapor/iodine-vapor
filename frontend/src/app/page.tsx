@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { useQuery } from '@tanstack/react-query';
 import Navbar from '@/components/layout/Navbar';
@@ -15,7 +15,7 @@ import {
 } from '@/lib/api';
 import { useInView } from 'react-intersection-observer';
 
-// ── Reveal Hook ──────────────────────────────────────────────────────────────
+// Ã¢â€â‚¬Ã¢â€â‚¬ Reveal Hook Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
 const useReveal = (threshold = 0.05) => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold, rootMargin: '0px 0px -40px 0px' });
   const [forceVisible, setForceVisible] = useState(false);
@@ -27,7 +27,7 @@ const useReveal = (threshold = 0.05) => {
   return { ref, inView: inView || forceVisible };
 };
 
-// ── Animated Counter ──────────────────────────────────────────────────────────
+// Ã¢â€â‚¬Ã¢â€â‚¬ Animated Counter Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
 function Counter({ target, suffix = '' }: { target: number; suffix?: string }) {
   const [count, setCount] = useState(0);
   const { ref, inView } = useReveal(0.3);
@@ -45,7 +45,7 @@ function Counter({ target, suffix = '' }: { target: number; suffix?: string }) {
   return <span ref={ref}>{count}{suffix}</span>;
 }
 
-// ── Text Style Helper ─────────────────────────────────────────────────────────
+// Ã¢â€â‚¬Ã¢â€â‚¬ Text Style Helper Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
 const tStyle = (s: any): React.CSSProperties => ({
   color:         s?.color || undefined,
   fontSize:      s?.fontSize || undefined,
@@ -56,287 +56,221 @@ const tStyle = (s: any): React.CSSProperties => ({
   textTransform: s?.uppercase ? 'uppercase' : undefined,
 });
 
-// ══════════════════════════════════════════════════════════════════════════════
-// 1. HERO SECTION
-// ══════════════════════════════════════════════════════════════════════════════
+// Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
+// 1. HERO SECTION Ã¢â‚¬â€ Two-column: text left, image right (reference design)
+// Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
 
-// Position → flex alignment helpers
-const heroJustify = (pos: string) => {
-  if (pos?.includes('top'))    return 'justify-start';
-  if (pos?.includes('bottom')) return 'justify-end';
-  return 'justify-center';
-};
-const heroAlign = (pos: string) => {
-  if (pos?.includes('right'))  return 'items-end text-right';
-  if (pos === 'center' || pos === 'top-center' || pos === 'bottom-center') return 'items-center text-center';
-  return 'items-start text-left';
-};
+const HF = 'Helvetica Neue, Helvetica, Arial, sans-serif';
 
 function Hero({ slides, settings, services }: { slides: any[]; settings: any; services: any[] }) {
   const [current, setCurrent] = useState(0);
-  const { scrollY } = useScroll();
-  const bgY = useTransform(scrollY, [0, 600], [0, 120]);
   const touchStartX = useRef(0);
-  const touchStartY = useRef(0);
 
   useEffect(() => {
     if (!slides?.length || slides.length <= 1) return;
-    const t = setInterval(() => setCurrent(c => (c + 1) % slides.length), 5000);
+    const t = setInterval(() => setCurrent(c => (c + 1) % slides.length), 6000);
     return () => clearInterval(t);
   }, [slides]);
 
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX;
-    touchStartY.current = e.touches[0].clientY;
-  };
+  const handleTouchStart = (e: React.TouchEvent) => { touchStartX.current = e.touches[0].clientX; };
   const handleTouchEnd = (e: React.TouchEvent) => {
     if (!slides?.length || slides.length <= 1) return;
     const dx = e.changedTouches[0].clientX - touchStartX.current;
-    const dy = e.changedTouches[0].clientY - touchStartY.current;
-    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
-      dx < 0 ? setCurrent(c => (c + 1) % slides.length) : setCurrent(c => (c - 1 + slides.length) % slides.length);
-    }
+    if (Math.abs(dx) > 40) dx < 0 ? setCurrent(c => (c + 1) % slides.length) : setCurrent(c => (c - 1 + slides.length) % slides.length);
   };
 
   const slide = slides?.[current];
-  const pos   = slide?.position || 'bottom-left';
 
-  // ── Fallback when no slides ───────────────────────────────────────────────
+  // Ã¢â€â‚¬Ã¢â€â‚¬ Fallback when no CMS slides Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
   if (!slides?.length) return (
-    <section className="relative w-full overflow-hidden flex items-end" style={{ height: '100vh', minHeight: '500px', background: '#ffffff' }}>
-      <div className="relative z-10 pb-16 md:pb-24 px-6 md:px-12 lg:px-16 max-w-[1400px] mx-auto w-full">
-        <h1 className="mb-6 font-bold" style={{ fontSize: 'clamp(1.8rem, 5vw, 4.5rem)', fontFamily: "'Syne', sans-serif", lineHeight: 1.05, wordBreak: 'break-word', color: '#1a1a2e' }}>
-          Commercial Photography
-        </h1>
-        <div className="flex flex-wrap items-center gap-4">
-          <Link href="/services" className="btn-primary" style={{ fontSize: '13px' }} data-hover><span>Explore Commercial Work</span><span>→</span></Link>
-          <span className="hidden sm:inline" style={{ color: 'rgba(0,0,0,0.2)', fontSize: '0.9rem' }}>┃</span>
-          <Link href="/portfolio" className="btn-primary" style={{ fontSize: '13px' }} data-hover><span>Explore Photography Education</span><span>→</span></Link>
+    <section style={{ background: '#fff', minHeight: '100svh', paddingTop: '64px' }} aria-label="Hero">
+      <div className="max-w-[1200px] mx-auto px-5 md:px-8 h-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-8 py-16 md:py-24 min-h-[calc(100svh-64px)]">
+          {/* Text */}
+          <div>
+            <h1 style={{ fontFamily: HF, fontWeight: 800, fontSize: 'clamp(2.4rem,5.5vw,5rem)', lineHeight: 1.0, color: '#111', marginBottom: '1.25rem', wordBreak: 'break-word' }}>
+              WE CREATE.<br />WE TEACH.<br />WE MAKE YOU <span style={{ color: '#e91e8c' }}>SEE.</span>
+            </h1>
+            <p style={{ fontFamily: HF, fontSize: '0.9rem', lineHeight: 1.75, color: 'rgba(0,0,0,0.5)', maxWidth: '380px', marginBottom: '2rem' }}>
+              A photography studio and education practice for people who want to see more, understand better and create with intention.
+            </p>
+            <div className="flex flex-wrap items-center gap-4">
+              <Link href="/services"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-[0.75rem] font-bold uppercase tracking-[0.05em] transition-all"
+                style={{ background: '#111', color: '#fff', fontFamily: HF }}
+                onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = '#e91e8c'}
+                onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = '#111'}
+              >Explore Studio <span>Ã¢â€ â€™</span></Link>
+              <Link href="/workshops"
+                className="inline-flex items-center gap-2 text-[0.75rem] font-semibold transition-colors"
+                style={{ color: '#111', fontFamily: HF }}
+                onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = '#e91e8c'}
+                onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = '#111'}
+              >Learn Photography <span>Ã¢â€ â€™</span></Link>
+            </div>
+          </div>
+          {/* Image placeholder */}
+          <div className="hidden md:flex items-center justify-center" style={{ aspectRatio: '4/5', background: '#f0f0f0', borderRadius: '4px' }}>
+            <span style={{ fontFamily: HF, fontSize: '0.7rem', color: 'rgba(0,0,0,0.2)', letterSpacing: '0.12em', textTransform: 'uppercase' }}>Add image via CMS</span>
+          </div>
         </div>
       </div>
     </section>
   );
 
-  const tickerItems = services?.map((s: any) => s.name) || [];
-
   return (
     <section
-      className="relative w-full overflow-hidden"
-      style={{ height: '100vh', minHeight: '600px' }}
+      style={{ background: slide?.bgGradient || slide?.bgColor || '#fff', minHeight: '100svh', paddingTop: '64px' }}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
+      aria-label="Hero"
     >
-      {/* ── Background ── */}
-      <motion.div className="absolute inset-0" style={{ y: bgY }}>
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={current}
-            initial={{ opacity: 0, scale: 1.04 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.9 }}
-            className="absolute inset-0"
-          >
-            {slide?.imageUrl ? (
-              <>
-                <img
-                  src={imgUrl(slide.imageUrl)}
-                  alt=""
-                  className={`w-full h-full object-cover ${slide?.mobileImageUrl ? 'hidden md:block' : 'block'}`}
-                />
-                {slide?.mobileImageUrl && (
-                  <img src={imgUrl(slide.mobileImageUrl)} alt="" className="w-full h-full object-cover block md:hidden" />
-                )}
-              </>
-            ) : (
-              <div className="w-full h-full" style={{ background: slide?.bgGradient || slide?.bgColor || '#ffffff' }} />
-            )}
-            <div className="absolute inset-0" style={{ background: `rgba(0,0,0,${slide?.overlayOpacity ?? 0})` }} />
-          </motion.div>
-        </AnimatePresence>
-      </motion.div>
+      <div className="max-w-[1200px] mx-auto px-5 md:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-8 md:gap-12 py-12 md:py-20 min-h-[calc(100svh-64px)]">
 
-      {/* ── Hero Content — position-aware, no overflow-hidden, never clips ── */}
-      <div
-        className={`relative z-10 h-full flex flex-col ${heroJustify(pos)} ${heroAlign(pos)} px-6 md:px-12 lg:px-16 pb-14 md:pb-20 pt-20 md:pt-24`}
-        style={{ maxWidth: '1400px', margin: '0 auto', width: '100%' }}
-      >
-        {/* Inner wrapper limits width based on alignment */}
-        <div style={{
-          maxWidth: '680px',
-          width: '100%',
-          ...(pos?.includes('right') ? { marginLeft: 'auto' } : pos === 'center' || pos?.includes('-center') ? { marginLeft: 'auto', marginRight: 'auto' } : {}),
-        }}>
+          {/* Ã¢â€â‚¬Ã¢â€â‚¬ LEFT: Text Ã¢â€â‚¬Ã¢â€â‚¬ */}
+          <AnimatePresence mode="wait">
+            <motion.div key={current} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}>
 
-          {/* Mini Title — per-word colors if set, else single color */}
-          {slide?.miniTitle?.text && (
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.7 }}
-              className="flex items-center gap-3 mb-4"
-              style={{
-                ...tStyle(slide.miniTitle),
-                fontSize:      slide.miniTitle.fontSize  || '0.62rem',
-                letterSpacing: '0.23em',
-                wordBreak:     'break-word',
-              }}
-            >
-              {slide.miniTitleWords?.length > 0 ? (
-                <span className="flex flex-wrap gap-[0.35em]">
-                  {slide.miniTitle.text.trim().split(/\s+/).map((word: string, i: number) => (
-                    <span key={i} style={{ color: slide.miniTitleWords[i]?.color || slide.miniTitle.color || 'rgba(255,255,255,0.6)' }}>
-                      {word}
+              {/* Mini Title / eyebrow */}
+              {slide?.miniTitle?.text && (
+                <div className="mb-4" style={{ fontFamily: HF, fontSize: slide.miniTitle.fontSize || '0.65rem', letterSpacing: '0.22em', textTransform: 'uppercase', fontWeight: 600 }}>
+                  {slide.miniTitleWords?.length > 0 ? (
+                    <span className="flex flex-wrap gap-[0.3em]">
+                      {slide.miniTitle.text.trim().split(/\s+/).map((w: string, i: number) => (
+                        <span key={i} style={{ color: slide.miniTitleWords[i]?.color || slide.miniTitle.color || '#e91e8c' }}>{w}</span>
+                      ))}
                     </span>
+                  ) : <span style={{ color: slide.miniTitle.color || '#e91e8c' }}>{slide.miniTitle.text}</span>}
+                </div>
+              )}
+
+              {/* H1 Title */}
+              <h1 style={{
+                fontFamily:    slide?.title?.fontFamily  || HF,
+                fontWeight:    slide?.title?.fontWeight  || '800',
+                fontSize:      slide?.title?.fontSize    || 'clamp(2.4rem, 5.5vw, 5rem)',
+                lineHeight:    1.0,
+                color:         slide?.title?.color       || '#111',
+                marginBottom:  slide?.subtitle?.text ? '0.25rem' : '1.25rem',
+                wordBreak:     'break-word',
+                textTransform: slide?.title?.uppercase   ? 'uppercase' : 'none',
+                fontStyle:     slide?.title?.italic      ? 'italic' : 'normal',
+              }}>
+                {slide?.title?.text || 'Commercial Photography'}
+              </h1>
+
+              {/* H2 Subtitle */}
+              {slide?.subtitle?.text && (
+                <h2 style={{
+                  fontFamily:    slide.subtitle.fontFamily || HF,
+                  fontWeight:    slide.subtitle.fontWeight || '800',
+                  fontSize:      slide.subtitle.fontSize   || 'clamp(2.4rem, 5.5vw, 5rem)',
+                  lineHeight:    1.0,
+                  color:         slide.subtitle.color      || '#e91e8c',
+                  marginBottom:  '1.25rem',
+                  wordBreak:     'break-word',
+                  textTransform: slide.subtitle.uppercase  ? 'uppercase' : 'none',
+                }}>
+                  {slide.subtitle.text}
+                </h2>
+              )}
+
+              {/* Paragraph */}
+              {slide?.paragraph?.text && (
+                <p style={{
+                  fontFamily:   slide.paragraph.fontFamily || HF,
+                  fontSize:     slide.paragraph.fontSize   || '0.9rem',
+                  fontWeight:   slide.paragraph.fontWeight || '400',
+                  lineHeight:   1.75,
+                  color:        slide.paragraph.color      || 'rgba(0,0,0,0.5)',
+                  maxWidth:     '400px',
+                  marginBottom: '2rem',
+                  wordBreak:    'break-word',
+                }}>
+                  {slide.paragraph.text}
+                </p>
+              )}
+
+              {/* CTAs */}
+              <div className="flex flex-wrap items-center gap-4">
+                {slide?.linkUrl && slide?.linkText ? (
+                  <a href={slide.linkUrl}
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-[0.75rem] font-bold uppercase tracking-[0.05em] transition-all"
+                    style={{ background: '#111', color: '#fff', fontFamily: HF }}
+                    onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = '#e91e8c'}
+                    onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = '#111'}
+                  >{slide.linkText} <span>Ã¢â€ â€™</span></a>
+                ) : (
+                  <>
+                    <Link href="/services"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-[0.75rem] font-bold uppercase tracking-[0.05em] transition-all"
+                      style={{ background: '#111', color: '#fff', fontFamily: HF }}
+                      onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = '#e91e8c'}
+                      onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = '#111'}
+                    >Explore Studio <span>Ã¢â€ â€™</span></Link>
+                    <Link href="/workshops"
+                      className="inline-flex items-center gap-2 text-[0.75rem] font-semibold transition-colors"
+                      style={{ color: '#111', fontFamily: HF }}
+                      onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = '#e91e8c'}
+                      onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = '#111'}
+                    >Learn Photography <span>Ã¢â€ â€™</span></Link>
+                  </>
+                )}
+              </div>
+
+              {/* Slide dots */}
+              {slides.length > 1 && (
+                <div className="flex gap-2 mt-8">
+                  {slides.map((_: any, i: number) => (
+                    <button key={i} onClick={() => setCurrent(i)} aria-label={`Slide ${i + 1}`}
+                      style={{ width: i === current ? '24px' : '6px', height: '6px', borderRadius: '3px', background: i === current ? '#111' : 'rgba(0,0,0,0.2)', transition: 'all 0.3s', border: 'none', padding: 0, cursor: 'pointer' }}
+                    />
                   ))}
-                </span>
-              ) : (
-                <span style={{ color: slide.miniTitle.color || 'rgba(255,255,255,0.6)' }}>
-                  {slide.miniTitle.text}
-                </span>
+                </div>
               )}
             </motion.div>
+          </AnimatePresence>
+
+          {/* Ã¢â€â‚¬Ã¢â€â‚¬ RIGHT: Image Ã¢â€â‚¬Ã¢â€â‚¬ */}
+          <div className="hidden md:block relative" style={{ aspectRatio: '4/5', overflow: 'hidden', borderRadius: '4px' }}>
+            <AnimatePresence mode="wait">
+              <motion.div key={`img-${current}`} initial={{ opacity: 0, scale: 1.03 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.7 }} className="absolute inset-0">
+                {slide?.imageUrl ? (
+                  <>
+                    <img
+                      src={imgUrl(slide.imageUrl)}
+                      alt={slide?.title?.text || 'Hero'}
+                      className={`w-full h-full object-cover object-top ${slide?.mobileImageUrl ? 'hidden md:block' : 'block'}`}
+                      style={{ filter: 'grayscale(10%)' }}
+                    />
+                    {slide?.mobileImageUrl && <img src={imgUrl(slide.mobileImageUrl)} alt="" className="w-full h-full object-cover block md:hidden" />}
+                  </>
+                ) : (
+                  <div style={{ width: '100%', height: '100%', background: '#f0f0f0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <span style={{ fontFamily: HF, fontSize: '0.7rem', color: 'rgba(0,0,0,0.2)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Upload image in CMS</span>
+                  </div>
+                )}
+                {(slide?.overlayOpacity ?? 0) > 0 && <div style={{ position: 'absolute', inset: 0, background: `rgba(0,0,0,${slide.overlayOpacity})` }} />}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Mobile: image below text */}
+          {slide?.imageUrl && (
+            <div className="block md:hidden w-full" style={{ aspectRatio: '16/9', overflow: 'hidden', borderRadius: '4px' }}>
+              <img src={imgUrl(slide.mobileImageUrl || slide.imageUrl)} alt={slide?.title?.text || ''} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            </div>
           )}
-
-          {/* Title — ALL styles applied, no overflow-hidden, no clip */}
-          <motion.h1
-            key={`h1-${current}`}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            style={{
-              ...tStyle(slide?.title),
-              fontSize:     slide?.title?.fontSize   || 'clamp(1.8rem, 5vw, 5rem)',
-              fontFamily:   slide?.title?.fontFamily || "'Syne', sans-serif",
-              fontWeight:   slide?.title?.fontWeight || '700',
-              color:        slide?.title?.color      || '#ffffff',
-              lineHeight:   1.00,
-              marginBottom: '0.8rem',
-              wordBreak:    'break-word',
-              overflowWrap: 'break-word',
-            }}
-          >
-            {slide?.title?.text || 'Commercial Photography'}
-          </motion.h1>
-
-          {/* Subtitle — ALL styles applied, no overflow-hidden */}
-          {slide?.subtitle?.text && (
-            <motion.h2
-              key={`h2-${current}`}
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.65, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              style={{
-                ...tStyle(slide.subtitle),
-                fontSize:     slide.subtitle.fontSize   || 'clamp(1.5rem, 4vw, 4.5rem)',
-                fontFamily:   slide.subtitle.fontFamily || "'Syne', sans-serif",
-                fontWeight:   slide.subtitle.fontWeight || '700',
-                color:        slide.subtitle.color      || 'var(--c-gold)',
-                lineHeight:   1.00,
-                marginBottom: '1rem',
-                wordBreak:    'break-word',
-                overflowWrap: 'break-word',
-              }}
-            >
-              {slide.subtitle.text}
-            </motion.h2>
-          )}
-
-          {/* Paragraph — ALL styles applied (fontSize, fontFamily, weight, align, italic, uppercase) */}
-          {slide?.paragraph?.text && (
-            <motion.p
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.85, duration: 0.8 }}
-              style={{
-                ...tStyle(slide.paragraph),
-                fontSize:     slide.paragraph.fontSize   || '0.9rem',
-                fontFamily:   slide.paragraph.fontFamily || 'inherit',
-                fontWeight:   slide.paragraph.fontWeight || '400',
-                color:        slide.paragraph.color      || 'rgba(255,255,255,0.65)',
-                lineHeight:   1.2,
-                marginBottom: '1.75rem',
-                wordBreak:    'break-word',
-                overflowWrap: 'break-word',
-                maxWidth:     '520px',
-              }}
-            >
-              {slide.paragraph.text}
-            </motion.p>
-          )}
-
-          {/* CTA — linkUrl + linkText from admin, fallback to default buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.0, duration: 0.7 }}
-            className="flex flex-wrap items-center gap-4"
-          >
-            {slide?.linkUrl && slide?.linkText ? (
-              // Admin-configured CTA button
-              <a href={slide.linkUrl} className="btn-primary" data-hover>
-                <span>{slide.linkText}</span><span>→</span>
-              </a>
-            ) : (
-              // Default fallback buttons
-              <>
-                <Link href="/services" className="btn-primary" style={{ fontSize: '13px' }} data-hover>
-                  <span>Explore Commercial Work</span><span>→</span>
-                </Link>
-                <span className="hidden sm:inline" style={{ color: 'rgba(0,0,0,0.2)', fontSize: '0.9rem' }}>┃</span>
-                <Link href="/portfolio" className="btn-primary" style={{ fontSize: '13px' }} data-hover>
-                  <span>Explore Photography Education</span><span>→</span>
-                </Link>
-              </>
-            )}
-          </motion.div>
         </div>
       </div>
-
-      {/* Slide Dots */}
-      {slides.length > 1 && (
-        <div className="absolute bottom-10 left-6 md:left-12 flex gap-2 z-10">
-          {slides.map((_: any, i: number) => (
-            <button
-              key={i}
-              onClick={() => setCurrent(i)}
-              aria-label={`Slide ${i + 1}`}
-              style={{ width: i === current ? '28px' : '7px', height: '7px', borderRadius: '4px', background: i === current ? 'var(--c-gold)' : 'rgba(255,255,255,0.35)', transition: 'all 0.3s', border: 'none', padding: 0, cursor: 'pointer' }}
-            />
-          ))}
-        </div>
-      )}
-
-      {/* Scroll Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-        className="absolute right-6 md:right-10 bottom-12 hidden md:flex flex-col items-center gap-2"
-      >
-        <span className="font-mono text-[0.5rem] tracking-[0.25em] uppercase" style={{ color: 'rgba(255,255,255,0.35)', writingMode: 'vertical-rl' }}>Scroll</span>
-        <div className="w-px h-12" style={{ background: 'linear-gradient(180deg, rgba(255,255,255,0.5), transparent)' }} />
-      </motion.div>
-
-      {/* Ticker Strip — hidden */}
-      {/* {tickerItems.length > 0 && (
-        <div className="absolute bottom-0 left-0 right-0 overflow-hidden py-2.5" style={{ background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(10px)' }}>
-          <div className="ticker-track flex gap-0 whitespace-nowrap">
-            {[...tickerItems, ...tickerItems, ...tickerItems].map((item: string, i: number) => (
-              <span key={i} className="inline-flex items-center gap-6 px-8 font-mono text-[0.55rem] tracking-[0.22em] uppercase font-semibold" style={{ color: 'rgba(255,255,255,0.6)' }}>
-                {item}<span style={{ color: 'var(--c-gold)', fontSize: '0.45rem' }}>✦</span>
-              </span>
-            ))}
-          </div>
-        </div>
-      )} */}
     </section>
   );
 }
 
-// ══════════════════════════════════════════════════════════════════════════════
-// 2. TRUSTED BY BRANDS SECTION — Modern marquee
-// ══════════════════════════════════════════════════════════════════════════════
+// Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
+// 2. TRUSTED BY BRANDS SECTION Ã¢â‚¬â€ Modern marquee
+// Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
 function TrustedBrands({ brands }: { brands: any[] }) {
   if (!brands?.length) return null;
 
@@ -454,9 +388,9 @@ function TrustedBrands({ brands }: { brands: any[] }) {
   );
 }
 
-// ══════════════════════════════════════════════════════════════════════════════
-// 3. COMMERCIAL PHOTOGRAPHY SERVICES — Auto-slide carousel
-// ══════════════════════════════════════════════════════════════════════════════
+// Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
+// 3. COMMERCIAL PHOTOGRAPHY SERVICES Ã¢â‚¬â€ Auto-slide carousel
+// Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
 function Services({ services }: { services: any[] }) {
   const { ref, inView } = useReveal();
   const [activeIdx, setActiveIdx] = useState(0);
@@ -563,7 +497,7 @@ function Services({ services }: { services: any[] }) {
                   <div className="flex items-center justify-center" style={{ height: '90px', background: 'rgba(233,30,140,0.05)' }}>
                     <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-[1.5rem]"
                       style={{ background: 'rgba(233,30,140,0.1)' }}>
-                      {svc.icon || '📸'}
+                      {svc.icon || 'Ã°Å¸â€œÂ¸'}
                     </div>
                   </div>
                 )}
@@ -576,7 +510,7 @@ function Services({ services }: { services: any[] }) {
                   </h3>
                   {svc.shortDesc && (
                     <p className="text-[0.68rem] leading-[1.55] mb-3 flex-1" style={{ color: 'rgba(0,0,0,0.45)' }}>
-                      {svc.shortDesc.slice(0, 65)}{svc.shortDesc.length > 65 ? '…' : ''}
+                      {svc.shortDesc.slice(0, 65)}{svc.shortDesc.length > 65 ? 'Ã¢â‚¬Â¦' : ''}
                     </p>
                   )}
                   <span className="inline-flex items-center gap-1 font-bold text-[0.62rem] tracking-[0.08em] uppercase mt-auto"
@@ -604,9 +538,9 @@ function Services({ services }: { services: any[] }) {
   );
 }
 
-// ══════════════════════════════════════════════════════════════════════════════
+// Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
 // 4. FEATURED PORTFOLIO (horizontal scroll reel)
-// ══════════════════════════════════════════════════════════════════════════════
+// Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
 function FeaturedPortfolio({ portfolio }: { portfolio: any[] }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isDown, setIsDown] = useState(false);
@@ -699,9 +633,9 @@ function FeaturedPortfolio({ portfolio }: { portfolio: any[] }) {
   );
 }
 
-// ══════════════════════════════════════════════════════════════════════════════
+// Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
 // 5. WHY BUSINESSES CHOOSE US (dark section with counters)
-// ══════════════════════════════════════════════════════════════════════════════
+// Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
 function WhyChooseUs({ settings }: { settings: any }) {
   const { ref, inView } = useReveal();
 
@@ -722,7 +656,7 @@ function WhyChooseUs({ settings }: { settings: any }) {
     <section className="py-14 md:py-20 px-6 md:px-12" style={{ background: 'rgba(34, 16, 39, 1)'}}>
       <div className="max-w-[1400px] mx-auto">
         <div ref={ref} className={`grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-10 md:gap-16 items-center reveal ${inView ? 'visible' : ''}`}>
-          {/* Left — heading + description */}
+          {/* Left Ã¢â‚¬â€ heading + description */}
           <div>
             <p className="font-mono text-[0.58rem] tracking-[0.28em] uppercase mb-4 flex items-center gap-2" style={{ color: 'var(--c-gold)' }}>
               <span className="w-6 h-px inline-block" style={{ background: 'var(--c-gold)' }} />
@@ -734,17 +668,17 @@ function WhyChooseUs({ settings }: { settings: any }) {
             <p className="text-[0.85rem] leading-[1.8] mb-8 max-w-xs" style={{ color: 'rgba(255,255,255,0.5)' }}>
               {settings?.about_text
                 ? settings.about_text.length > 200
-                  ? settings.about_text.slice(0, 200) + '…'
+                  ? settings.about_text.slice(0, 200) + 'Ã¢â‚¬Â¦'
                   : settings.about_text
-                : '14+ years of experience. Thousands of successful projects. One promise — images that add value.'
+                : '14+ years of experience. Thousands of successful projects. One promise Ã¢â‚¬â€ images that add value.'
               }
             </p>
             <Link href="/about" className="btn-gold-sm" data-hover>
-              About Us →
+              About Us Ã¢â€ â€™
             </Link>
           </div>
 
-          {/* Right — stat counters grid */}
+          {/* Right Ã¢â‚¬â€ stat counters grid */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-px" style={{ background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '4px', overflow: 'hidden' }}>
             {stats.map((s, i) => (
               <div key={i} className="flex flex-col items-center text-center px-4 py-8" style={{ background: '#1a1a2e' }}>
@@ -766,9 +700,9 @@ function WhyChooseUs({ settings }: { settings: any }) {
   );
 }
 
-// ══════════════════════════════════════════════════════════════════════════════
+// Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
 // 6. OUR PROCESS
-// ══════════════════════════════════════════════════════════════════════════════
+// Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
 function OurProcess() {
   const { ref, inView } = useReveal();
   const steps = [
@@ -818,9 +752,9 @@ function OurProcess() {
   );
 }
 
-// ══════════════════════════════════════════════════════════════════════════════
+// Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
 // 7. CASE STUDIES (portfolio highlights with details)
-// ══════════════════════════════════════════════════════════════════════════════
+// Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
 function CaseStudies({ portfolio }: { portfolio: any[] }) {
   const { ref, inView } = useReveal();
   if (!portfolio?.length) return null;
@@ -839,7 +773,7 @@ function CaseStudies({ portfolio }: { portfolio: any[] }) {
               Case Studies
             </h2>
           </div>
-          <Link href="/portfolio" className="btn-outline-sm hidden md:flex" data-hover>View All →</Link>
+          <Link href="/portfolio" className="btn-outline-sm hidden md:flex" data-hover>View All Ã¢â€ â€™</Link>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -878,7 +812,7 @@ function CaseStudies({ portfolio }: { portfolio: any[] }) {
 
         <div className="mt-6 text-center md:hidden">
           <Link href="/portfolio" className="btn-primary" data-hover>
-            <span>View All Work</span><span>→</span>
+            <span>View All Work</span><span>Ã¢â€ â€™</span>
           </Link>
         </div>
       </div>
@@ -886,9 +820,9 @@ function CaseStudies({ portfolio }: { portfolio: any[] }) {
   );
 }
 
-// ══════════════════════════════════════════════════════════════════════════════
+// Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
 // 8. CLIENT TESTIMONIALS
-// ══════════════════════════════════════════════════════════════════════════════
+// Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
 function Testimonials({ testimonials }: { testimonials: any[] }) {
   const { ref, inView } = useReveal();
 
@@ -921,7 +855,7 @@ function Testimonials({ testimonials }: { testimonials: any[] }) {
               {/* Stars */}
               <div className="flex gap-1 mb-4">
                 {Array.from({ length: t.rating || 5 }).map((_, j) => (
-                  <span key={j} style={{ color: 'var(--c-gold)', fontSize: '0.75rem' }}>★</span>
+                  <span key={j} style={{ color: 'var(--c-gold)', fontSize: '0.75rem' }}>Ã¢Ëœâ€¦</span>
                 ))}
               </div>
               <p className="text-[0.85rem] leading-[1.8] mb-5 flex-1 italic" style={{ color: 'rgba(0,0,0,0.6)' }}>
@@ -946,9 +880,9 @@ function Testimonials({ testimonials }: { testimonials: any[] }) {
   );
 }
 
-// ══════════════════════════════════════════════════════════════════════════════
+// Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
 // 9. PHOTOGRAPHY ACADEMY
-// ══════════════════════════════════════════════════════════════════════════════
+// Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
 function PhotographyAcademy({ workshops }: { workshops: any[] }) {
   const { ref: leftRef, inView: leftIn } = useReveal();
   const { ref: rightRef, inView: rightIn } = useReveal();
@@ -977,7 +911,7 @@ function PhotographyAcademy({ workshops }: { workshops: any[] }) {
             ) : (
               <div className="rounded-sm overflow-hidden" style={{ aspectRatio: '4/3', background: '#ffffff' }}>
                 <div className="w-full h-full flex items-center justify-center">
-                  <span className="font-display text-[4rem]" style={{ color: 'rgba(0,0,0,0.08)' }}>📷</span>
+                  <span className="font-display text-[4rem]" style={{ color: 'rgba(0,0,0,0.08)' }}>Ã°Å¸â€œÂ·</span>
                 </div>
               </div>
             )}
@@ -1000,14 +934,14 @@ function PhotographyAcademy({ workshops }: { workshops: any[] }) {
             <div className="grid grid-cols-2 gap-3 mb-8">
               {['Workshops', 'One-to-One Mentoring', 'Corporate Training', 'Online Courses', 'Student Portfolio', 'FAQs'].map((item, i) => (
                 <div key={i} className="flex items-center gap-2">
-                  <span style={{ color: 'var(--c-gold)', fontSize: '0.6rem' }}>✦</span>
+                  <span style={{ color: 'var(--c-gold)', fontSize: '0.6rem' }}>Ã¢Å“Â¦</span>
                   <span className="text-[0.8rem]" style={{ color: 'rgba(0,0,0,0.6)' }}>{item}</span>
                 </div>
               ))}
             </div>
 
             <Link href="/workshops" className="btn-primary" data-hover>
-              <span>Explore Academy</span><span>→</span>
+              <span>Explore Academy</span><span>Ã¢â€ â€™</span>
             </Link>
           </div>
         </div>
@@ -1016,9 +950,9 @@ function PhotographyAcademy({ workshops }: { workshops: any[] }) {
   );
 }
 
-// ══════════════════════════════════════════════════════════════════════════════
+// Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
 // 10. CALL TO ACTION
-// ══════════════════════════════════════════════════════════════════════════════
+// Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
 function CallToAction({ settings }: { settings: any }) {
   const { ref, inView } = useReveal();
 
@@ -1039,10 +973,10 @@ function CallToAction({ settings }: { settings: any }) {
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
             <Link href="/contact" className="btn-primary" data-hover>
-              <span>Get a Quote</span><span>→</span>
+              <span>Get a Quote</span><span>Ã¢â€ â€™</span>
             </Link>
             <Link href="/portfolio" className="btn-primary" data-hover>
-              <span>View Portfolio</span><span>→</span>
+              <span>View Portfolio</span><span>Ã¢â€ â€™</span>
             </Link>
           </div>
           {/* Contact quick info */}
@@ -1078,9 +1012,9 @@ function CallToAction({ settings }: { settings: any }) {
   );
 }
 
-// ══════════════════════════════════════════════════════════════════════════════
-// MAIN HOME PAGE — Section order matches reference exactly
-// ══════════════════════════════════════════════════════════════════════════════
+// Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
+// MAIN HOME PAGE Ã¢â‚¬â€ Section order matches reference exactly
+// Ã¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢ÂÃ¢â€¢Â
 export default function HomePage() {
   const { data: slides = [] }       = useQuery({ queryKey: ['slides', 'home'],   queryFn: () => slidesApi.get('home') });
   const { data: settings = {} }     = useQuery({ queryKey: ['settings'],          queryFn: settingsApi.get, staleTime: 300_000 });
@@ -1093,9 +1027,8 @@ export default function HomePage() {
   return (
     <>
       <Navbar />
-      <div style={{ paddingTop: '64px' }}>
-        <VideoShowcase />
-        {/* 1 */} <Hero slides={slides} settings={settings} services={services} />
+      <VideoShowcase />
+      {/* 1 */} <Hero slides={slides} settings={settings} services={services} />
         {/* 2 */} <TrustedBrands brands={brands} />
         {/* 3 */} <Services services={services} />
         {/* 4 */} <FeaturedPortfolio portfolio={portfolio} />
@@ -1106,7 +1039,6 @@ export default function HomePage() {
         {/* 9 */} <PhotographyAcademy workshops={workshops} />
         {/* 10 */} <CallToAction settings={settings} />
         <Footer />
-      </div>
     </>
   );
 }
