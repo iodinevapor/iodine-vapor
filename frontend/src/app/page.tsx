@@ -469,6 +469,159 @@ function TrustedBrands({ brands }: { brands: any[] }) {
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
+// 2b. PHILOSOPHY SECTION — Image left, text right
+// ══════════════════════════════════════════════════════════════════════════════
+function Philosophy({ portfolio }: { portfolio: any[] }) {
+  const { ref, inView } = useReveal();
+  const HF = 'Helvetica Neue, Helvetica, Arial, sans-serif';
+  const img = (portfolio as any[])?.[0]?.imageUrl;
+
+  return (
+    <section
+      ref={ref}
+      className={`reveal ${inView ? 'visible' : ''}`}
+      style={{ background: '#fff', borderTop: '1px solid rgba(0,0,0,0.07)', padding: '72px 0' }}
+    >
+      <div className="max-w-[1200px] mx-auto px-5 md:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+          {/* Left — image */}
+          <div style={{ aspectRatio: '4/3', overflow: 'hidden', borderRadius: '3px', background: '#f0f0f0' }}>
+            {img ? (
+              <img
+                src={imgUrl(img)}
+                alt="Photography philosophy"
+                style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(8%)' }}
+              />
+            ) : (
+              <div style={{ width: '100%', height: '100%', background: '#e8e8e8' }} />
+            )}
+          </div>
+          {/* Right — text */}
+          <div>
+            <h2 style={{ fontFamily: HF, fontWeight: 700, fontSize: 'clamp(1.6rem, 3.5vw, 2.6rem)', lineHeight: 1.15, color: '#111', marginBottom: '1.25rem' }}>
+              Photography starts before the shutter.
+            </h2>
+            <p style={{ fontFamily: HF, fontSize: '0.88rem', lineHeight: 1.75, color: 'rgba(0,0,0,0.5)', maxWidth: '360px', marginBottom: '1.75rem' }}>
+              It&#39;s about seeing something worth photographing, understanding why it works and knowing what to do with it.
+            </p>
+            <Link
+              href="/about"
+              className="inline-flex items-center gap-2 text-[0.8rem] font-semibold transition-colors"
+              style={{ color: '#111', fontFamily: HF }}
+              onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = '#e91e8c'}
+              onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = '#111'}
+            >
+              Our approach &#8594;
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// 2c. STATS ROW — 14+, 3,600+, 1,600+
+// ══════════════════════════════════════════════════════════════════════════════
+function StatsRow({ settings }: { settings: any }) {
+  const { ref, inView } = useReveal();
+  const HF = 'Helvetica Neue, Helvetica, Arial, sans-serif';
+  const s = settings as any;
+
+  const stats = [
+    { value: s?.years_experience ? `${s.years_experience}+` : '14+',    label: 'Years teaching' },
+    { value: s?.students_count   ? `${s.students_count}+`   : '3,600+', label: 'Students' },
+    { value: s?.projects_count   ? `${s.projects_count}+`   : '1,600+', label: 'Shoots' },
+  ];
+
+  return (
+    <section
+      ref={ref}
+      className={`reveal ${inView ? 'visible' : ''}`}
+      style={{ background: '#fff', borderTop: '1px solid rgba(0,0,0,0.07)', borderBottom: '1px solid rgba(0,0,0,0.07)', padding: '48px 0' }}
+    >
+      <div className="max-w-[1200px] mx-auto px-5 md:px-8">
+        <div className="grid grid-cols-3 gap-6 md:gap-12">
+          {stats.map((stat, i) => (
+            <div key={i} style={{ textAlign: 'left' }}>
+              <div style={{ fontFamily: HF, fontWeight: 800, fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', color: '#111', lineHeight: 1.05, letterSpacing: '-0.02em' }}>
+                {stat.value}
+              </div>
+              <div style={{ fontFamily: HF, fontSize: '0.82rem', color: 'rgba(0,0,0,0.45)', marginTop: '6px' }}>
+                {stat.label}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// 2d. SELECTED WORK — 4-col grid matching reference
+// ══════════════════════════════════════════════════════════════════════════════
+function SelectedWork({ portfolio }: { portfolio: any[] }) {
+  const { ref, inView } = useReveal();
+  const HF = 'Helvetica Neue, Helvetica, Arial, sans-serif';
+
+  if (!(portfolio as any[])?.length) return null;
+  const items = (portfolio as any[]).slice(0, 8);
+
+  return (
+    <section style={{ background: '#fff', padding: '64px 0 80px' }}>
+      <div className="max-w-[1200px] mx-auto px-5 md:px-8">
+        {/* Header */}
+        <div ref={ref} className={`flex items-center justify-between mb-8 reveal ${inView ? 'visible' : ''}`}>
+          <h2 style={{ fontFamily: HF, fontWeight: 700, fontSize: 'clamp(1.2rem, 2.5vw, 1.6rem)', color: '#111', margin: 0 }}>
+            Selected work
+          </h2>
+          <Link
+            href="/portfolio"
+            className="inline-flex items-center gap-2 text-[0.78rem] font-semibold transition-colors"
+            style={{ color: '#111', fontFamily: HF }}
+            onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = '#e91e8c'}
+            onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = '#111'}
+          >
+            View all work &#8594;
+          </Link>
+        </div>
+        {/* 4-col grid — 2-col mobile */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+          {items.map((item: any) => (
+            <Link
+              key={item._id}
+              href={`/portfolio/${item.slug || item._id}`}
+              className="group relative overflow-hidden block"
+              style={{ aspectRatio: '3/4', borderRadius: '3px', background: '#f0f0f0' }}
+            >
+              {item.imageUrl ? (
+                <img
+                  src={imgUrl(item.imageUrl)}
+                  alt={item.title}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  style={{ filter: 'grayscale(15%)' }}
+                />
+              ) : (
+                <div style={{ width: '100%', height: '100%', background: '#e0e0e0' }} />
+              )}
+              {/* dark overlay on hover */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: 'rgba(0,0,0,0.35)' }} />
+              {/* category label */}
+              <div className="absolute bottom-0 left-0 right-0 p-2.5">
+                <span style={{ fontFamily: HF, fontSize: '0.72rem', fontWeight: 600, color: '#fff', textTransform: 'capitalize' as const, textShadow: '0 1px 4px rgba(0,0,0,0.6)', display: 'block' }}>
+                  {item.category || item.title}
+                </span>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
 // 3. COMMERCIAL PHOTOGRAPHY SERVICES — Auto-slide carousel
 // ══════════════════════════════════════════════════════════════════════════════
 function Services({ services }: { services: any[] }) {
@@ -1110,15 +1263,16 @@ export default function HomePage() {
       <div style={{ paddingTop: '64px' }}>
         <VideoShowcase />
         {/* 1 */} <Hero slides={slides} settings={settings} services={services} />
-        {/* 2 */} <TrustedBrands brands={brands} />
-        {/* 3 */} <Services services={services} />
-        {/* 4 */} <FeaturedPortfolio portfolio={portfolio} />
-        {/* 5 */} <WhyChooseUs settings={settings} />
-        {/* 6 */} <OurProcess />
-        {/* 7 */} <CaseStudies portfolio={portfolio} />
-        {/* 8 */} <Testimonials testimonials={testimonials} />
-        {/* 9 */} <PhotographyAcademy workshops={workshops} />
-        {/* 10 */} <CallToAction settings={settings} />
+        {/* 2 */} <Philosophy portfolio={portfolio} />
+        {/* 3 */} <StatsRow settings={settings} />
+        {/* 4 */} <SelectedWork portfolio={portfolio} />
+        {/* 5 */} <TrustedBrands brands={brands} />
+        {/* 6 */} <Services services={services} />
+        {/* 7 */} <WhyChooseUs settings={settings} />
+        {/* 8 */} <OurProcess />
+        {/* 9 */} <Testimonials testimonials={testimonials} />
+        {/* 10 */} <PhotographyAcademy workshops={workshops} />
+        {/* 11 */} <CallToAction settings={settings} />
         <Footer />
       </div>
     </>
