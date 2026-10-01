@@ -49,11 +49,11 @@ const SERVICE_CATEGORIES = [
 ];
 
 const MAIN_LINKS = [
-  { href: '/', label: 'Home' },
-  { href: '/services', label: 'Services', hasDropdown: true },
-  { href: '/workshops', label: 'Photography Academy' },
-  { href: '/about', label: 'About' },
-  { href: '/contact', label: 'Contact' },
+  { href: '/services',  label: 'Studio',   hasDropdown: true },
+  { href: '/workshops', label: 'Academy' },
+  { href: '/portfolio', label: 'Work' },
+  { href: '/about',     label: 'About' },
+  { href: '/contact',   label: 'Contact',  isAccent: true },
 ];
 
 export default function Navbar() {
@@ -115,9 +115,9 @@ export default function Navbar() {
           background: '#ffffff',
           backdropFilter: 'blur(18px)',
           WebkitBackdropFilter: 'blur(18px)',
-          // borderBottom: '1px solid rgba(0,0,0,0.08)',
-          // boxShadow: scrolled ? '0 2px 20px rgba(0,0,0,0.10)' : '0 1px 8px rgba(0,0,0,0.06)',
+          borderBottom: scrolled ? '1px solid rgba(0,0,0,0.08)' : '1px solid transparent',
           height: '64px',
+          transition: 'border-color 0.3s',
         }}
       >
         <nav className="relative flex items-center justify-between max-w-[1400px] mx-auto lg:px-6 h-full px-4">
@@ -132,45 +132,36 @@ export default function Navbar() {
           {/* ── Logo ─────────────────────────────────────────────────── */}
           <Link
             href="/"
-            className="flex items-center shrink-0 h-full py-2"
+            className="flex items-center gap-2.5 shrink-0 h-full py-2"
             aria-label="Studio Iodine Vapor Home"
           >
             <img
               src="/Iodine-Logo.png"
-              alt="Studio Iodine Vapor"
-              style={{
-                height: '100%',
-                maxHeight: '52px',
-                width: 'auto',
-                display: 'block',
-                objectFit: 'contain',
-              }}
+              alt="Iodine Vapor"
+              style={{ height: '36px', width: 'auto', display: 'block', objectFit: 'contain' }}
               onError={e => {
                 const img = e.target as HTMLImageElement;
                 img.style.display = 'none';
-                const fallback = img.nextElementSibling as HTMLElement;
-                if (fallback) fallback.style.display = 'flex';
               }}
             />
-            <span
-              style={{
-                display: 'none',
-                alignItems: 'center',
-                gap: '4px',
-                fontWeight: 700,
-                letterSpacing: '-0.02em',
-                fontSize: '1.1rem',
-                fontFamily: "'Syne', sans-serif",
-                color: '#1a1a2e',
-              }}
-            >
-              IODINE <span style={{ color: '#e91e8c' }}>VAPOR</span>
+            <span style={{
+              fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif',
+              fontWeight: 800,
+              fontSize: '0.7rem',
+              letterSpacing: '0.04em',
+              lineHeight: 1.2,
+              color: '#111',
+              textTransform: 'uppercase' as const,
+            }}>
+              IODINE<br />VAPOR
             </span>
           </Link>
 
-          {/* ── Desktop Nav ──────────────────────────────────────────── */}
-          <ul className="hidden lg:flex items-center gap-0.5 list-none">
+          {/* ── Desktop Nav — centered ──────────────────────────────── */}
+          <ul className="hidden lg:flex items-center gap-1 list-none absolute left-1/2 -translate-x-1/2">
             {MAIN_LINKS.map(link => {
+              const isActive = link.href === '/' ? pathname === '/' : pathname.startsWith(link.href);
+              const accent = (link as any).isAccent;
               if (link.hasDropdown) {
                 return (
                   <li
@@ -182,17 +173,13 @@ export default function Navbar() {
                   >
                     <Link
                       href={link.href}
-                      className="nav-slide-link flex items-center gap-1.5 text-[0.72rem] tracking-[0.06em] uppercase font-semibold px-3 py-2 relative overflow-hidden"
-                      style={{ color: '#1a1a2e', fontFamily: 'Helvetica Neue, Helvetica, sans-serif' }}
+                      className="flex items-center gap-1.5 text-[0.8rem] font-medium px-3 py-2 transition-colors"
+                      style={{ color: isActive ? '#e91e8c' : '#333', fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif' }}
                       onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = '#e91e8c'; }}
-                      onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = '#1a1a2e'; }}
+                      onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = isActive ? '#e91e8c' : '#333'; }}
                     >
                       {link.label}
-                      <svg
-                        width="9" height="5" viewBox="0 0 9 5" fill="none"
-                        className="transition-transform duration-200"
-                        style={{ transform: servicesOpen ? 'rotate(180deg)' : 'rotate(0)' }}
-                      >
+                      <svg width="9" height="5" viewBox="0 0 9 5" fill="none" className="transition-transform duration-200" style={{ transform: servicesOpen ? 'rotate(180deg)' : 'rotate(0)' }}>
                         <path d="M1 1L4.5 4.5L8 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </Link>
@@ -297,10 +284,14 @@ export default function Navbar() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="nav-slide-link text-[0.72rem] tracking-[0.06em] uppercase font-semibold px-3 py-2 block relative overflow-hidden"
-                    style={{ color: '#1a1a2e', fontFamily: 'Helvetica Neue, Helvetica, sans-serif' }}
+                    className="text-[0.8rem] font-medium px-3 py-2 block transition-colors"
+                    style={{
+                      color: accent ? '#e91e8c' : isActive ? '#e91e8c' : '#333',
+                      fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif',
+                    }}
                     onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = '#e91e8c'; }}
-                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = '#1a1a2e'; }}
+                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = accent ? '#e91e8c' : isActive ? '#e91e8c' : '#333'; }}
+                    aria-current={isActive ? 'page' : undefined}
                   >
                     {link.label}
                   </Link>
@@ -309,28 +300,19 @@ export default function Navbar() {
             })}
           </ul>
 
-          {/* ── Desktop CTA ──────────────────────────────────────────── */}
-          <div className="hidden lg:flex items-center gap-4">
-            {s?.contact_phone && (
+          {/* ── Desktop right — phone only ───────────────────────────── */}
+          <div className="hidden lg:flex items-center">
+            {(s as any)?.contact_phone && (
               <a
-                href={`tel:${s.contact_phone}`}
-                className="text-sm tracking-[0.12em] font-bold transition-colors duration-200"
-                style={{ color: '#1a1a2e', fontFamily: 'Helvetica Neue, Helvetica, sans-serif' }}
+                href={`tel:${(s as any).contact_phone}`}
+                className="text-[0.78rem] font-semibold transition-colors"
+                style={{ color: '#333', fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif' }}
                 onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = '#e91e8c'; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = '#1a1a2e'; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = '#333'; }}
               >
-                {s.contact_phone}
+                {(s as any).contact_phone}
               </a>
             )}
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center py-2.5 px-6 rounded text-[0.72rem] tracking-[0.08em] uppercase font-bold transition-all duration-300"
-              style={{ backgroundColor: '#1a1a2e', color: '#ffffff', fontFamily: 'Helvetica Neue, Helvetica, sans-serif', minWidth: '140px' }}
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.backgroundColor = '#e91e8c'; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.backgroundColor = '#1a1a2e'; }}
-            >
-              Get a Quote
-            </Link>
           </div>
 
           {/* ── Mobile Hamburger ─────────────────────────────────────── */}

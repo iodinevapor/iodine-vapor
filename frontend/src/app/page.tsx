@@ -108,10 +108,19 @@ function Hero({ slides, settings, services }: { slides: any[]; settings: any; se
         <h1 className="mb-6 font-bold" style={{ fontSize: 'clamp(1.8rem, 5vw, 4.5rem)', fontFamily: "'Syne', sans-serif", lineHeight: 1.05, wordBreak: 'break-word', color: '#1a1a2e' }}>
           Commercial Photography
         </h1>
-        <div className="flex flex-wrap items-center gap-4">
-          <Link href="/services" className="btn-primary" style={{ fontSize: '13px' }} data-hover><span>Explore Commercial Work</span><span>→</span></Link>
-          <span className="hidden sm:inline" style={{ color: 'rgba(0,0,0,0.2)', fontSize: '0.9rem' }}>┃</span>
-          <Link href="/portfolio" className="btn-primary" style={{ fontSize: '13px' }} data-hover><span>Explore Photography Education</span><span>→</span></Link>
+        <div className="flex flex-wrap items-center gap-5">
+          <Link href="/services"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-[0.75rem] font-bold uppercase tracking-[0.05em] transition-all"
+            style={{ background: '#111', color: '#fff', fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif' }}
+            onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = '#e91e8c'}
+            onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = '#111'}
+          >Explore Studio <span style={{ fontFamily: 'inherit' }}>&#8594;</span></Link>
+          <Link href="/workshops"
+            className="inline-flex items-center gap-2 text-[0.75rem] font-semibold transition-colors"
+            style={{ color: '#111', fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif' }}
+            onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = '#e91e8c'}
+            onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = '#111'}
+          >Learn Photography <span style={{ fontFamily: 'inherit' }}>&#8594;</span></Link>
         </div>
       </div>
     </section>
@@ -270,7 +279,7 @@ function Hero({ slides, settings, services }: { slides: any[]; settings: any; se
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.0, duration: 0.7 }}
-            className="flex flex-wrap items-center gap-4"
+            className="flex flex-wrap items-center gap-5"
           >
             {slide?.linkUrl && slide?.linkText ? (
               // Admin-configured CTA button
@@ -280,13 +289,18 @@ function Hero({ slides, settings, services }: { slides: any[]; settings: any; se
             ) : (
               // Default fallback buttons
               <>
-                <Link href="/services" className="btn-primary" style={{ fontSize: '13px' }} data-hover>
-                  <span>Explore Commercial Work</span><span>→</span>
-                </Link>
-                <span className="hidden sm:inline" style={{ color: 'rgba(0,0,0,0.2)', fontSize: '0.9rem' }}>┃</span>
-                <Link href="/portfolio" className="btn-primary" style={{ fontSize: '13px' }} data-hover>
-                  <span>Explore Photography Education</span><span>→</span>
-                </Link>
+                <Link href="/services"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-[0.75rem] font-bold uppercase tracking-[0.05em] transition-all"
+                  style={{ background: '#111', color: '#fff', fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif' }}
+                  onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = '#e91e8c'}
+                  onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = '#111'}
+                >Explore Studio &#8594;</Link>
+                <Link href="/workshops"
+                  className="inline-flex items-center gap-2 text-[0.75rem] font-semibold transition-colors"
+                  style={{ color: '#111', fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif' }}
+                  onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = '#e91e8c'}
+                  onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = '#111'}
+                >Learn Photography &#8594;</Link>
               </>
             )}
           </motion.div>
