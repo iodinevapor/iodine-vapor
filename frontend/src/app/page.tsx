@@ -131,7 +131,7 @@ function Hero({ slides, settings, services }: { slides: any[]; settings: any; se
   return (
     <section
       className="relative w-full overflow-hidden"
-      style={{ height: '100vh', minHeight: '600px' }}
+      style={{ height: '100svh', minHeight: '600px' }}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >

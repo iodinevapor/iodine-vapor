@@ -51,7 +51,7 @@ export default function PortfolioPage() {
       {/* ── Filter tabs ─────────────────────────────────────────────── */}
       <section style={{ background: '#fff', borderBottom: '1px solid rgba(0,0,0,0.07)' }}>
         <div className="max-w-[1200px] mx-auto px-5 md:px-8">
-          <div className="flex flex-wrap gap-0 overflow-x-auto" style={{ scrollbarWidth: 'none' }}>
+          <div className="flex flex-nowrap gap-0 overflow-x-auto pb-px" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' } as React.CSSProperties}>
             {CATS.map(cat => (
               <button
                 key={cat.key}
@@ -80,7 +80,7 @@ export default function PortfolioPage() {
       </section>
 
       {/* ── Grid ────────────────────────────────────────────────────── */}
-      <main style={{ background: '#fff', padding: '0 0 80px' }}>
+      <main style={{ background: '#fff', padding: '0 0 clamp(40px,8vw,80px)' }}>
         <div className="max-w-[1200px] mx-auto px-5 md:px-8 pt-8">
 
           {isLoading ? (
@@ -104,7 +104,7 @@ export default function PortfolioPage() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.35 }}
-                className="grid grid-cols-2 md:grid-cols-3 gap-3"
+                className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3"
                 style={{ gridAutoRows: 'auto' }}
               >
                 {list.map((item: any, i: number) => {
@@ -132,13 +132,13 @@ export default function PortfolioPage() {
                           style={{ filter: 'grayscale(5%)' }}
                         />
                       )}
-                      {/* Hover overlay */}
+                      {/* Hover overlay — desktop only */}
                       <div
-                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        className="absolute inset-0 hidden md:block opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                         style={{ background: 'rgba(0,0,0,0.35)' }}
                       />
-                      {/* Label */}
-                      <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                      {/* Label — always visible on mobile, hover on desktop */}
+                      <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/60 to-transparent md:translate-y-2 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100 transition-all duration-300">
                         <p style={{ fontFamily: HF, fontWeight: 600, fontSize: '0.82rem', color: '#fff', marginBottom: '2px', textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>
                           {item.title}
                         </p>
@@ -158,7 +158,7 @@ export default function PortfolioPage() {
 
       {/* Footer tagline */}
       <section style={{ background: '#fff', borderTop: '1px solid rgba(0,0,0,0.07)', padding: '20px 0' }}>
-        <div className="max-w-[1200px] mx-auto px-5 md:px-8 flex items-center justify-between">
+        <div className="max-w-[1200px] mx-auto px-5 md:px-8 flex flex-wrap items-center justify-between gap-2">
           <span style={{ fontFamily: HF, fontSize: '0.72rem', color: 'rgba(0,0,0,0.35)' }}>Studio Iodine Vapor</span>
           <span style={{ fontFamily: HF, fontSize: '0.72rem', color: 'rgba(0,0,0,0.35)', fontStyle: 'italic' }}>See. Understand. Create.</span>
         </div>

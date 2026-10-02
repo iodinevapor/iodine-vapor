@@ -31,8 +31,14 @@ body {
   font-weight: 500;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
   cursor: default;
 }
+
+/* ── SVH fallback for mobile browsers ──────────────────────────────────────── */
+:root { --vh: 1vh; }
+.h-screen-safe { height: 100vh; height: 100svh; }
+.min-h-screen-safe { min-height: 100vh; min-height: 100svh; }
 
 /* ── Global font override — Helvetica everywhere ──────────────────────────── */
 *, *::before, *::after {
