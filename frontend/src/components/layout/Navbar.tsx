@@ -132,29 +132,15 @@ export default function Navbar() {
           {/* ── Logo ─────────────────────────────────────────────────── */}
           <Link
             href="/"
-            className="flex items-center gap-2.5 shrink-0 h-full py-2"
+            className="flex items-center shrink-0 h-full py-2"
             aria-label="Studio Iodine Vapor Home"
           >
             <img
-              src="/Iodine-Logo.png"
+              src="/navbar-logo.png"
               alt="Iodine Vapor"
-              style={{ height: '26px', width: 'auto', display: 'block', objectFit: 'contain' }}
-              onError={e => {
-                const img = e.target as HTMLImageElement;
-                img.style.display = 'none';
-              }}
+              style={{ height: '36px', width: 'auto', display: 'block', objectFit: 'contain' }}
+              onError={e => { (e.target as HTMLImageElement).src = '/Iodine-Logo.png'; }}
             />
-            <span style={{
-              fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif',
-              fontWeight: 800,
-              fontSize: '0.58rem',
-              letterSpacing: '0.04em',
-              lineHeight: 1.2,
-              color: '#111',
-              textTransform: 'uppercase' as const,
-            }}>
-              IODINE<br />VAPOR
-            </span>
           </Link>
 
           {/* ── Desktop Nav — centered ──────────────────────────────── */}
