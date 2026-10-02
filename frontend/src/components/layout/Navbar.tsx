@@ -138,7 +138,7 @@ export default function Navbar() {
             <img
               src="/Iodine-Logo.png"
               alt="Iodine Vapor"
-              style={{ height: '36px', width: 'auto', display: 'block', objectFit: 'contain' }}
+              style={{ height: '26px', width: 'auto', display: 'block', objectFit: 'contain' }}
               onError={e => {
                 const img = e.target as HTMLImageElement;
                 img.style.display = 'none';
@@ -147,7 +147,7 @@ export default function Navbar() {
             <span style={{
               fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif',
               fontWeight: 800,
-              fontSize: '0.7rem',
+              fontSize: '0.58rem',
               letterSpacing: '0.04em',
               lineHeight: 1.2,
               color: '#111',
@@ -300,20 +300,8 @@ export default function Navbar() {
             })}
           </ul>
 
-          {/* ── Desktop right — phone only ───────────────────────────── */}
-          <div className="hidden lg:flex items-center">
-            {(s as any)?.contact_phone && (
-              <a
-                href={`tel:${(s as any).contact_phone}`}
-                className="text-[0.78rem] font-semibold transition-colors"
-                style={{ color: '#333', fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif' }}
-                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = '#e91e8c'; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = '#333'; }}
-              >
-                {(s as any).contact_phone}
-              </a>
-            )}
-          </div>
+          {/* ── Desktop right — empty (no phone) ───────────────────────── */}
+          <div className="hidden lg:flex items-center w-[120px]" />
 
           {/* ── Mobile Hamburger ─────────────────────────────────────── */}
           <button

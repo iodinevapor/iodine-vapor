@@ -11,7 +11,7 @@ import { MdEmail } from 'react-icons/md';
 import { LuPhoneCall } from 'react-icons/lu';
 import {
   slidesApi, servicesApi, portfolioApi, workshopsApi,
-  settingsApi, testimonialsApi, brandsApi, imgUrl,
+  settingsApi, testimonialsApi, brandsApi, faqsApi, imgUrl,
 } from '@/lib/api';
 import { useInView } from 'react-intersection-observer';
 
@@ -1114,68 +1114,139 @@ function Testimonials({ testimonials }: { testimonials: any[] }) {
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
-// 9. PHOTOGRAPHY ACADEMY
+// 9. PHOTOGRAPHY ACADEMY — Homepage teaser matching reference
 // ══════════════════════════════════════════════════════════════════════════════
 function PhotographyAcademy({ workshops }: { workshops: any[] }) {
-  const { ref: leftRef, inView: leftIn } = useReveal();
-  const { ref: rightRef, inView: rightIn } = useReveal();
+  const { ref, inView } = useReveal();
+  const HF = 'Helvetica Neue, Helvetica, Arial, sans-serif';
+  const img = (workshops as any[])?.[0]?.coverImage?.url;
 
   return (
-    <section className="py-14 md:py-20 px-6 md:px-12" style={{ background: '#ffffff' }}>
-      <div className="max-w-[1400px] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 items-center">
-          {/* Left: Images collage */}
-          <div ref={leftRef} className={`reveal-left ${leftIn ? 'visible' : ''}`}>
-            {workshops?.length > 0 ? (
-              <div className="grid grid-cols-2 gap-3">
-                {workshops.slice(0, 4).map((w: any, i: number) => (
-                  <div
-                    key={w._id}
-                    className={`overflow-hidden rounded-sm ${i === 0 ? 'col-span-2' : ''}`}
-                    style={{ aspectRatio: i === 0 ? '16/7' : '4/3' }}
-                  >
-                    {w.coverImage?.url
-                      ? <img src={imgUrl(w.coverImage.url)} alt={w.title} className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" style={{ filter: 'grayscale(10%)' }} />
-                      : <div className="w-full h-full" style={{ background: '#ffffff' }} />
-                    }
-                  </div>
-                ))}
-              </div>
+    <section
+      ref={ref}
+      className={`reveal ${inView ? 'visible' : ''}`}
+      style={{ background: '#fff', borderTop: '1px solid rgba(0,0,0,0.07)', padding: '80px 0' }}
+    >
+      <div className="max-w-[1200px] mx-auto px-5 md:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+
+          {/* Left — image */}
+          <div style={{ aspectRatio: '4/3', overflow: 'hidden', borderRadius: '3px', background: '#f0f0f0' }}>
+            {img ? (
+              <img src={imgUrl(img)} alt="Photography Academy" style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(8%)' }} />
             ) : (
-              <div className="rounded-sm overflow-hidden" style={{ aspectRatio: '4/3', background: '#ffffff' }}>
-                <div className="w-full h-full flex items-center justify-center">
-                  <span className="font-display text-[4rem]" style={{ color: 'rgba(0,0,0,0.08)' }}>📷</span>
-                </div>
-              </div>
+              <div style={{ width: '100%', height: '100%', background: '#e8e8e8' }} />
             )}
           </div>
 
-          {/* Right: Content */}
-          <div ref={rightRef} className={`reveal-right ${rightIn ? 'visible' : ''}`}>
-            <p className="font-mono text-[0.58rem] tracking-[0.28em] uppercase mb-4 flex items-center gap-2" style={{ color: 'var(--c-gold)' }}>
-              <span className="w-6 h-px inline-block" style={{ background: 'var(--c-gold)' }} />
-              Learn, Create, Grow
+          {/* Right — text */}
+          <div>
+            <p style={{ fontFamily: HF, fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase' as const, color: '#111', marginBottom: '1rem' }}>
+              Academy
             </p>
-            <h2 className="font-bold text-[#1a1a2e] leading-[1.1] mb-4" style={{ fontFamily: "'Syne', sans-serif", fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)' }}>
-              Photography Academy
+            <h2 style={{ fontFamily: HF, fontWeight: 800, fontSize: 'clamp(1.8rem, 3.5vw, 3rem)', lineHeight: 1.05, color: '#111', marginBottom: '1.25rem', textTransform: 'uppercase' as const }}>
+              LEARN TO SEE DIFFERENTLY.
             </h2>
-            <p className="text-[0.88rem] leading-[1.8] mb-8" style={{ color: 'rgba(0,0,0,0.5)' }}>
-              Practical training, real-world projects and personal mentoring to help you master photography.
+            <p style={{ fontFamily: HF, fontSize: '0.88rem', lineHeight: 1.75, color: 'rgba(0,0,0,0.5)', maxWidth: '360px', marginBottom: '1.75rem' }}>
+              A practical photography program for people who want to take photography seriously.
             </p>
-
-            {/* Features */}
-            <div className="grid grid-cols-2 gap-3 mb-8">
-              {['Workshops', 'One-to-One Mentoring', 'Corporate Training', 'Online Courses', 'Student Portfolio', 'FAQs'].map((item, i) => (
-                <div key={i} className="flex items-center gap-2">
-                  <span style={{ color: 'var(--c-gold)', fontSize: '0.6rem' }}>✦</span>
-                  <span className="text-[0.8rem]" style={{ color: 'rgba(0,0,0,0.6)' }}>{item}</span>
-                </div>
-              ))}
-            </div>
-
-            <Link href="/workshops" className="btn-primary" data-hover>
-              <span>Explore Academy</span><span>→</span>
+            <Link
+              href="/workshops"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-[0.75rem] font-bold uppercase tracking-[0.05em] transition-all"
+              style={{ background: '#111', color: '#fff', fontFamily: HF }}
+              onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = '#e91e8c'}
+              onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = '#111'}
+            >
+              Explore the program &#8594;
             </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ══════════════════════════════════════════════════════════════════════════════
+// 9b. FAQ SECTION — Homepage accordion
+// ══════════════════════════════════════════════════════════════════════════════
+function HomeFAQ({ faqs }: { faqs: any[] }) {
+  const [openId, setOpenId] = useState<string | null>(null);
+  const { ref, inView } = useReveal();
+  const HF = 'Helvetica Neue, Helvetica, Arial, sans-serif';
+
+  if (!(faqs as any[])?.length) return null;
+
+  const items = (faqs as any[]).slice(0, 8);
+
+  return (
+    <section
+      ref={ref}
+      className={`reveal ${inView ? 'visible' : ''}`}
+      style={{ background: '#fff', borderTop: '1px solid rgba(0,0,0,0.07)', padding: '72px 0' }}
+    >
+      <div className="max-w-[1200px] mx-auto px-5 md:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_1.6fr] gap-10 md:gap-16">
+
+          {/* Left — heading */}
+          <div>
+            <h2 style={{ fontFamily: HF, fontWeight: 700, fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', lineHeight: 1.15, color: '#111', marginBottom: '1rem' }}>
+              Frequently asked questions
+            </h2>
+            <p style={{ fontFamily: HF, fontSize: '0.85rem', lineHeight: 1.7, color: 'rgba(0,0,0,0.45)', maxWidth: '280px', marginBottom: '1.5rem' }}>
+              Everything you need to know. Can&apos;t find the answer? Ask us directly.
+            </p>
+            <Link
+              href="/faq"
+              className="inline-flex items-center gap-2 text-[0.78rem] font-semibold transition-colors"
+              style={{ color: '#111', fontFamily: HF }}
+              onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = '#e91e8c'}
+              onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = '#111'}
+            >
+              View all FAQs &#8594;
+            </Link>
+          </div>
+
+          {/* Right — accordion */}
+          <div>
+            {items.map((faq: any, i: number) => (
+              <div
+                key={faq._id}
+                style={{ borderBottom: '1px solid rgba(0,0,0,0.08)' }}
+              >
+                <button
+                  onClick={() => setOpenId(openId === faq._id ? null : faq._id)}
+                  className="w-full flex items-start justify-between gap-4 py-5 text-left transition-colors"
+                  style={{ background: 'transparent', border: 'none', cursor: 'pointer' }}
+                  aria-expanded={openId === faq._id}
+                >
+                  <span style={{ fontFamily: HF, fontWeight: 600, fontSize: '0.9rem', color: '#111', lineHeight: 1.4 }}>
+                    {faq.question}
+                  </span>
+                  <span style={{
+                    flexShrink: 0,
+                    width: '20px', height: '20px',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    color: openId === faq._id ? '#e91e8c' : '#111',
+                    fontSize: '1rem', fontWeight: 300,
+                    transition: 'transform 0.2s, color 0.2s',
+                    transform: openId === faq._id ? 'rotate(45deg)' : 'rotate(0)',
+                  }}>+</span>
+                </button>
+                {openId === faq._id && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.25 }}
+                    style={{ overflow: 'hidden', paddingBottom: '1.25rem' }}
+                  >
+                    <p style={{ fontFamily: HF, fontSize: '0.85rem', lineHeight: 1.75, color: 'rgba(0,0,0,0.5)' }}>
+                      {faq.answer}
+                    </p>
+                  </motion.div>
+                )}
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -1256,6 +1327,7 @@ export default function HomePage() {
   const { data: workshops = [] }    = useQuery({ queryKey: ['workshops'],         queryFn: () => workshopsApi.get() });
   const { data: testimonials = [] } = useQuery({ queryKey: ['testimonials'],      queryFn: testimonialsApi.get });
   const { data: brands = [] }       = useQuery({ queryKey: ['brands'],            queryFn: brandsApi.get });
+  const { data: faqs = [] }         = useQuery({ queryKey: ['faqs'],              queryFn: () => faqsApi.get() });
 
   return (
     <>
@@ -1267,12 +1339,13 @@ export default function HomePage() {
         {/* 3 */} <StatsRow settings={settings} />
         {/* 4 */} <SelectedWork portfolio={portfolio} />
         {/* 5 */} <TrustedBrands brands={brands} />
-        {/* 6 */} <Services services={services} />
-        {/* 7 */} <WhyChooseUs settings={settings} />
+        {/* 6 - Services hidden */} {/* <Services services={services} /> */}
+        {/* 7 - WhyChooseUs hidden */} {/* <WhyChooseUs settings={settings} /> */}
         {/* 8 */} <OurProcess />
         {/* 9 */} <Testimonials testimonials={testimonials} />
         {/* 10 */} <PhotographyAcademy workshops={workshops} />
-        {/* 11 */} <CallToAction settings={settings} />
+        {/* 11 */} <HomeFAQ faqs={faqs} />
+        {/* 12 - CallToAction hidden */} {/* <CallToAction settings={settings} /> */}
         <Footer />
       </div>
     </>
