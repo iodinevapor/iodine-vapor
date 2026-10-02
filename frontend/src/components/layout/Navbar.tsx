@@ -116,7 +116,7 @@ export default function Navbar() {
           backdropFilter: 'blur(18px)',
           WebkitBackdropFilter: 'blur(18px)',
           borderBottom: scrolled ? '1px solid rgba(0,0,0,0.08)' : '1px solid transparent',
-          height: '64px',
+          height: '70px',
           transition: 'border-color 0.3s',
         }}
       >
@@ -138,7 +138,7 @@ export default function Navbar() {
             <img
               src="/navbar-logo.png"
               alt="Iodine Vapor"
-              style={{ height: '36px', width: 'auto', display: 'block', objectFit: 'contain' }}
+              style={{ height: '48px', width: 'auto', display: 'block', objectFit: 'contain' }}
               onError={e => { (e.target as HTMLImageElement).src = '/Iodine-Logo.png'; }}
             />
           </Link>
